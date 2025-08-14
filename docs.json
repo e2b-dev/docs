@@ -44,6 +44,13 @@
               "ai-tools/claude-code",
               "ai-tools/windsurf"
             ]
+          },
+          {
+            "group": "Deploy E2B",
+            "pages": [
+              "deployment/byoc",
+              "deployment/self-hosting"
+            ]
           }
         ]
       },
