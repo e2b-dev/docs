@@ -49,48 +49,11 @@
             ]
           },
           {
-            "group": "Observability",
+            "group": "Deploy E2B",
             "pages": [
-              "Sandbox usage",
-              "Sandbox RAM",
-              "Sandbox CPU",
-              "Sandbox logs"
+              "deployment/byoc",
+              "deployment/self-hosting"
             ]
-          },
-          {
-            "group": "Deployments",
-            "pages": [
-              "E2B Cloud",
-              "Self-hosting",
-              "BYO Cloud"
-            ]
-          },
-          {
-            "group": "Debugging",
-            "pages": []
-          },
-          {
-            "group": "E2B CLI",
-            "pages": []
-          },
-          {
-            "group": "Limits",
-            "pages": [
-              "Rate limits",
-              "Upload & download limits"
-            ]
-          },
-          {
-            "group": "Benchmarks",
-            "pages": []
-          },
-          {
-            "group": "API Reference",
-            "pages": []
-          },
-          {
-            "group": "SDK Reference",
-            "pages": []
           }
         ]
       },
