@@ -6,7 +6,5 @@
     "primary": "#ff0000"
   },
   "navigation": {
-    // Your navigation structure
   }
-  // The rest of your configuration
 }
