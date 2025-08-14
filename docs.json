@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "E2B Documentation",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -9,96 +9,103 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "anchors": [
       {
-        "tab": "Guides",
+        "anchor": "Documentation",
+        "icon": "book-open",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Getting Started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "What's E2B?",
+              "Quickstart",
+              "Getting API Key"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Sandbox",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "Sandbox lifecycle",
+              "Environment variables",
+              "Filesystem",
+              "Commands",
+              "Reconnect",
+              "Internet access"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Custom sandbox",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "Quickstart",
+              "Overview"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Premade sandboxes",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "Base",
+              "Code interpreter",
+              "Desktop"
             ]
+          },
+          {
+            "group": "Observability",
+            "pages": [
+              "Sandbox usage",
+              "Sandbox RAM",
+              "Sandbox CPU",
+              "Sandbox logs"
+            ]
+          },
+          {
+            "group": "Deployments",
+            "pages": [
+              "E2B Cloud",
+              "Self-hosting",
+              "BYO Cloud"
+            ]
+          },
+          {
+            "group": "Debugging",
+            "pages": []
+          },
+          {
+            "group": "E2B CLI",
+            "pages": []
+          },
+          {
+            "group": "Limits",
+            "pages": [
+              "Rate limits",
+              "Upload & download limits"
+            ]
+          },
+          {
+            "group": "Benchmarks",
+            "pages": []
+          },
+          {
+            "group": "API Reference",
+            "pages": []
+          },
+          {
+            "group": "SDK Reference",
+            "pages": []
           }
         ]
       },
       {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
+        "anchor": "SDK Reference",
+        "icon": "square-terminal",
+        "href": "https://external-link.com/blog"
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
@@ -107,21 +114,23 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "website": "https://e2b.dev",
+      "x": "https://x.com/e2b",
+      "github": "https://github.com/e2b-dev",
+      "discord": "https://discord.gg/e2b",
+      "linkedin": "https://linkedin.com/company/e2b-dev"
     }
   }
 }
