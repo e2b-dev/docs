@@ -1,0 +1,65 @@
+---
+title: "Architecture"
+description: "E2B infrastructure architecture overview"
+icon: "sitemap"
+---
+
+## Sandbox architecture
+E2B is built around the orchestration of microVMs using Firecracker and KVM virtualization.
+Its multi-tenant architecture allows you to run multiple sandboxes on a single machine while ensuring strong isolation between them.
+
+Core is an orchestrator that receives requests from the E2B control plane and manages the sandbox lifecycle.
+Its responsible for low-level operations such as memory mapping, snapshotting, and system configuration, and is using Firecracker to run microVMs.
+
+E2B can run hundreds of nodes, with each node running an orchestrator that manages hundreds of sandboxes.
+The API serves as the main point of entry for customers, handling all permissions and logic to build sandbox requests.
+It is also responsible for fast and reliable scheduling of sandbox requests to orchestrators.
+
+When someone wants to access a port running in the sandbox, Edge (client-proxy) is used to route traffic from load balancer to the correct node.
+On the node level, the orchestrator proxy completes routing directly to the sandbox network interface.
+
+## Template architecture
+
+We are using Ubuntu-based images for sandbox templates.
+Currently, you can use a Docker image as a source for building, or a template build V2 that supports faster and code-declarative build configuration.
+
+We will extract the file system from the source we received, install and configure the required packages, and then create a snapshot of the file system.
+This snapshot is later used to create a microVM that runs in the sandbox. We can create both file-system and memory snapshots for even faster sandbox creation.
+
+## Components
+
+### Services
+- **API** - Handled consistency and logic for whole E2B platform. Used for sandbox lifecycle and template management.
+- **Orchestrator** - Manages sandbox microVM lifecycle, proper system configuration, snapshotting, and else.
+- **Template Manager** - Currently part of orchestrator, but can be deployed separately. Responsible for building sandbox templates.
+- **Envd** - Small service running in each sandbox as a service handling communication with the E2B control plane and command execution.
+- **Edge (client-proxy)** - Routes traffic to sandboxes, exposes API for cluster management, and gRPC proxy used by E2B control plane to communicate with orchestrators.
+- **Docker Reverse Proxy** - Docker reverse proxy allows us to receive template source images with our own authentication and authorization.
+- **Open Telemetry** - Collects logs, metrics, and traces from deployed services. Used for observability and monitoring.
+- **ClickHouse** - Used for storing sandbox lifecycle metrics.
+- **Loki** - Used for storing sandbox logs. Stored only in the cluster and not sent to Grafana or any other 3rd party service.
+
+### Cloud Services
+- **Redis** - Used for metadata and synchronization between components.
+- **Container Registry** - Storage for customers' source files of sandbox templates.
+- **Object Storage** - Storage for sandbox snapshots/templates. Needs to support byte-range read requests.
+- **PostgreSQL Database (currently only Supabase is supported)** - Used as a Postgres database and an OAuth/users management tool.
+- **Machines with KVM virtualization support** - Google Cloud Platform VM with native/nested virtualization support.
+- **Grafana (optional for monitoring)** - Used for monitoring logs/traces/metrics coming from Open Telemetry and ClickHouse.
+
+## Security
+
+### Virtualization isolation
+
+We are using Firecracker and Linux KVM to provide strong isolation between sandboxes.
+This allows us to run multiple sandboxes on a single machine while ensuring that they are isolated from each other.
+Firecracker is a lightweight virtualization technology that provides a minimalistic virtual machine monitor (VMM) for running microVMs.
+It is designed to be secure and efficient, making it a great choice for running sandboxes.
+
+### Why visualization over containerization?
+Docker is a popular containerization technology, but it does not provide the same level of isolation as Firecracker.
+Docker containers share the same kernel and resources, which can lead to security vulnerabilities and performance issues.
+
+Firecracker, on the other hand, provides a lightweight virtual machine that runs its own kernel and resources, ensuring strong isolation between sandboxes.
+This makes Firecracker a better choice for running sandboxes, especially in a multi-tenant environment
+where security and performance are critical.

@@ -1,0 +1,186 @@
+---
+title: "Self-Hosting"
+description: "Deploy E2B to your own cloud infrastructure"
+icon: "server"
+---
+
+Self-hosting E2B allows you to deploy and manage the whole E2B open-source stack on your own infrastructure.
+This gives you full control over your sandboxes, data, and security policies.
+
+We are currently officially supporting self-hosting on Google Cloud Platform (GCP) with Amazon Web Services (AWS), and on-premise support is coming soon.
+
+<Note>
+    If you are looking for a managed solution, consider our [Bring Your Own Cloud](/infrastructure/byoc) offering that will
+    bring you the same security and control with the E2B team managing infrastructure for you.
+</Note>
+
+## Google Cloud Platform
+
+### Prerequisites
+
+**Tools**
+- [Packer](https://developer.hashicorp.com/packer/tutorials/docker-get-started/get-started-install-cli#installing-packer)
+- [Golang](https://go.dev/doc/install)
+- [Docker](https://docs.docker.com/engine/install/)
+- [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) (v1.5.x)
+    - [This version that is still using Mozilla Public License](https://github.com/hashicorp/terraform/commit/b145fbcaadf0fa7d0e7040eac641d9aef2a26433)
+    - The last version of Terraform that supports Mozilla Public License is **v1.5.7**
+    - You can install it with [tfenv](https://github.com/tfutils/tfenv) for easier version management
+- [Google Cloud CLI](https://cloud.google.com/sdk/docs/install)
+    - Used for managing GCP resources deployed by Terraform
+    - Authenticate with `gcloud auth login && gcloud auth application-default login`
+
+**Accounts**
+- Cloudflare account with a domain
+- Google Cloud Platform account and project
+- Supabase account with PostgreSQL database
+- **(Optional)** Grafana account for monitoring and logging
+- **(Optional)** Posthog account for analytics
+
+### Steps
+
+1. Go to `console.cloud.google.com` and create a new GCP project
+    > Make sure your Quota allows you to have at least 2500 GB for `Persistent Disk SSD (GB)` and at least 24 for `CPUs`.
+2. Create `.env.prod`, `.env.staging`, or `.env.dev` from [`.env.template`](https://github.com/e2b-dev/infra/blob/main/.env.template). You can pick any of them. Make sure to fill in the values. All are required if not specified otherwise.
+    > Get Postgres database connection string from your database, e.g. [from Supabase](https://supabase.com/docs/guides/database/connecting-to-postgres#direct-connection): Create a new project in Supabase and go to your project in Supabase -> Settings -> Database -> Connection Strings -> Postgres -> Direct.
+
+    > Your Postgres database needs to have IPv4 access enabled. You can do that in the Connect screen.
+3. Run `make switch-env ENV={prod,staging,dev}` to start using your env
+4. Run `make login-gcloud` to login to `gcloud` CLI so Terraform and Packer can communicate with GCP API.
+5. Run `make init`
+    > If this error, run it a second time. It's due to a race condition on Terraform enabling API access for the various GCP services; this can take several seconds.
+
+    > A full list of services that will be enabled for API access: [Secret Manager API](https://console.cloud.google.com/apis/library/secretmanager.googleapis.com), [Certificate Manager API](https://console.cloud.google.com/apis/library/certificatemanager.googleapis.com), [Compute Engine API](https://console.cloud.google.com/apis/library/compute.googleapis.com), [Artifact Registry API](https://console.cloud.google.com/apis/library/artifactregistry.googleapis.com), [OS Config API](https://console.cloud.google.com/apis/library/osconfig.googleapis.com), [Stackdriver Monitoring API](https://console.cloud.google.com/apis/library/monitoring.googleapis.com), [Stackdriver Logging API](https://console.cloud.google.com/apis/library/logging.googleapis.com)
+
+6. Run `make build-and-upload`
+7. Run `make copy-public-builds`
+8. Run `make migrate`
+9. Secrets are created and stored in GCP Secrets Manager. Once created, that is the source of truth--you will need to update values there to make changes. Create a secret value for the following secrets:
+10. Update `e2b-cloudflare-api-token` in GCP Secrets Manager with a value taken from Cloudflare.
+    > Get Cloudflare API Token: go to the [Cloudflare dashboard](https://dash.cloudflare.com/) -> Manage Account -> Account API Tokens -> Create Token -> Edit Zone DNS -> in "Zone Resources" select your domain and generate the token
+11. Run `make plan-without-jobs` and then `make apply`
+12. Fill out the following secret in the GCP Secrets Manager:
+    - e2b-supabase-jwt-secrets (optional / required to self-host the [E2B dashboard](https://github.com/e2b-dev/dashboard))
+        > Get Supabase JWT Secret: go to the [Supabase dashboard](https://supabase.com/dashboard) -> Select your Project -> Project Settings -> Data API -> JWT Settings
+    - e2b-postgres-connection-string
+        > This is the same value as for the `POSTGRES_CONNECTION_STRING` env variable.
+13. Run `make plan` and then `make apply`
+    > Note: This will work after the TLS certificates are issued. It can take some time; you can check the status in the Google Cloud Console.
+14. Setup data in the cluster by following one of the two
+    - `make prep-cluster` in `packages/shared` to create an initial user, etc. (You need to be logged in via [`e2b` CLI](https://www.npmjs.com/package/@e2b/cli)). It will create a user with same information (access token, api key, etc.) as you have in E2B.
+    - You can also create a user in the database, it will automatically also create a team, an API key, and an access token. You will need to build template(s) for your cluster. Use [`e2b` CLI](https://www.npmjs.com/package/@e2b/cli?activetab=versions)) and run `E2B_DOMAIN=<your-domain> e2b template build`.
+
+
+### Interacting with the cluster
+
+#### SDK
+When using SDK pass the domain when creating a new `Sandbox` in the JS/TS SDK
+```javascript
+import { Sandbox } from "@e2b/sdk";
+
+const sandbox = new Sandbox({domain: "<your-domain>"});
+```
+
+or in Python SDK
+
+```python
+from e2b import Sandbox
+
+sandbox = Sandbox(domain="<your-domain>")
+```
+
+#### CLI
+When using CLI, you can pass the domain as well
+```sh
+E2B_DOMAIN=<your-domain> e2b <command>
+```
+
+### Monitoring and logging jobs
+
+To access the Nomad web UI, go to `https://nomad.<your-domain.com>`. Go to sign in, and when prompted for an API token, you can find this in GCP Secrets Manager.
+From here, you can see nomad jobs and tasks for both client and server, including logging.
+
+To update jobs running in the cluster, look inside packages/nomad for config files. This can be useful for setting your logging and monitoring agents.
+
+### Deployment Troubleshooting
+
+If any problems arise, open a [GitHub issue on the repo](https://github.com/e2b-dev/infra/issues) and we'll look into it.
+
+
+### Google Cloud Troubleshooting
+**Quotas not available**
+
+If you can't find the quota in `All Quotas` in GCP's Console, then create and delete a dummy VM before proceeding to step 2 in self-deploy guide. This will create additional quotas and policies in GCP
+```
+gcloud compute instances create dummy-init   --project=YOUR-PROJECT-ID   --zone=YOUR-ZONE   --machine-type=e2-medium   --boot-disk-type=pd-ssd   --no-address
+```
+Wait a minute and destroy the VM:
+```
+gcloud compute instances delete dummy-init --zone=YOUR-ZONE --quiet
+```
+Now, you should see the right quota options in `All Quotas` and be able to request the correct size.
+
+
+## Linux Machine
+All E2B services are AMD64 compatible and ready to be deployed on Ubuntu 22.04 machines.
+Tooling for on-premise clustering and load-balancing is **not yet officially supported**.
+
+### Service images
+
+For running E2B core, you need to build and deploy **API**, **Edge (client-proxy)**, and **Orchestrator** services.
+This will work on any Linux machine with Docker installed. Orchestrator is built with Docker but deployed as a static binary, because it needs precise control over the Firecracker MicroVMs in the host system.
+
+Building and provisioning services can be similar to what we do with Google Cloud Platform builds and Nomad jobs setup.
+Details about architecture can be found in our [architecture](/infrastructure/architecture) sections.
+
+### Client machine setup
+
+#### Configuration
+
+The Orchestrator (client) machine requires a precise setup to spawn and control Firecracker-based sandboxes.
+This includes a correct OS version installed (Ubuntu 22.04) with KVM. It's possible to run KVM with nested virtualization, but there are some performance drawbacks.
+
+Most of the configuration can be taken from our client [machine setup script](https://github.com/e2b-dev/infra/blob/main/packages/cluster/scripts/start-client.sh).
+There are adjustments for the maximum number of inodes, socket connections, NBD, and huge pages allocations needed for the MicroVM process to work properly.
+
+#### Static binaries
+
+There is a need for a few files and folders to be present on the machine.
+For correctly working sandbox spawning, you need to have Firecracker, Linux kernel, and Envd binaries.
+We are distributing a pre-built one in the public Google Cloud bucket.
+
+```bash
+# Access publicly available pre-built binaries
+gsutil cp -r gs://e2b-prod-public-builds .
+```
+
+Static files and folder setup example. Please replace Linux and Firecracker with the versions you want to use.
+Ensure you use the same Linux and Firecracker versions for both sandbox build and spawning.
+
+```bash
+sudo mkdir -p /orchestrator/sandbox
+sudo mkdir -p /orchestrator/template
+sudo mkdir -p /orchestrator/build
+
+sudo mkdir /fc-envd
+sudo mkdir /fc-envs
+sudo mkdir /fc-vm
+
+# Replace with the source where you envd binary is hosted
+# Currently, envd needs to be taken from your source as we are not providing it.
+sudo curl -fsSL -o /fc-envd/envd ${source_url}
+sudo chmod +x /fc-envd/envd
+
+SOURCE_URL="https://storage.googleapis.com/e2b-prod-public-builds"
+KERNEL_VERSION="vmlinux-6.1.102"
+FIRECRACKER_VERSION="v1.12.1_d990331"
+
+# Download Kernel
+sudo mkdir -p /fc-kernels/vmlinux-${KERNEL_VERSION}
+sudo curl -fsSL -o /fc-kernels/${KERNEL_VERSION}/vmlinux.bin ${SOURCE_URL}/kernels/${KERNEL_VERSION}/vmlinux.bin
+
+# Download Firecracker
+sudo mkdir -p /fc-versions/${FIRECRACKER_VERSION}
+sudo curl -fsSL -o /fc-versions/${FIRECRACKER_VERSION}/firecracker ${SOURCE_URL}/firecrackers/${FIRECRACKER_VERSION}/firecracker
+sudo chmod +x /fc-versions/${FIRECRACKER_VERSION}/firecracker
+```

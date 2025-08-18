@@ -49,18 +49,14 @@
             ]
           },
           {
-            "group": "Deploy E2B",
+            "group": "Infrastructure",
             "pages": [
-              "deployment/byoc",
-              "deployment/self-hosting"
+              "infrastructure/architecture",
+              "infrastructure/self-hosting",
+              "infrastructure/byoc"
             ]
           }
         ]
-      },
-      {
-        "anchor": "SDK Reference",
-        "icon": "square-terminal",
-        "href": "https://external-link.com/blog"
       }
     ]
   },
