@@ -1,0 +1,42 @@
+---
+title: "Error Handling"
+description: "Handle errors in your template"
+icon: "bug"
+---
+
+The SDK provides specific error types:
+
+<CodeGroup dropdown>
+
+```typescript
+import { AuthError, BuildError, FileUploadError } from "e2b";
+
+try {
+  await Template.build(template, {
+    alias: "my-template",
+  });
+} catch (error) {
+  if (error instanceof AuthError) {
+    console.error("Authentication failed:", error.message);
+  } else if (error instanceof FileUploadError) {
+    console.error("File upload failed:", error.message);
+  } else if (error instanceof BuildError) {
+    console.error("Build failed:", error.message);
+  }
+}
+```
+
+```python
+from e2b import AuthError, BuildError, FileUploadError
+
+try:
+    Template.build(template, alias="my-template")
+except AuthError as error:
+    print(f"Authentication failed: {error}")
+except FileUploadError as error:
+    print(f"File upload failed: {error}")
+except BuildError as error:
+    print(f"Build failed: {error}")
+```
+
+</CodeGroup>

@@ -1,0 +1,35 @@
+---
+title: "Migration"
+description: "How to migrate from the legacy template definition"
+icon: "forward-fast"
+---
+
+To migrate the existing template definition to the new format, follow these steps:
+1) Install the latest version of the [E2B CLI](https://e2b.dev/docs/cli)
+2) Navigate to the folder of your existing template definition (where you have `e2b.toml` and `e2b.Dockerfile` files).
+3) Run the migration command:
+```bash
+e2b template migrate
+```
+4) Follow the prompts to complete the migration process.
+5) Done
+
+## Generated Output
+The migration command generates three files (based on the selected language).
+
+
+<CodeGroup dropdown>
+
+```typescript
+template.ts - Template definition using the SDK
+build.dev.ts - Development build script
+build.prod.ts - Production build script
+```
+
+```python
+template.py - Template definition using the SDK
+build_dev.py - Development build script
+build_prod.py - Production build script
+```
+
+</CodeGroup>

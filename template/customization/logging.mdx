@@ -1,0 +1,74 @@
+---
+title: "Logging"
+description: "How to view logs from the template build"
+icon: "eye"
+---
+
+The `onBuildLogs`/`on_build_logs` callback receives structured `LogEntry` objects with the following properties:
+
+<CodeGroup dropdown>
+
+```typescript
+type LogEntry = {
+  timestamp: Date
+  level: 'debug' | 'info' | 'warn' | 'error'
+  message: string
+  toString(): string // Returns formatted log string
+}
+```
+
+```python
+@dataclass
+class LogEntry:
+    timestamp: datetime
+    level: Literal["debug", "info", "warn", "error"]
+    message: str
+
+    def __str__(self) -> str:  # Returns formatted log string
+```
+
+
+</CodeGroup>
+
+You can customize how logs are handled:
+
+<CodeGroup dropdown>
+
+```typescript
+// Simple logging
+onBuildLogs: (logEntry) => console.log(logEntry.toString());
+
+// Custom formatting
+onBuildLogs: (logEntry) => {
+  const time = logEntry.timestamp.toISOString();
+  console.log(`[${time}] ${logEntry.level.toUpperCase()}: ${logEntry.message}`);
+};
+
+// Filter by log level
+onBuildLogs: (logEntry) => {
+  if (logEntry.level === "error" || logEntry.level === "warn") {
+    console.error(logEntry.toString());
+  }
+};
+```
+
+```python
+# Simple logging
+on_build_logs=lambda log_entry: print(log_entry)
+
+# Custom formatting
+def custom_logger(log_entry):
+    time = log_entry.timestamp.isoformat()
+    print(f"[{time}] {log_entry.level.upper()}: {log_entry.message}")
+
+Template.build(template, alias="my-template", on_build_logs=custom_logger)
+
+# Filter by log level
+def error_logger(log_entry):
+    if log_entry.level in ["error", "warn"]:
+        print(f"ERROR/WARNING: {log_entry}", file=sys.stderr)
+
+Template.build(template, alias="my-template", on_build_logs=error_logger)
+```
+
+</CodeGroup>

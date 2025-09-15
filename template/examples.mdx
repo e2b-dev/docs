@@ -1,0 +1,380 @@
+---
+title: "Examples"
+description: "Examples of using the template"
+icon: "book"
+---
+
+## Next.js
+
+Basic Next.js app with Tailwind and shadcn UI
+
+<CodeGroup dropdown>
+
+```typescript template.ts
+import { Template, waitForPort } from 'e2b'
+
+export const template = Template()
+  .fromNodeImage('21-slim')
+  .setWorkdir('/home/user/nextjs-app')
+  .runCmd(
+    'npx create-next-app@14.2.30 . --ts --tailwind --no-eslint --import-alias "@/*" --use-npm --no-app --no-src-dir'
+  )
+  .runCmd('npx shadcn@2.1.7 init -d')
+  .runCmd('npx shadcn@2.1.7 add --all')
+  .runCmd(
+    'mv /home/user/nextjs-app/* /home/user/ && rm -rf /home/user/nextjs-app'
+  )
+  .setWorkdir('/home/user')
+  .setStartCmd('npx next --turbo', waitForPort(3000))
+
+```
+
+
+```python template.py
+from e2b import Template, wait_for_port
+
+template = (
+    Template()
+    .from_node_image("21-slim")
+    .set_workdir("/home/user/nextjs-app")
+    .run_cmd(
+        'npx create-next-app@14.2.30 . --ts --tailwind --no-eslint --import-alias "@/*" --use-npm --no-app --no-src-dir'
+    )
+    .run_cmd("npx shadcn@2.1.7 init -d")
+    .run_cmd("npx shadcn@2.1.7 add --all")
+    .run_cmd("mv /home/user/nextjs-app/* /home/user/ && rm -rf /home/user/nextjs-app")
+    .set_workdir("/home/user")
+    .set_start_cmd("npx next --turbo", wait_for_port(3000))
+)
+```
+
+</CodeGroup>
+
+<CodeGroup dropdown>
+
+```typescript build.ts
+import { Template } from 'e2b'
+import { template as nextJSTemplate } from './template'
+
+Template.build(nextJSTemplate, {
+  alias: 'nextjs-app',
+  cpuCount: 1,
+  memoryMB: 1024,
+  onBuildLogs: (logEntry) => console.log(logEntry.toString()),
+})
+```
+
+
+```python build.py
+from e2b import Template
+from .template import template as nextjsTemplate
+
+Template.build(nextjsTemplate,
+    alias="nextjs-app",
+    cpu_count=4,
+    memory_mb=4096,
+    on_build_logs=lambda log_entry: print(log_entry),
+)
+```
+
+</CodeGroup>
+
+## Desktop
+
+Basic Ubuntu Desktop with GUI and VNC access
+
+
+<CodeGroup dropdown>
+
+```typescript template.ts expandable
+import { Template, waitForPort } from 'e2b'
+
+export const template = Template()
+  .fromUbuntuImage('22.04')
+  // Desktop environment and system utilities
+  .runCmd([
+    'yes | unminimize',
+    'apt-get update',
+    'apt-get install -y \
+      xserver-xorg \
+      xorg \
+      x11-xserver-utils \
+      xvfb \
+      x11-utils \
+      xauth \
+      xfce4 \
+      xfce4-goodies \
+      util-linux \
+      sudo \
+      curl \
+      git \
+      wget \
+      python3-pip \
+      xdotool \
+      scrot \
+      ffmpeg \
+      x11vnc \
+      net-tools \
+      netcat \
+      x11-apps \
+      libreoffice \
+      xpdf \
+      gedit \
+      xpaint \
+      tint2 \
+      galculator \
+      pcmanfm',
+    'apt-get clean',
+    'rm -rf /var/lib/apt/lists/*',
+  ])
+  // Streaming server setup
+  .runCmd([
+    'git clone --branch e2b-desktop https://github.com/e2b-dev/noVNC.git /opt/noVNC',
+    'ln -s /opt/noVNC/vnc.html /opt/noVNC/index.html',
+    'git clone --branch v0.12.0 https://github.com/novnc/websockify /opt/noVNC/utils/websockify',
+  ])
+  // Set default terminal
+  .runCmd(
+    'ln -sf /usr/bin/xfce4-terminal.wrapper /etc/alternatives/x-terminal-emulator'
+  )
+  .copy('start_command.sh', '/start_command.sh')
+  .runCmd('chmod +x /start_command.sh')
+  .setStartCmd('/start_command.sh', waitForPort(6080))
+
+```
+
+```python template.py expandable
+from e2b import Template, wait_for_port
+
+template = (
+    Template()
+    .from_image("ubuntu:22.04")
+    # Initial system setup and packages
+    # We are not using .apt_install() here because some packages have interactive prompts (keyboard layout setup, etc.)
+    .run_cmd(
+        [
+            "yes | unminimize",
+            "apt-get update",
+            "apt-get install -y \
+                xserver-xorg \
+                x11-xserver-utils \
+                xvfb \
+                x11-utils \
+                xauth \
+                xfce4 \
+                xfce4-goodies \
+                util-linux \
+                sudo \
+                curl \
+                git \
+                wget \
+                python3-pip \
+                xdotool \
+                scrot \
+                ffmpeg \
+                x11vnc \
+                net-tools \
+                netcat \
+                x11-apps \
+                libreoffice \
+                xpdf \
+                gedit \
+                xpaint \
+                tint2 \
+                galculator \
+                pcmanfm",
+            "apt-get clean",
+            "rm -rf /var/lib/apt/lists/*",
+        ]
+    )
+    # Setup NoVNC and websockify
+    .run_cmd(
+        [
+            "git clone --branch e2b-desktop https://github.com/e2b-dev/noVNC.git /opt/noVNC",
+            "ln -s /opt/noVNC/vnc.html /opt/noVNC/index.html",
+            "git clone --branch v0.12.0 https://github.com/novnc/websockify /opt/noVNC/utils/websockify",
+        ]
+    )
+    # Set default terminal
+    .run_cmd(
+        "ln -sf /usr/bin/xfce4-terminal.wrapper /etc/alternatives/x-terminal-emulator"
+    )
+    # Copy the start command
+    .copy("start_command.sh", "/start_command.sh")
+    .run_cmd("chmod +x /start_command.sh")
+    # Set start command to launch the desktop environment
+    .set_start_cmd("/start_command.sh", wait_for_port(6080))
+)
+```
+
+</CodeGroup>
+
+
+```bash start_command.sh
+#!/bin/bash
+
+# Set display
+export DISPLAY=${DISPLAY:-:0}
+
+# Start Xvfb
+Xvfb $DISPLAY -ac -screen 0 1024x768x24 -nolisten tcp &
+sleep 2
+
+# Start XFCE session
+startxfce4 &
+sleep 5
+
+# Start VNC server
+x11vnc -bg -display $DISPLAY -forever -wait 50 -shared -rfbport 5900 -nopw \
+    -noxdamage -noxfixes -nowf -noscr -ping 1 -repeat -speeds lan &
+sleep 2
+
+# Start noVNC server
+cd /opt/noVNC/utils && ./novnc_proxy --vnc localhost:5900 --listen 6080 --web /opt/noVNC --heartbeat 30 &
+sleep 2
+```
+
+
+<CodeGroup dropdown>
+
+```typescript build.ts
+import { Template } from 'e2b'
+import { template as desktopTemplate } from './template'
+
+await Template.build(desktopTemplate, {
+  alias: 'desktop',
+  cpuCount: 8,
+  memoryMB: 8192,
+  onBuildLogs: (logEntry) => console.log(logEntry.toString()),
+})
+```
+
+```python build.py
+from e2b import Template
+from .template import template as desktopTemplate
+
+Template.build(desktopTemplate,
+    alias="desktop",
+    cpu_count=8,
+    memory_mb=8192,
+    on_build_logs=lambda log_entry: print(log_entry),
+)
+```
+
+</CodeGroup>
+
+## Claude Code
+
+Claude Code Agent in a Sandbox
+
+<CodeGroup dropdown>
+
+```typescript template.ts
+import { Template } from 'e2b'
+
+export const template = Template()
+  .fromNodeImage('24')
+  .aptInstall(['curl', 'git', 'ripgrep'])
+  // Claude Code will be available globally as "claude"
+  .npmInstall('-g @anthropic-ai/claude-code@latest')
+
+```
+
+```python template.py
+from e2b import Template
+
+template = (
+    Template()
+    .from_node_image("24")
+    .apt_install(["curl", "git", "ripgrep"])
+    # Claude Code will be available globally as "claude"
+    .npm_install("-g @anthropic-ai/claude-code@latest")
+)
+```
+
+</CodeGroup>
+
+
+<CodeGroup dropdown>
+
+```typescript build.ts
+import { Template } from 'e2b'
+import { template as claudeCodeTemplate } from './template'
+
+Template.build(claudeCodeTemplate, {
+  alias: 'claude-code',
+  cpuCount: 1,
+  memoryMB: 1024,
+  onBuildLogs: (logEntry) => console.log(logEntry.toString()),
+})
+```
+
+```python build.py
+from e2b import Template
+from .template import template as claudeCodeTemplate
+
+Template.build(claudeCodeTemplate,
+    alias="claude-code",
+    cpu_count=1,
+    memory_mb=1024,
+    on_build_logs=lambda log_entry: print(log_entry),
+)
+```
+
+</CodeGroup>
+
+<CodeGroup dropdown>
+
+```typescript sandbox.ts
+
+import { Sandbox } from 'e2b'
+
+const sbx = await Sandbox.create('claude-code', {
+  envs: {
+    ANTHROPIC_API_KEY: '<your api key>',
+  },
+})
+
+console.log('Sandbox created', sbx.sandboxId)
+
+// Print help for Claude Code
+// const result = await sbx.commands.run('claude --help')
+// console.log(result.stdout)
+
+// Run a prompt with Claude Code
+const result = await sbx.commands.run(
+  `echo 'Create a hello world index.html' | claude -p --dangerously-skip-permissions`,
+  { timeoutMs: 0 }
+)
+
+console.log(result.stdout)
+
+sbx.kill()
+```
+
+```python sandbox.py
+from e2b import Sandbox
+
+sbx = Sandbox(
+    'claude-code',
+    envs={
+        'ANTHROPIC_API_KEY': '<your api key>',
+    },
+)
+print("Sandbox created", sbx.sandbox_id)
+
+# Print help for Claude Code
+# result = sbx.commands.run('claude --help')
+# print(result.stdout)
+
+# Run a prompt with Claude Code
+result = sbx.commands.run(
+    "echo 'Create a hello world index.html' | claude -p --dangerously-skip-permissions",
+    timeout=0,
+)
+print(result.stdout)
+
+sbx.kill()
+```
+
+</CodeGroup>
