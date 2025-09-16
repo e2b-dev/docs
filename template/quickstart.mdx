@@ -4,6 +4,37 @@ description: "Start with custom sandbox templates"
 icon: "rocket"
 ---
 
+E2B templates allow you to define custom sandboxes.
+You can define the base image, environment variables, files to copy, commands to run, and
+a start command that will be already running when you spawn the sandbox.
+This way, you can have fully configured sandboxes with running processes ready to use with zero wait time for your users.
+
+There are two ways how you can start creating a new template:
+- using the CLI
+- manually using the SDK
+
+## CLI
+
+You can use the E2B CLI to create a new template.
+
+<Steps>
+    <Step title="Install the E2B CLI">
+        Install the latest version of the [E2B CLI](https://e2b.dev/docs/cli)
+    </Step>
+    <Step title="Create a new template">
+    ```bash
+    e2b template init
+    ```
+    </Step>
+    <Step title="Follow the prompts">
+        Follow the prompts to create a new template.
+    </Step>
+    <Step title="Done">
+        Check the generated `README.md` file to see how to build and use your new template.
+    </Step>
+</Steps>
+
+## Manual
 
 ### Install the packages
 <Warning>
@@ -159,7 +190,7 @@ python build_prod.py
 
 </CodeGroup>
 
-### Create a new Sandbox from the Template
+## Create a new Sandbox from the Template
 
 <CodeGroup dropdown>
 
