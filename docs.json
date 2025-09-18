@@ -16,11 +16,7 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": [
-              "What's E2B?",
-              "Quickstart",
-              "Getting API Key"
-            ]
+            "pages": ["What's E2B?", "Quickstart", "Getting API Key"]
           },
           {
             "group": "Sandbox",
@@ -35,25 +31,15 @@
           },
           {
             "group": "Custom sandbox",
-            "pages": [
-              "Quickstart",
-              "Overview"
-            ]
+            "pages": ["Quickstart", "Overview"]
           },
           {
             "group": "Premade sandboxes",
-            "pages": [
-              "Base",
-              "Code interpreter",
-              "Desktop"
-            ]
+            "pages": ["Base", "Code interpreter", "Desktop"]
           },
           {
             "group": "Deploy E2B",
-            "pages": [
-              "deployment/byoc",
-              "deployment/self-hosting"
-            ]
+            "pages": ["deployment/byoc", "deployment/self-hosting"]
           }
         ]
       },
@@ -94,6 +80,11 @@
       "github": "https://github.com/e2b-dev",
       "discord": "https://discord.gg/e2b",
       "linkedin": "https://linkedin.com/company/e2b-dev"
+    }
+  },
+  "seo": {
+    "metatags": {
+      "robots": "noindex"
     }
   }
 }
