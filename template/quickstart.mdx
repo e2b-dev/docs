@@ -68,7 +68,7 @@ Create a template file with the following name and content
 import { Template, waitForTimeout } from "e2b";
 
 export const template = Template()
-  .fromImage("ubuntu:22.04")
+  .fromBaseImage()
   .setEnvs({
     HELLO: "Hello, World!",
   })
@@ -80,7 +80,7 @@ from e2b import Template, wait_for_timeout
 
 template = (
     Template()
-    .from_image("ubuntu:22.04")
+    .from_base_image()
     .set_envs(
         {
             "HELLO": "Hello, World!",

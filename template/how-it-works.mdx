@@ -25,7 +25,7 @@ We call this sandbox snapshot a _sandbox template_.
 </Note>
 
 ## Caching
-The caching concept is similar to [Docker's layer caching](https://docs.docker.com/build/cache/). For each layer command (.copy(), .runCmd(), .setEnvs(), etc.), we create a new layer on top of the existing.
+The caching concept is similar to [Docker's layer caching](https://docs.docker.com/build/cache/). For each layer command (`.copy()`, `.runCmd()`, `.setEnvs()`, etc.), we create a new layer on top of the existing.
 Each layer is cached based on the command and its inputs (e.g., files copied, command executed, environment variables set).
 If a layer command is unchanged and its inputs are the same as in any previous build, we reuse the cached layer instead of rebuilding it.
 
