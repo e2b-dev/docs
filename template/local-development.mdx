@@ -1,0 +1,87 @@
+---
+title: "Local Development"
+description: "How to test templates locally"
+icon: "code"
+---
+
+You can test Templates locally by converting them to a Docker-compatible container images that you can build and run locally.
+
+<Warning>
+    E2B Templates do not map 1:1 to Dockerfiles. Only a limited set of instructions are supported and converted to equivalent Docker commands.
+</Warning>
+
+Create a template file:
+
+<CodeGroup dropdown>
+
+```typescript template.ts
+import { Template } from "e2b";
+
+export const template = Template()
+  .fromBaseImage()
+  .setEnvs({
+    HELLO: "Hello, World!",
+  })
+  .runCmd("echo $HELLO")
+```
+
+```python template.py
+from e2b import Template
+
+template = (
+    Template()
+    .from_base_image()
+    .set_envs({"HELLO": "Hello, World!"})
+    .run_cmd("echo $HELLO")
+```
+</CodeGroup>
+
+Then, create a conversion script to convert the template to a Dockerfile definition:
+
+<CodeGroup dropdown>
+
+```typescript dev.ts
+import fs from "fs";
+import { Template } from "e2b";
+import { template } from "./template";
+
+fs.writeFileSync("Dockerfile", Template.toDockerfile(template));
+```
+
+```python dev.py
+from os import write
+from e2b import Template
+from template import template
+
+write("Dockerfile", Template.to_dockerfile(template))
+```
+
+</CodeGroup>
+
+Run the conversion script, forwarding the output to a new Dockerfile file:
+
+<CodeGroup dropdown>
+
+```typescript
+npx tsx dev.ts
+```
+
+```python
+python dev.py
+```
+</CodeGroup>
+
+Should produce a Dockerfile in the current directory with the following content:
+
+```dockerfile
+FROM e2bdev/base
+ENV HELLO="Hello, World!"
+RUN echo $HELLO
+```
+
+Build a container image from the Dockerfile and run it locally:
+
+```bash
+docker build -t template .
+docker run template
+```
