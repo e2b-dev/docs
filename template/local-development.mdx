@@ -7,7 +7,10 @@ icon: "code"
 You can test Templates locally by converting them to a Docker-compatible container images that you can build and run locally.
 
 <Warning>
-    E2B Templates do not map 1:1 to Dockerfiles. Only a limited set of instructions are supported and converted to equivalent Docker commands.
+    E2B Templates do not map 1:1 to Dockerfiles. Only a limited set of instructions are supported and converted to equivalent Docker instructions.
+
+    Supported instructions:
+    `FROM`, `COPY`, `ENV`, `RUN`, `WORKDIR`, `USER`, `ENTRYPOINT`
 </Warning>
 
 Create a template file:
