@@ -12,10 +12,6 @@ We've made ready for you three ways how to migrate existing template to the new 
 
 ## Migration Command (Recommended)
 
-<Warning>
-    This CLI command is not yet available, it will be released soon.
-</Warning>
-
 To migrate the existing template definition to the new format, follow these steps:
 
 <Steps>
@@ -59,6 +55,14 @@ build_prod.py - Production build script
 
 
 ## Using `fromDockerfile()` Method
+
+<Warning>
+    Only a limited set of instructions are supported and converted to equivalent template.
+
+    Compatible methods:
+    
+    `FROM`,`RUN`,`COPY`, `ADD`,`WORKDIR`,`USER`,`ENV`, `ARG`,`CMD`, `ENTRYPOINT`
+</Warning>
 
 If you want to keep using Dockerfile for your template, you can use the `fromDockerfile()` method.
 We'll automatically parse the Dockerfile for you and build the template based on it.
