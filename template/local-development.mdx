@@ -7,11 +7,12 @@ icon: "code"
 You can test Templates locally by converting them to a Docker-compatible container images that you can build and run locally.
 
 <Warning>
-    E2B Templates do not map 1:1 to Dockerfiles. Only a limited set of instructions are supported and converted to equivalent Docker instructions.
+    E2B Templates do not map 1:1 to Dockerfiles. Only a limited set of methods are supported and converted to equivalent Docker instructions.
 
-    Supported instructions:
-    `FROM`, `COPY`, `ENV`, `RUN`, `WORKDIR`, `USER`, `ENTRYPOINT`
+    See [Compatibility](/template/local-development#compatibility) for more details.
 </Warning>
+
+## Example
 
 Create a template file:
 
@@ -88,3 +89,65 @@ Build a container image from the Dockerfile and run it locally:
 docker build -t template .
 docker run template
 ```
+
+## Compatibility
+
+<Tabs>
+<Tab title="TypeScript">
+| Method               | Supported  | Docker Equivalent                                                                                         |
+| :---                 |    :----:  | :---                                                                                              |
+| `fromBaseImage()`    | <Icon icon="square-check" iconType="solid" />         | `FROM e2bdev/base`                                                                                   |
+| `fromUbuntuImage()`  | <Icon icon="square-check" iconType="solid" />         | `FROM ubuntu:version`                                                                              |
+| `fromNodeImage()`    | <Icon icon="square-check" iconType="solid" />         | `FROM node:version`                                                                              |
+| `fromPythonImage()`  | <Icon icon="square-check" iconType="solid" />         | `FROM python:version`                                                                              |
+| `fromDebianImage()`  | <Icon icon="square-check" iconType="solid" />         | `FROM debian:version`                                                                              |
+| `fromImage()`        | <Icon icon="square-check" iconType="solid" />         | `FROM custom-image`                                                                              |
+| `setEnvs()`          | <Icon icon="square-check" iconType="solid" />         | `ENV key=value`                                                                              |
+| `runCmd()`           | <Icon icon="square-check" iconType="solid" />         | `RUN command`                                                                              |
+| `setStartCmd()`      | <Icon icon="square-check" iconType="solid" />         | `ENTRYPOINT command`                                                                              |
+| `setWorkdir()`       | <Icon icon="square-check" iconType="solid" />         | `WORKDIR path`                                                                              |
+| `setUser()`          | <Icon icon="square-check" iconType="solid" />         | `USER user`                                                                              |
+| `copy()`             | <Icon icon="square-check" iconType="solid" />         | `COPY src dest`                                                                              |
+| `aptInstall()`       | <Icon icon="square-check" iconType="solid" />         | `RUN apt-get update && apt-get install -y package`                                                                              |
+| `pipInstall()`       | <Icon icon="square-check" iconType="solid" />         | `RUN pip install package`                                                                              |
+| `npmInstall()`       | <Icon icon="square-check" iconType="solid" />         | `RUN npm install package`                                                                              |
+| `gitClone()`         | <Icon icon="square-check" iconType="solid" />         | `RUN git clone repository`                                                                              |
+| `makeSymlink()`      | <Icon icon="square-check" iconType="solid" />         | `RUN ln -s src dest`                                                                              |
+| `fromTemplate()`     | <Icon icon="square-xmark" iconType="solid" />         | Not supported - templates based on other templates cannot be converted to Dockerfile                                                          |
+| `fromDockerfile()`   | <Icon icon="square-xmark" iconType="solid" />         | Not supported - parsing Dockerfiles is not supported for local development                                                          |
+| `fromRegistry()`     | <Icon icon="square-xmark" iconType="solid" />         | Not supported - registry authentication not supported for local development                                                          |
+| `fromAWSRegistry()`  | <Icon icon="square-xmark" iconType="solid" />         | Not supported - AWS registry authentication not supported for local development                                                          |
+| `fromGCPRegistry()`  | <Icon icon="square-xmark" iconType="solid" />         | Not supported - GCP registry authentication not supported for local development                                                          |
+| `skipCache()`        | <Icon icon="square-xmark" iconType="solid" />         | Not supported - cache invalidation is not applicable for Dockerfile conversion                                                          |
+| `setReadyCmd()`      | <Icon icon="square-xmark" iconType="solid" />         | Not supported - ready commands are E2B-specific and not part of Docker                                                          |
+
+</Tab>
+<Tab title="Python">
+| Method               | Supported  | Docker Equivalent                                                                                         |
+| :---                 |    :----:  | :---                                                                                              |
+| `from_base_image()`  | <Icon icon="square-check" iconType="solid" />         | `FROM e2bdev/base`                                                                                   |
+| `from_ubuntu_image()`| <Icon icon="square-check" iconType="solid" />         | `FROM ubuntu:version`                                                                              |
+| `from_node_image()`  | <Icon icon="square-check" iconType="solid" />         | `FROM node:version`                                                                              |
+| `from_python_image()`| <Icon icon="square-check" iconType="solid" />         | `FROM python:version`                                                                              |
+| `from_debian_image()`| <Icon icon="square-check" iconType="solid" />         | `FROM debian:version`                                                                              |
+| `from_image()`       | <Icon icon="square-check" iconType="solid" />         | `FROM custom-image`                                                                              |
+| `set_envs()`         | <Icon icon="square-check" iconType="solid" />         | `ENV key=value`                                                                              |
+| `run_cmd()`          | <Icon icon="square-check" iconType="solid" />         | `RUN command`                                                                              |
+| `set_start_cmd()`    | <Icon icon="square-check" iconType="solid" />         | `ENTRYPOINT command`                                                                              |
+| `set_workdir()`      | <Icon icon="square-check" iconType="solid" />         | `WORKDIR path`                                                                              |
+| `set_user()`         | <Icon icon="square-check" iconType="solid" />         | `USER user`                                                                              |
+| `copy()`             | <Icon icon="square-check" iconType="solid" />         | `COPY src dest`                                                                              |
+| `apt_install()`      | <Icon icon="square-check" iconType="solid" />         | `RUN apt-get update && apt-get install -y package`                                                                              |
+| `pip_install()`      | <Icon icon="square-check" iconType="solid" />         | `RUN pip install package`                                                                              |
+| `npm_install()`      | <Icon icon="square-check" iconType="solid" />         | `RUN npm install package`                                                                              |
+| `git_clone()`        | <Icon icon="square-check" iconType="solid" />         | `RUN git clone repository`                                                                              |
+| `make_symlink()`     | <Icon icon="square-check" iconType="solid" />         | `RUN ln -s src dest`                                                                              |
+| `from_template()`    | <Icon icon="square-xmark" iconType="solid" />         | Not supported - templates based on other templates cannot be converted to Dockerfile                                                          |
+| `from_dockerfile()`  | <Icon icon="square-xmark" iconType="solid" />         | Not supported - parsing Dockerfiles is not supported for local development                                                          |
+| `from_registry()`    | <Icon icon="square-xmark" iconType="solid" />         | Not supported - registry authentication not supported for local development                                                          |
+| `from_aws_registry()`| <Icon icon="square-xmark" iconType="solid" />         | Not supported - AWS registry authentication not supported for local development                                                          |
+| `from_gcp_registry()`| <Icon icon="square-xmark" iconType="solid" />         | Not supported - GCP registry authentication not supported for local development                                                          |
+| `skip_cache()`       | <Icon icon="square-xmark" iconType="solid" />         | Not supported - cache invalidation is not applicable for Dockerfile conversion                                                          |
+| `set_ready_cmd()`    | <Icon icon="square-xmark" iconType="solid" />         | Not supported - ready commands are E2B-specific and not part of Docker                                                          |
+</Tab>
+</Tabs>
