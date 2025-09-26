@@ -19,6 +19,7 @@
             "pages": [
               "template/quickstart",
               "template/how-it-works",
+              "template/caching",
               {
                 "group": "Customization",
                 "icon": "wand-magic-sparkles",

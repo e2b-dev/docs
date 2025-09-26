@@ -74,9 +74,6 @@ template.copy([
   { src: "package.json", dest: "/app/package.json" },
 ]);
 
-// Force upload (bypass cache)
-template.copy("config.json", "/app/config.json", { forceUpload: true });
-
 // Copy with user and mode options
 template.copy("config.json", "/app/config.json", {
   user: "appuser",
@@ -94,8 +91,8 @@ template.copy([
     {"src": "package.json", "dest": "/app/package.json"},
 ])
 
-# Force upload (bypass cache)
-template.copy("config.json", "/app/config.json", force_upload=True)
+# Copy with user and mode options
+template.copy("config.json", "/app/config.json", user="appuser", mode=0o644)
 ```
 
 </CodeGroup>
@@ -238,24 +235,6 @@ template.set_envs({
 ```
 
 </CodeGroup>
-
-### Invalidating caches
-
-Force rebuild from the next instruction:
-
-<CodeGroup dropdown>
-
-```typescript
-template.skipCache()
-```
-
-```python
-template.skip_cache()
-```
-
-</CodeGroup>
-
-This will invalidate the cache for all subsequent instructions in the template.
 
 ### Running commands
 
