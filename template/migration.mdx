@@ -56,13 +56,6 @@ build_prod.py - Production build script
 
 ## Using `fromDockerfile()` Method
 
-<Warning>
-    Only a limited set of instructions are supported and converted to equivalent template.
-
-    Compatible methods:
-    `FROM`, `RUN`, `COPY`, `ADD`, `WORKDIR`, `USER`, `ENV`, `ARG`, `CMD`, `ENTRYPOINT`
-</Warning>
-
 If you want to keep using Dockerfile for your template, you can use the `fromDockerfile()` method.
 We'll automatically parse the Dockerfile for you and build the template based on it.
 You can find more at [Base Image](/template/customization/base-image#parsing-existing-dockerfiles).
@@ -85,6 +78,13 @@ template = (
 ```
 
 </CodeGroup>
+
+<Info>
+    Only a limited set of instructions are supported and converted to equivalent template.
+
+    Compatible instructions:
+    `FROM`, `RUN`, `COPY`, `ADD`, `WORKDIR`, `USER`, `ENV`, `ARG`, `CMD`, `ENTRYPOINT`
+</Info>
 
 After the template definition, you can create the build scripts as described in the [Quickstart](/template/quickstart#create-a-development-build-script) section.
 
