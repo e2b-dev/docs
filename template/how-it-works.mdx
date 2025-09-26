@@ -25,23 +25,4 @@ We call this sandbox snapshot a _sandbox template_.
 </Note>
 
 ## Caching
-The caching concept is similar to [Docker's layer caching](https://docs.docker.com/build/cache/). For each layer command (`.copy()`, `.runCmd()`, `.setEnvs()`, etc.), we create a new layer on top of the existing.
-Each layer is cached based on the command and its inputs (e.g., files copied, command executed, environment variables set).
-If a layer command is unchanged and its inputs are the same as in any previous build, we reuse the cached layer instead of rebuilding it.
-
-This significantly speeds up the build process, especially for large templates with many layers.
-The cache is scoped to the team, so even if you have multiple templates, they can share the same cache if they have identical layers.
-
-### Files Caching
-When using the `.copy()` command, we cache the files based on their content. If the files haven't changed since the last build, we reuse them from the files cache.
-
-We differ from Docker here. Because we build the template on our infrastructure, we use improved caching on files level.
-Even if you invalidate the layer before `.copy()` (e.g., by changing ENV variables), we'll reuse the already uploaded files.
-The `copy()` command will still be re-executed, but the files for the layer will be reused from the files cache, no need to upload them from your computer again.
-
-### Use Case for Caching
-You can leverage caching to create templates with multiple variants (e.g., different RAM or CPU) while reusing the common layers.
-When building the template, just change the template alias to a specific RAM/CPU configuration (e.g., `my-template-2cpu-2gb`, `my-template-1cpu-4gb`), keep the rest of the template definition the same, and the build process will reuse the cached layers.
-
-### Optimize Build Times
-To optimize build times, place frequently changing commands (e.g., copying source code) towards the end of your template definition. This way, earlier layers can be cached and reused more often.
+To learn more about caching, please refer to the [Caching](/template/caching) section.
