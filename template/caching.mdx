@@ -19,12 +19,20 @@ Force rebuild from the next instruction, use the method:
 
 <CodeGroup dropdown>
 
-```typescript
-template.skipCache()
+```typescript highlight={3}
+const template = Template()
+  .fromBaseImage()
+  .skipCache()
+  .runCmd("echo 'Hello, World!'")
 ```
 
-```python
-template.skip_cache()
+```python highlight={4}
+template = (
+    Template()
+    .from_base_image()
+    .skip_cache()
+    .run_cmd("echo 'Hello, World!'")
+)
 ```
 
 </CodeGroup>
@@ -66,12 +74,18 @@ To invalidate the cache for all subsequent instructions in the template **AND** 
 
 <CodeGroup dropdown>
 
-```typescript
-template.copy("config.json", "/app/config.json", { forceUpload: true });
+```typescript highlight={3}
+const template = Template()
+  .fromBaseImage()
+  .copy("config.json", "/app/config.json", { forceUpload: true })
 ```
 
-```python
-template.copy("config.json", "/app/config.json", force_upload=True)
+```python highlight={4}
+template = (
+    Template()
+    .from_base_image()
+    .copy("config.json", "/app/config.json", force_upload=True)
+)
 ```
 
 </CodeGroup>
