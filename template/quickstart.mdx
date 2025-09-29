@@ -101,12 +101,16 @@ import "dotenv/config";
 import { template } from "./template";
 import { Template } from "e2b";
 
-Template.build(template, {
-  alias: "template-tag-dev",
-  cpuCount: 1,
-  memoryMB: 1024,
-  onBuildLogs: (logEntry) => console.log(logEntry.toString()),
-});
+async function main() {
+  await Template.build(template, {
+    alias: "template-tag-dev",
+    cpuCount: 1,
+    memoryMB: 1024,
+    onBuildLogs: (logEntry) => console.log(logEntry.toString()),
+  });
+}
+
+main().catch(console.error);
 ```
 
 ```python build_dev.py
@@ -116,13 +120,14 @@ from template import template
 
 load_dotenv()
 
-Template.build(
-    template,
-    alias="template-tag-dev",
-    cpu_count=1,
-    memory_mb=1024,
-    on_build_logs=lambda log_entry: print(log_entry),
-)
+if __name__ == '__main__':
+    Template.build(
+        template,
+        alias="template-tag-dev",
+        cpu_count=1,
+        memory_mb=1024,
+        on_build_logs=lambda log_entry: print(log_entry),
+    )
 ```
 
 </CodeGroup>
@@ -150,12 +155,16 @@ import "dotenv/config";
 import { template } from "./template";
 import { Template } from "e2b";
 
-Template.build(template, {
-  alias: "template-tag",
-  cpuCount: 1,
-  memoryMB: 1024,
-  onBuildLogs: (logEntry) => console.log(logEntry.toString()),
-});
+async function main() {
+  await Template.build(template, {
+    alias: "template-tag",
+    cpuCount: 1,
+    memoryMB: 1024,
+    onBuildLogs: (logEntry) => console.log(logEntry.toString()),
+  });
+}
+
+main().catch(console.error);
 ```
 
 ```python build_prod.py
@@ -165,13 +174,14 @@ from template import template
 
 load_dotenv()
 
-Template.build(
-    template,
-    alias="template-tag",
-    cpu_count=1,
-    memory_mb=1024,
-    on_build_logs=lambda log_entry: print(log_entry),
-)
+if __name__ == '__main__':
+    Template.build(
+        template,
+        alias="template-tag",
+        cpu_count=1,
+        memory_mb=1024,
+        on_build_logs=lambda log_entry: print(log_entry),
+    )
 ```
 
 </CodeGroup>
