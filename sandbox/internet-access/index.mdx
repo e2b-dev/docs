@@ -41,7 +41,7 @@ import { Sandbox } from '@e2b/code-interpreter'
 const sandbox = await Sandbox.create()
 
 // You need to always pass a port number to get the host
-const host = sandbox.getHost(3000) 
+const host = sandbox.getHost(3000)
 console.log(`https://${host}`)
 ```
 ```python Python highlight={6}
@@ -50,7 +50,7 @@ from e2b_code_interpreter import Sandbox
 sandbox = Sandbox.create()
 
 # You need to always pass a port number to get the host
-host = sandbox.get_host(3000) 
+host = sandbox.get_host(3000)
 print(f'https://{host}')
 ```
 </CodeGroup>
@@ -59,10 +59,10 @@ The code above will print something like this:
 
 <CodeGroup>
 ```bash JavaScript & TypeScript
-https://3000-i62mff4ahtrdfdkyn2esc-b0b684e9.e2b.dev
+https://3000-i62mff4ahtrdfdkyn2esc.e2b.app
 ```
 ```bash Python
-https://3000-i62mff4ahtrdfdkyn2esc-b0b684e9.e2b.dev
+https://3000-i62mff4ahtrdfdkyn2esc.e2b.app
 ```
 </CodeGroup>
 
@@ -118,7 +118,7 @@ process.kill()
 This output will look like this:
 <CodeGroup>
 ```bash JavaScript & TypeScript
-Server started at: https://3000-ip3nfrvajtqu5ktoxugc7-b0b684e9.e2b.dev
+Server started at: https://3000-ip3nfrvajtqu5ktoxugc7.e2b.app
 Response from server inside sandbox: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -138,7 +138,7 @@ Response from server inside sandbox: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0
 </html>
 ```
 ```bash Python
-Server started at: https://3000-ip3nfrvajtqu5ktoxugc7-b0b684e9.e2b.dev
+Server started at: https://3000-ip3nfrvajtqu5ktoxugc7.e2b.app
 Response from server inside sandbox: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>

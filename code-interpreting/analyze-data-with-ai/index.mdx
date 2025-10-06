@@ -64,7 +64,7 @@ We'll be using the publicly available [dataset of about 10,000 movies](https://w
 We'll upload the dataset from the third step to the sandbox and save it as `dataset.csv` file.
 
 <CodeGroup>
-```js index.ts
+```js JavaScript & TypeScript
 import 'dotenv/config'
 import fs from 'fs'
 import { Sandbox } from '@e2b/code-interpreter'
@@ -76,7 +76,7 @@ const sbx = await Sandbox.create()
 const content = fs.readFileSync('dataset.csv')
 const datasetPathInSandbox = await sbx.files.write('dataset.csv', content)
 ```
-```python main.py
+```python Python
 from dotenv import load_dotenv
 load_dotenv()
 from e2b_code_interpreter import Sandbox
@@ -96,7 +96,7 @@ with open("dataset.csv", "rb") as f:
 Add the following code to the file. Here we're adding the method for code execution.
 
 <CodeGroup>
-```js index.ts
+```js JavaScript & TypeScript
 // ... code from the previous step
 
 async function runAIGeneratedCode(aiGeneratedCode: string) {
@@ -106,7 +106,7 @@ async function runAIGeneratedCode(aiGeneratedCode: string) {
   console.log(execution)
 }
 ```
-```python main.py
+```python Python
 # ... code from the previous step
 
 def run_ai_generated_code(ai_generated_code: str):
@@ -124,7 +124,7 @@ The prompt we'll be using describes the dataset and the analysis we want to perf
     3. Instruct the LLM to generate Python code for the data analysis.
 
 <CodeGroup>
-```js index.ts
+```js JavaScript & TypeScript
 import Anthropic from '@anthropic-ai/sdk'
 
 const prompt = `
@@ -151,7 +151,7 @@ const msg = await anthropic.messages.create({
 })
 ```
 
-```python main.py
+```python Python
 from anthropic import Anthropic
 
 prompt = '''
@@ -187,7 +187,7 @@ The way we'll do it is by connecting the method for running AI-generated code we
 
 Update the initialization of the Anthropic client to include the tool use like this:
 <CodeGroup>
-```js index.ts highlight={6-20}
+```js JavaScript & TypeScript highlight={5-20}
 const msg = await anthropic.messages.create({
   model: 'claude-3-5-sonnet-20240620',
   max_tokens: 1024,
@@ -210,7 +210,7 @@ const msg = await anthropic.messages.create({
   ],
 })
 ```
-```python main.py highlight={7-19}
+```python Python highlight={7-19}
 msg = anthropic.messages.create(
   model='claude-3-5-sonnet-20240620',
   max_tokens=1024,
@@ -239,7 +239,7 @@ Now we'll parse the `msg` object to get the code from the LLM's response based o
 Once we have the code, we'll pass it to the `runAIGeneratedCode` method in JavaScript or `run_ai_generated_code` method in Python we created in the previous step to run the code in the sandbox.
 
 <CodeGroup>
-```js index.ts
+```js JavaScript & TypeScript
 // ... code from the previous steps
 
 interface CodeRunToolInput {
@@ -257,7 +257,7 @@ for (const contentBlock of msg.content) {
   }
 }
 ```
-```python main.py
+```python Python
 for content_block in msg.content:
     if content_block.type == 'tool_use':
         if content_block.name == 'run_python_code':
@@ -276,7 +276,7 @@ In this example we're specifically asking for a chart so we'll be looking for th
 
 Let's update the `runAIGeneratedCode` method in JavaScript and `run_ai_generated_code` method in Python to check for the chart in the results and save it to the file.
 <CodeGroup>
-```js index.ts highlight={7-12,17-25}
+```js JavaScript & TypeScript highlight={7-13,16-18,21-25}
 async function runAIGeneratedCode(aiGeneratedCode: string) {
   console.log('Running the code in the sandbox....')
   const execution = await sbx.runCode(aiGeneratedCode)
@@ -304,7 +304,7 @@ async function runAIGeneratedCode(aiGeneratedCode: string) {
   }
 }
 ```
-```python main.py highlight={7-12,15-23}
+```python Python highlight={7-12,15-17,20-23}
 def run_ai_generated_code(ai_generated_code: str):
     print('Running the code in the sandbox....')
     execution = sbx.run_code(ai_generated_code)
@@ -352,7 +352,7 @@ You should see the chart in the root of your project that will look similar to t
 ### Full final code
 Check the full code in JavaScript and Python below:
 <CodeGroup>
-```js index.ts
+```js JavaScript & TypeScript
 import 'dotenv/config'
 import fs from 'fs'
 import Anthropic from '@anthropic-ai/sdk'
@@ -441,7 +441,8 @@ for (const contentBlock of msg.content) {
   }
 }
 ```
-```python main.py
+
+```python Python
 import sys
 import base64
 from dotenv import load_dotenv
