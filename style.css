@@ -1,34 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 
 #topbar-links {
-  background-color: var(--background-white);
+    background-color: var(--background-white);
 }
 
 /* Add styles specifically for the Sign In link */
-a[href*='auth/sign-in'].whitespace-nowrap.font-medium {
-  background-color: black;
-  color: white !important;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
+a[href*="auth/sign-in"].whitespace-nowrap.font-medium {
+    background-color: black;
+    color: white !important;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
 }
 
-a[href*='auth/sign-in'].whitespace-nowrap.font-medium:hover {
-  background-color: #333;
-  color: white !important;
+a[href*="auth/sign-in"].whitespace-nowrap.font-medium:hover {
+    background-color: #333;
+    color: white !important;
 }
 
 /* Dark mode styles */
-.dark a[href*='auth/sign-in'].whitespace-nowrap.font-medium {
-  background-color: white;
-  color: black !important;
+.dark a[href*="auth/sign-in"].whitespace-nowrap.font-medium {
+    background-color: white;
+    color: black !important;
 }
 
-.dark a[href*='auth/sign-in'].whitespace-nowrap.font-medium:hover {
-  background-color: #f3f3f3;
-  color: black !important;
+.dark a[href*="auth/sign-in"].whitespace-nowrap.font-medium:hover {
+    background-color: #f3f3f3;
+    color: black !important;
 }
 
 code {
-  font-family: 'IBM Plex Mono';
+    font-family: "IBM Plex Mono";
+}
+
+.callout {
+    border-color: rgb(
+        249 115 22 / 0.2
+    ) !important; /* orange-500 at 20% opacity */
+    background-color: rgb(
+        255 247 237 / 0.5
+    ) !important; /* orange-50 at 50% opacity */
+}
+
+.dark .callout {
+    border-color: rgb(
+        249 115 22 / 0.3
+    ) !important; /* orange-500 at 30% opacity */
+    background-color: rgb(
+        249 115 22 / 0.1
+    ) !important; /* orange-500 at 10% opacity */
+}
+
+/* Icon color */
+.callout .text-sky-500 {
+    color: #ff8800;
+}
+
+/* Content text color */
+.callout .text-sky-900 {
+    color: rgb(124 45 18) !important; /* orange-900 */
+}
+
+.dark\:text-sky-200:is(.dark *) {
+    color: rgb(255, 183, 102) !important;
 }
