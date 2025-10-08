@@ -13,20 +13,20 @@ When creating a template, you can specify options:
 ```typescript
 const template = Template({
   fileContextPath: ".", // Custom file context path
-  ignoreFilePatterns: [".git", "node_modules"], // File patterns to ignore
+  fileIgnorePatterns: [".git", "node_modules"], // File patterns to ignore
 });
 ```
 
 ```python
 template = Template(
     file_context_path=".",  # Custom file context path
-    ignore_file_patterns=[".git", "node_modules"],  # File patterns to ignore
+    file_ignore_patterns=[".git", "node_modules"],  # File patterns to ignore
 )
 ```
 
 </CodeGroup>
 
-**File ignoring**: The SDK automatically reads `.dockerignore` files and combines them with your `ignoreFilePatterns`. Files matching these patterns are excluded from uploads and hash calculations.
+**File ignoring**: The SDK automatically reads `.dockerignore` files and combines them with your `fileIgnorePatterns` (TypeScript) or `file_ignore_patterns` (Python). Files matching these patterns are excluded from uploads and hash calculations.
 
 ## Defining base image
 Choose from predefined base images or use custom ones:
