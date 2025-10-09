@@ -85,32 +85,10 @@
           {
             "group": "Templates",
             "pages": [
-              "docs/template/quickstart",
-              "docs/template/how-it-works",
-              "docs/template/caching",
-              {
-                "group": "Customization",
-                "pages": [
-                  "docs/template/customization/authentication",
-                  "docs/template/customization/base-image",
-                  "docs/template/customization/defining-template",
-                  "docs/template/customization/start-ready-command",
-                  "docs/template/customization/build",
-                  "docs/template/customization/logging",
-                  "docs/template/customization/error-handling"
-                ]
-              },
-              "docs/template/examples",
-              "docs/template/migration",
-              {
-                "group": "Legacy Build",
-                "pages": [
-                  "docs/sandbox-template/index",
-                  "docs/sandbox-template/start-cmd/index",
-                  "docs/sandbox-template/ready-cmd/index",
-                  "docs/sandbox-template/customize-cpu-ram/index"
-                ]
-              }
+              "docs/sandbox-template/index",
+              "docs/sandbox-template/start-cmd/index",
+              "docs/sandbox-template/ready-cmd/index",
+              "docs/sandbox-template/customize-cpu-ram/index"
             ]
           },
           {
