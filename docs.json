@@ -17,20 +17,20 @@
           {
             "group": "Getting Started",
             "pages": [
-              "index",
+              "docs/index",
               {
                 "group": "Quickstart",
                 "icon": "circle-check",
                 "pages": [
-                  "quickstart/index",
-                  "quickstart/connect-llms/index",
-                  "quickstart/upload-download-files/index",
-                  "quickstart/install-custom-packages/index"
+                  "docs/quickstart/index",
+                  "docs/quickstart/connect-llms/index",
+                  "docs/quickstart/upload-download-files/index",
+                  "docs/quickstart/install-custom-packages/index"
                 ]
               },
-              "api-key/index",
-              "cookbook/index",
-              "support/index"
+              "docs/api-key/index",
+              "docs/cookbook/index",
+              "docs/support/index"
             ]
           },
           {
@@ -39,28 +39,28 @@
               {
                 "group": "Analyze data with AI",
                 "pages": [
-                  "code-interpreting/analyze-data-with-ai/index",
-                  "code-interpreting/analyze-data-with-ai/pre-installed-libraries/index"
+                  "docs/code-interpreting/analyze-data-with-ai/index",
+                  "docs/code-interpreting/analyze-data-with-ai/pre-installed-libraries/index"
                 ]
               },
               {
                 "group": "Charts & visualizations",
                 "pages": [
-                  "code-interpreting/create-charts-visualizations/index",
-                  "code-interpreting/create-charts-visualizations/static-charts/index",
-                  "code-interpreting/create-charts-visualizations/interactive-charts/index"
+                  "docs/code-interpreting/create-charts-visualizations/index",
+                  "docs/code-interpreting/create-charts-visualizations/static-charts/index",
+                  "docs/code-interpreting/create-charts-visualizations/interactive-charts/index"
                 ]
               },
-              "code-interpreting/streaming/index",
+              "docs/code-interpreting/streaming/index",
               {
                 "group": "Supported languages",
                 "pages": [
-                  "code-interpreting/supported-languages/index",
-                  "code-interpreting/supported-languages/python/index",
-                  "code-interpreting/supported-languages/javascript/index",
-                  "code-interpreting/supported-languages/r/index",
-                  "code-interpreting/supported-languages/java/index",
-                  "code-interpreting/supported-languages/bash/index"
+                  "docs/code-interpreting/supported-languages/index",
+                  "docs/code-interpreting/supported-languages/python/index",
+                  "docs/code-interpreting/supported-languages/javascript/index",
+                  "docs/code-interpreting/supported-languages/r/index",
+                  "docs/code-interpreting/supported-languages/java/index",
+                  "docs/code-interpreting/supported-languages/bash/index"
                 ]
               }
             ]
@@ -68,47 +68,47 @@
           {
             "group": "Sandbox",
             "pages": [
-              "sandbox/index",
-              "sandbox/lifecycle-events-api/index",
-              "sandbox/lifecycle-events-webhooks/index",
-              "sandbox/persistence/index",
-              "sandbox/metrics/index",
-              "sandbox/metadata/index",
-              "sandbox/environment-variables/index",
-              "sandbox/list/index",
-              "sandbox/connect/index",
-              "sandbox/internet-access/index",
-              "sandbox/connect-bucket/index",
-              "sandbox/rate-limits/index"
+              "docs/sandbox/index",
+              "docs/sandbox/lifecycle-events-api/index",
+              "docs/sandbox/lifecycle-events-webhooks/index",
+              "docs/sandbox/persistence/index",
+              "docs/sandbox/metrics/index",
+              "docs/sandbox/metadata/index",
+              "docs/sandbox/environment-variables/index",
+              "docs/sandbox/list/index",
+              "docs/sandbox/connect/index",
+              "docs/sandbox/internet-access/index",
+              "docs/sandbox/connect-bucket/index",
+              "docs/sandbox/rate-limits/index"
             ]
           },
           {
             "group": "Templates",
             "pages": [
-              "template/quickstart",
-              "template/how-it-works",
-              "template/caching",
+              "docs/template/quickstart",
+              "docs/template/how-it-works",
+              "docs/template/caching",
               {
                 "group": "Customization",
                 "pages": [
-                  "template/customization/authentication",
-                  "template/customization/base-image",
-                  "template/customization/defining-template",
-                  "template/customization/start-ready-command",
-                  "template/customization/build",
-                  "template/customization/logging",
-                  "template/customization/error-handling"
+                  "docs/template/customization/authentication",
+                  "docs/template/customization/base-image",
+                  "docs/template/customization/defining-template",
+                  "docs/template/customization/start-ready-command",
+                  "docs/template/customization/build",
+                  "docs/template/customization/logging",
+                  "docs/template/customization/error-handling"
                 ]
               },
-              "template/examples",
-              "template/migration",
+              "docs/template/examples",
+              "docs/template/migration",
               {
                 "group": "Legacy Build",
                 "pages": [
-                  "sandbox-template/index",
-                  "sandbox-template/start-cmd/index",
-                  "sandbox-template/ready-cmd/index",
-                  "sandbox-template/customize-cpu-ram/index"
+                  "docs/sandbox-template/index",
+                  "docs/sandbox-template/start-cmd/index",
+                  "docs/sandbox-template/ready-cmd/index",
+                  "docs/sandbox-template/customize-cpu-ram/index"
                 ]
               }
             ]
@@ -116,50 +116,52 @@
           {
             "group": "Filesystem",
             "pages": [
-              "filesystem/index",
-              "filesystem/read-write/index",
-              "filesystem/info/index",
-              "filesystem/watch/index",
-              "filesystem/upload/index",
-              "filesystem/download/index"
+              "docs/filesystem/index",
+              "docs/filesystem/read-write/index",
+              "docs/filesystem/info/index",
+              "docs/filesystem/watch/index",
+              "docs/filesystem/upload/index",
+              "docs/filesystem/download/index"
             ]
           },
           {
             "group": "Commands",
             "pages": [
-              "commands/index",
-              "commands/streaming/index",
-              "commands/background/index"
+              "docs/commands/index",
+              "docs/commands/streaming/index",
+              "docs/commands/background/index"
             ]
           },
           {
             "group": "CLI",
             "pages": [
-              "cli/index",
-              "cli/auth/index",
-              "cli/list-sandboxes/index",
-              "cli/shutdown-sandboxes/index"
+              "docs/cli/index",
+              "docs/cli/auth/index",
+              "docs/cli/list-sandboxes/index",
+              "docs/cli/shutdown-sandboxes/index"
             ]
           },
           {
             "group": "Deployment",
-            "pages": ["byoc/index"]
+            "pages": ["docs/byoc/index"]
           },
           {
             "group": "Migration",
-            "pages": ["migration/v2/index"]
+            "pages": ["docs/migration/v2/index"]
           },
           {
             "group": "Troubleshooting",
             "pages": [
               {
                 "group": "SDKs",
-                "pages": ["troubleshooting/sdks/workers-edge-runtime/index"]
+                "pages": [
+                  "docs/troubleshooting/sdks/workers-edge-runtime/index"
+                ]
               },
               {
                 "group": "Templates",
                 "pages": [
-                  "troubleshooting/templates/build-authentication-error/index"
+                  "docs/troubleshooting/templates/build-authentication-error/index"
                 ]
               }
             ]
