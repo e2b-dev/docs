@@ -115,14 +115,14 @@ Now you can use the template ID to create a sandbox with the SDK.
 </CodeGroup>
 
 ## How it works
-Every time you are building a sandbox template, we create a container based on the [`e2b.Dockerfile`](/sandbox-template#3-customize-e2b-dockerfile) file you create in the process.
+Every time you are building a sandbox template, we create a container based on the [`e2b.Dockerfile`](/docs/sandbox-template#3-customize-e2b-dockerfile) file you create in the process.
 We extract the container's filesystem, do provisioning and configuration (e.g. installing required dependencies), and start a sandbox.
 
 Then, these steps happen:
 
     1. We take the running sandbox.
-    2. (Only if you specified the [start command](/sandbox-template/start-cmd), otherwise this step is skipped) Execute the start command.
-    3. Wait for readiness (by default 20 seconds if start command is specified, otherwise immediately ready). Readiness check can be configured using [ready command](/sandbox-template/ready-cmd).
+    2. (Only if you specified the [start command](/docs/sandbox-template/start-cmd), otherwise this step is skipped) Execute the start command.
+    3. Wait for readiness (by default 20 seconds if start command is specified, otherwise immediately ready). Readiness check can be configured using [ready command](/docs/sandbox-template/ready-cmd).
     4. Snapshot the sandbox and make it ready for you to spawn it with the SDK.
 
 We call this sandbox snapshot a _sandbox template_.

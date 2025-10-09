@@ -8,13 +8,9 @@ Metadata is a way to attach arbitrary key-value pairs for a sandbox.
 This is useful in various scenarios, for example:
 - Associate a sandbox with a user session.
 - Store custom user data for a sandbox like API keys.
-- Associate a sandbox with a user ID and [connect to it later](/sandbox/connect).
+- Associate a sandbox with a user ID and [connect to it later](/docs/sandbox/connect).
 
 You specify metadata when creating a sandbox and can access it later through listing running sandboxes with `Sandbox.list()` method.
-
-<Note>
-If you're using the [beta version of the SDK](/sandbox/installing-beta-sdks), the `Sandbox.list()` method was updated. See [List Sandboxes](/sandbox/list#changes-in-the-beta-sdks) for more information.
-</Note>
 
 <CodeGroup>
 ```js JavaScript & TypeScript highlight={6}
@@ -56,4 +52,4 @@ print(running_sandboxes[0].metadata)
 </CodeGroup>
 
 ## Filtering sandboxes by metadata
-You can also filter sandboxes by metadata, you can find more about it [here](/sandbox/list#filtering-sandboxes).
+You can also filter sandboxes by metadata, you can find more about it [here](/docs/sandbox/list#filtering-sandboxes).

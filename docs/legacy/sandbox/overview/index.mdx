@@ -13,15 +13,15 @@ The E2B sandboxes are an ideal fit as a playground for AI assistants like coding
 
 <Icon icon="check" /> [Open-source](https://github.com/e2b-dev/e2b) sandbox for LLMA full VM environmentNo need for orchestration or infrastructure managementAbility to give each user of your AI app their own isolated environment
 
-<Icon icon="check" /> [Python & Node.js SDK](/legacy/getting-started/installation) for controling the sandbox's 
+<Icon icon="check" /> [Python & Node.js SDK](/docs/legacy/getting-started/installation) for controling the sandbox's 
 
-<Icon icon="check" /> [filesystem](/legacy/sandbox/api/filesystem), 
+<Icon icon="check" /> [filesystem](/docs/legacy/sandbox/api/filesystem), 
 
-<Icon icon="check" /> [processes](/legacy/sandbox/api/process), and more.Support for up to 24h long-running sandbox sessionsAbility to 
+<Icon icon="check" /> [processes](/docs/legacy/sandbox/api/process), and more.Support for up to 24h long-running sandbox sessionsAbility to 
 
-<Icon icon="check" /> [upload files](/legacy/sandbox/api/upload) to the sandbox and 
+<Icon icon="check" /> [upload files](/docs/legacy/sandbox/api/upload) to the sandbox and 
 
-<Icon icon="check" /> [download files](/legacy/sandbox/api/download) from the sandbox,
+<Icon icon="check" /> [download files](/docs/legacy/sandbox/api/download) from the sandbox,
 
 
 With more features coming in the future:
@@ -55,10 +55,10 @@ E2B Sandboxes are made exactly to solve these challenges. The sandbox is like an
 ## How sandboxes work under the hood
 When you create a new sandbox session, we start a small VM in our cloud. This VM is running a Ubuntu OS and it takes about 400-600ms to start it.
 
-Inside this sandbox, your AI app can [run code and start any programs](/legacy/sandbox/api/process), access the internet to download or upload data, use the [filesystem](/legacy/sandbox/api/filesystem), start long running processes such as web servers, and more.
-You can also [upload](/legacy/sandbox/api/upload) to sandbox and [download](/legacy/sandbox/api/upload) from sandbox any file you want.
+Inside this sandbox, your AI app can [run code and start any programs](/docs/legacy/sandbox/api/process), access the internet to download or upload data, use the [filesystem](/docs/legacy/sandbox/api/filesystem), start long running processes such as web servers, and more.
+You can also [upload](/docs/legacy/sandbox/api/upload) to sandbox and [download](/docs/legacy/sandbox/api/upload) from sandbox any file you want.
 
-To start and control the sandbox, use the [E2B SDK](/legacy/getting-started/installation) for Python or JavaScript.
+To start and control the sandbox, use the [E2B SDK](/docs/legacy/getting-started/installation) for Python or JavaScript.
 
 <CodeGroup>
 ```js JavaScript & TypeScript
@@ -77,5 +77,5 @@ sandbox.close()
 </CodeGroup>
 
 <Note>
-Make sure you have the `E2B_API_KEY` environment variable set with your [API key](/legacy/getting-started/api-key).
+Make sure you have the `E2B_API_KEY` environment variable set with your [API key](/docs/legacy/getting-started/api-key).
 </Note>
