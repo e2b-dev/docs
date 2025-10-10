@@ -33,6 +33,7 @@
                   "template/customization/error-handling"
                 ]
               },
+              "template/local-development",
               "template/examples",
               "template/migration"
             ]
