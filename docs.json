@@ -208,6 +208,11 @@
       "og:description": "Open-source secure sandboxes for AI code execution"
     }
   },
+  "integrations": {
+    "gtm": {
+      "tagId": "GTM-K2W3LVD2"
+    }
+  },
   "redirects": [
     {
       "source": "/docs/sandbox-templates/overview",
