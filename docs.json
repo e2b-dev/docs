@@ -199,7 +199,50 @@
   },
   "seo": {
     "metatags": {
-      "robots": "noindex"
+      "robots": "noindex",
+      "description": "Open-source secure sandboxes for AI code execution",
+      "canonical": "https://e2b.dev/docs",
+      "twitter:title": "E2B - Code Interpreting for AI apps",
+      "twitter:description": "Open-source secure sandboxes for AI code execution",
+      "og:title": "E2B - Code Interpreting for AI apps",
+      "og:description": "Open-source secure sandboxes for AI code execution"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/docs/sandbox-templates/overview",
+      "destination": "/docs/sandbox-template",
+      "permanent": true
+    },
+    {
+      "source": "/docs/sandbox-templates",
+      "destination": "/docs/sandbox-template",
+      "permanent": true
+    },
+    {
+      "source": "/docs/api-reference/python-sdk/v1.0.4/exceptions",
+      "destination": "/docs/sdk-reference/python-sdk/v1.0.4/exceptions",
+      "permanent": true
+    },
+    {
+      "source": "/docs/api-reference/python-sdk/v1.0.4/sandbox_async",
+      "destination": "/docs/sdk-reference/python-sdk/v1.0.4/sandbox_async",
+      "permanent": true
+    },
+    {
+      "source": "/docs/api-reference/python-sdk/v1.0.4/sandbox_sync",
+      "destination": "/docs/sdk-reference/python-sdk/v1.0.4/sandbox_sync",
+      "permanent": true
+    },
+    {
+      "source": "/docs/getting-help",
+      "destination": "/docs/support",
+      "permanent": true
+    },
+    {
+      "source": "/docs/quickstart/migrating-from-v0",
+      "destination": "/docs",
+      "permanent": true
+    }
+  ]
 }
