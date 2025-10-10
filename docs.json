@@ -17,20 +17,20 @@
           {
             "group": "Getting Started",
             "pages": [
-              "docs/index",
+              "docs",
               {
                 "group": "Quickstart",
                 "icon": "circle-check",
                 "pages": [
-                  "docs/quickstart/index",
-                  "docs/quickstart/connect-llms/index",
-                  "docs/quickstart/upload-download-files/index",
-                  "docs/quickstart/install-custom-packages/index"
+                  "docs/quickstart",
+                  "docs/quickstart/connect-llms",
+                  "docs/quickstart/upload-download-files",
+                  "docs/quickstart/install-custom-packages"
                 ]
               },
-              "docs/api-key/index",
-              "docs/cookbook/index",
-              "docs/support/index"
+              "docs/api-key",
+              "docs/cookbook",
+              "docs/support"
             ]
           },
           {
@@ -39,28 +39,28 @@
               {
                 "group": "Analyze data with AI",
                 "pages": [
-                  "docs/code-interpreting/analyze-data-with-ai/index",
-                  "docs/code-interpreting/analyze-data-with-ai/pre-installed-libraries/index"
+                  "docs/code-interpreting/analyze-data-with-ai",
+                  "docs/code-interpreting/analyze-data-with-ai/pre-installed-libraries"
                 ]
               },
               {
                 "group": "Charts & visualizations",
                 "pages": [
-                  "docs/code-interpreting/create-charts-visualizations/index",
-                  "docs/code-interpreting/create-charts-visualizations/static-charts/index",
-                  "docs/code-interpreting/create-charts-visualizations/interactive-charts/index"
+                  "docs/code-interpreting/create-charts-visualizations",
+                  "docs/code-interpreting/create-charts-visualizations/static-charts",
+                  "docs/code-interpreting/create-charts-visualizations/interactive-charts"
                 ]
               },
-              "docs/code-interpreting/streaming/index",
+              "docs/code-interpreting/streaming",
               {
                 "group": "Supported languages",
                 "pages": [
-                  "docs/code-interpreting/supported-languages/index",
-                  "docs/code-interpreting/supported-languages/python/index",
-                  "docs/code-interpreting/supported-languages/javascript/index",
-                  "docs/code-interpreting/supported-languages/r/index",
-                  "docs/code-interpreting/supported-languages/java/index",
-                  "docs/code-interpreting/supported-languages/bash/index"
+                  "docs/code-interpreting/supported-languages",
+                  "docs/code-interpreting/supported-languages/python",
+                  "docs/code-interpreting/supported-languages/javascript",
+                  "docs/code-interpreting/supported-languages/r",
+                  "docs/code-interpreting/supported-languages/java",
+                  "docs/code-interpreting/supported-languages/bash"
                 ]
               }
             ]
@@ -68,78 +68,76 @@
           {
             "group": "Sandbox",
             "pages": [
-              "docs/sandbox/index",
-              "docs/sandbox/lifecycle-events-api/index",
-              "docs/sandbox/lifecycle-events-webhooks/index",
-              "docs/sandbox/persistence/index",
-              "docs/sandbox/metrics/index",
-              "docs/sandbox/metadata/index",
-              "docs/sandbox/environment-variables/index",
-              "docs/sandbox/list/index",
-              "docs/sandbox/connect/index",
-              "docs/sandbox/internet-access/index",
-              "docs/sandbox/connect-bucket/index",
-              "docs/sandbox/rate-limits/index"
+              "docs/sandbox",
+              "docs/sandbox/lifecycle-events-api",
+              "docs/sandbox/lifecycle-events-webhooks",
+              "docs/sandbox/persistence",
+              "docs/sandbox/metrics",
+              "docs/sandbox/metadata",
+              "docs/sandbox/environment-variables",
+              "docs/sandbox/list",
+              "docs/sandbox/connect",
+              "docs/sandbox/internet-access",
+              "docs/sandbox/connect-bucket",
+              "docs/sandbox/rate-limits"
             ]
           },
           {
             "group": "Templates",
             "pages": [
-              "docs/sandbox-template/index",
-              "docs/sandbox-template/start-cmd/index",
-              "docs/sandbox-template/ready-cmd/index",
-              "docs/sandbox-template/customize-cpu-ram/index"
+              "docs/sandbox-template",
+              "docs/sandbox-template/start-cmd",
+              "docs/sandbox-template/ready-cmd",
+              "docs/sandbox-template/customize-cpu-ram"
             ]
           },
           {
             "group": "Filesystem",
             "pages": [
-              "docs/filesystem/index",
-              "docs/filesystem/read-write/index",
-              "docs/filesystem/info/index",
-              "docs/filesystem/watch/index",
-              "docs/filesystem/upload/index",
-              "docs/filesystem/download/index"
+              "docs/filesystem",
+              "docs/filesystem/read-write",
+              "docs/filesystem/info",
+              "docs/filesystem/watch",
+              "docs/filesystem/upload",
+              "docs/filesystem/download"
             ]
           },
           {
             "group": "Commands",
             "pages": [
-              "docs/commands/index",
-              "docs/commands/streaming/index",
-              "docs/commands/background/index"
+              "docs/commands",
+              "docs/commands/streaming",
+              "docs/commands/background"
             ]
           },
           {
             "group": "CLI",
             "pages": [
-              "docs/cli/index",
-              "docs/cli/auth/index",
-              "docs/cli/list-sandboxes/index",
-              "docs/cli/shutdown-sandboxes/index"
+              "docs/cli",
+              "docs/cli/auth",
+              "docs/cli/list-sandboxes",
+              "docs/cli/shutdown-sandboxes"
             ]
           },
           {
             "group": "Deployment",
-            "pages": ["docs/byoc/index"]
+            "pages": ["docs/byoc"]
           },
           {
             "group": "Migration",
-            "pages": ["docs/migration/v2/index"]
+            "pages": ["docs/migration/v2"]
           },
           {
             "group": "Troubleshooting",
             "pages": [
               {
                 "group": "SDKs",
-                "pages": [
-                  "docs/troubleshooting/sdks/workers-edge-runtime/index"
-                ]
+                "pages": ["docs/troubleshooting/sdks/workers-edge-runtime"]
               },
               {
                 "group": "Templates",
                 "pages": [
-                  "docs/troubleshooting/templates/build-authentication-error/index"
+                  "docs/troubleshooting/templates/build-authentication-error"
                 ]
               }
             ]
