@@ -199,7 +199,6 @@
   },
   "seo": {
     "metatags": {
-      "robots": "noindex",
       "description": "Open-source secure sandboxes for AI code execution",
       "canonical": "https://e2b.dev",
       "twitter:title": "E2B - Code Interpreting for AI apps",
