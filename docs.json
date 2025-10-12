@@ -7,6 +7,14 @@
     "light": "#ff8800",
     "dark": "#E57B00"
   },
+  "styling": {
+    "codeblocks": {
+      "theme": {
+        "light": "github-light",
+        "dark": "github-dark-default"
+      }
+    }
+  },
   "favicon": "/favicon.png",
   "navigation": {
     "anchors": [
