@@ -205,8 +205,10 @@
       "canonical": "https://e2b.dev",
       "twitter:title": "E2B - Code Interpreting for AI apps",
       "twitter:description": "Open-source secure sandboxes for AI code execution",
+      "twitter:image": "twitter-image.png",
       "og:title": "E2B - Code Interpreting for AI apps",
-      "og:description": "Open-source secure sandboxes for AI code execution"
+      "og:description": "Open-source secure sandboxes for AI code execution",
+      "og:image": "opengraph-image.png"
     }
   },
   "integrations": {
