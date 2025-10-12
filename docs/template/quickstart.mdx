@@ -36,9 +36,9 @@ You can use the E2B CLI to create a new template.
 ## Manual
 
 ### Install the packages
-<Warning>
+<Note>
 Requires the E2B version at least 2.1.0
-</Warning>
+</Note>
 
 <CodeGroup>
 
@@ -135,20 +135,6 @@ if __name__ == '__main__':
 
 </CodeGroup>
 
-Build the development template
-
-<CodeGroup>
-
-```bash JavaScript & TypeScript
-npx tsx build.dev.ts
-```
-
-```bash Python
-python build_dev.py
-```
-
-</CodeGroup>
-
 ### Create a production build script
 
 <CodeGroup>
@@ -187,6 +173,22 @@ if __name__ == '__main__':
         memory_mb=1024,
         on_build_logs=default_build_logger(),
     )
+```
+
+</CodeGroup>
+
+### Build the template
+
+Build the development template
+
+<CodeGroup>
+
+```bash JavaScript & TypeScript
+npx tsx build.dev.ts
+```
+
+```bash Python
+python build_dev.py
 ```
 
 </CodeGroup>
