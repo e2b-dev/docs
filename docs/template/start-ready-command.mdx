@@ -27,15 +27,15 @@ Set the command that runs when the sandbox starts and the command that determine
 template.setStartCmd('npm start', waitForPort(3000))
 
 // Set only ready command
-template.setReadyCmd('curl -f http://localhost:3000/health')
+template.setReadyCmd(waitForTimeout(10_000))
 ```
 
 ```python Python
 # Set both start command and ready command
-template.set_start_cmd("npm start", wait_for_timeout(10_000))
+template.set_start_cmd("npm start", wait_for_port(3000))
 
 # Set only ready command
-template.set_ready_cmd(wait_for_port(3000))
+template.set_ready_cmd(wait_for_timeout(10_000))
 ```
 
 </CodeGroup>
@@ -67,7 +67,7 @@ waitForPort(3000)
 waitForProcess('node')
 
 // Wait for a file to exist
-waitForFile('/app/ready.txt')
+waitForFile('/tmp/ready')
 
 // Wait for a timeout
 waitForTimeout(10_000) // 10 seconds
@@ -80,7 +80,7 @@ from e2b import wait_for_port, wait_for_process, wait_for_file, wait_for_timeout
 wait_for_port(3000)
 
 # Wait for a process to be running
-wait_for_process("nginx")
+wait_for_process("node")
 
 # Wait for a file to exist
 wait_for_file("/tmp/ready")
