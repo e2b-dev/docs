@@ -103,7 +103,14 @@
               "docs/template/build",
               "docs/template/logging",
               "docs/template/error-handling",
-              "docs/template/examples",
+              {
+                "group": "Examples",
+                "pages": [
+                  "docs/template/examples/nextjs",
+                  "docs/template/examples/desktop",
+                  "docs/template/examples/claude-code"
+                ]
+              },
               "docs/template/migration",
               {
                 "group": "V1 Docs",
