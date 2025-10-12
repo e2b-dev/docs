@@ -10,16 +10,16 @@ If your base image is hosted in a private registry, you can provide credentials 
 
 ## General Registry
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 Template().fromImage('ubuntu:22.04', {
   username: 'user',
   password: 'pass',
 })
 ```
 
-```python
+```python Python
 Template().from_image(
     image="ubuntu:22.04",
     username="user",
@@ -32,9 +32,9 @@ Template().from_image(
 
 ## GCP Artifact Registry
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 // From file path
 Template().fromGCPRegistry('ubuntu:22.04', {
   serviceAccountJSON: './service_account.json',
@@ -46,7 +46,7 @@ Template().fromGCPRegistry('ubuntu:22.04', {
 })
 ```
 
-```python
+```python Python
 # From file path
 Template().from_gcp_registry(
     image="ubuntu:22.04",
@@ -65,9 +65,9 @@ Template().from_gcp_registry(
 
 ## AWS ECR
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 Template().fromAWSRegistry('ubuntu:22.04', {
   accessKeyId: '123',
   secretAccessKey: '456',
@@ -75,7 +75,7 @@ Template().fromAWSRegistry('ubuntu:22.04', {
 })
 ```
 
-```python
+```python Python
 Template().from_aws_registry(
     image="ubuntu:22.04",
     access_key_id="123",

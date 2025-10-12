@@ -7,9 +7,10 @@ description: "Examples of using the template"
 
 Basic Next.js app with Tailwind and shadcn UI
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript template.ts
+```typescript JavaScript & TypeScript
+// template.ts
 import { Template, waitForPort } from 'e2b'
 
 export const template = Template()
@@ -29,7 +30,8 @@ export const template = Template()
 ```
 
 
-```python template.py
+```python Python
+# template.py
 from e2b import Template, wait_for_port
 
 template = (
@@ -49,9 +51,10 @@ template = (
 
 </CodeGroup>
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript build.ts
+```typescript JavaScript & TypeScript
+// build.ts
 import { Template } from 'e2b'
 import { template as nextJSTemplate } from './template'
 
@@ -64,7 +67,8 @@ Template.build(nextJSTemplate, {
 ```
 
 
-```python build.py
+```python Python
+# build.py
 from e2b import Template
 from .template import template as nextjsTemplate
 
@@ -83,9 +87,10 @@ Template.build(nextjsTemplate,
 Basic Ubuntu Desktop with GUI and VNC access
 
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript template.ts expandable
+```typescript JavaScript & TypeScript expandable
+// template.ts
 import { Template, waitForPort } from 'e2b'
 
 export const template = Template()
@@ -142,7 +147,8 @@ export const template = Template()
 
 ```
 
-```python template.py expandable
+```python Python expandable
+# template.py
 from e2b import Template, wait_for_port
 
 template = (
@@ -234,9 +240,10 @@ sleep 2
 ```
 
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript build.ts
+```typescript JavaScript & TypeScript
+// build.ts
 import { Template } from 'e2b'
 import { template as desktopTemplate } from './template'
 
@@ -248,7 +255,8 @@ await Template.build(desktopTemplate, {
 })
 ```
 
-```python build.py
+```python Python
+# build.py
 from e2b import Template
 from .template import template as desktopTemplate
 
@@ -266,9 +274,10 @@ Template.build(desktopTemplate,
 
 Claude Code Agent in a Sandbox
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript template.ts
+```typescript JavaScript & TypeScript
+// template.ts
 import { Template } from 'e2b'
 
 export const template = Template()
@@ -279,7 +288,8 @@ export const template = Template()
 
 ```
 
-```python template.py
+```python Python
+# template.py
 from e2b import Template
 
 template = (
@@ -296,7 +306,8 @@ template = (
 
 <CodeGroup dropdown>
 
-```typescript build.ts
+```typescript JavaScript & TypeScript
+// build.ts
 import { Template } from 'e2b'
 import { template as claudeCodeTemplate } from './template'
 
@@ -308,7 +319,8 @@ Template.build(claudeCodeTemplate, {
 })
 ```
 
-```python build.py
+```python Python
+# build.py
 from e2b import Template
 from .template import template as claudeCodeTemplate
 
@@ -322,10 +334,10 @@ Template.build(claudeCodeTemplate,
 
 </CodeGroup>
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript sandbox.ts
-
+```typescript JavaScript & TypeScript
+// sandbox.ts
 import { Sandbox } from 'e2b'
 
 const sbx = await Sandbox.create('claude-code', {
@@ -351,7 +363,8 @@ console.log(result.stdout)
 sbx.kill()
 ```
 
-```python sandbox.py
+```python Python
+# sandbox.py
 from e2b import Sandbox
 
 sbx = Sandbox(

@@ -20,9 +20,9 @@ This way you can control how long should we wait for the [start command](/templa
 
 Set the command that runs when the sandbox starts and the command that determines when the sandbox is ready:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 // Set both start command and ready command
 template.setStartCmd('npm start', waitForPort(3000))
 
@@ -30,7 +30,7 @@ template.setStartCmd('npm start', waitForPort(3000))
 template.setReadyCmd('curl -f http://localhost:3000/health')
 ```
 
-```python
+```python Python
 # Set both start command and ready command
 template.set_start_cmd("npm start", wait_for_timeout(10_000))
 
@@ -50,9 +50,9 @@ The ready command is used to determine when the sandbox is ready to accept conne
 
 The SDK provides helper functions for common ready command patterns:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 import {
   waitForPort,
   waitForProcess,
@@ -73,7 +73,7 @@ waitForFile('/app/ready.txt')
 waitForTimeout(10_000) // 10 seconds
 ```
 
-```python
+```python Python
 from e2b import wait_for_port, wait_for_process, wait_for_file, wait_for_timeout
 
 # Wait for a port to be available

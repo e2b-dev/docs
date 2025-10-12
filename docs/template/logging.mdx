@@ -9,9 +9,9 @@ You can retrieve the build logs using the SDK.
 
 The `onBuildLogs`/`on_build_logs` callback receives structured `LogEntry` objects with the following properties:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 type LogEntry = {
   timestamp: Date
   level: 'debug' | 'info' | 'warn' | 'error'
@@ -20,7 +20,7 @@ type LogEntry = {
 }
 ```
 
-```python
+```python Python
 @dataclass
 class LogEntry:
     timestamp: datetime
@@ -35,9 +35,9 @@ class LogEntry:
 
 You can customize how logs are handled:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 // Simple logging
 onBuildLogs: (logEntry) => console.log(logEntry.toString());
 
@@ -55,7 +55,7 @@ onBuildLogs: (logEntry) => {
 };
 ```
 
-```python
+```python Python
 # Simple logging
 on_build_logs=lambda log_entry: print(log_entry)
 

@@ -36,15 +36,15 @@ To migrate the existing template definition to the new format, follow these step
 The migration command generates three files (based on the selected language).
 
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```markdown JavaScript & TypeScript
 template.ts - Template definition using the SDK
 build.dev.ts - Development build script
 build.prod.ts - Production build script
 ```
 
-```python
+```markdown Python
 template.py - Template definition using the SDK
 build_dev.py - Development build script
 build_prod.py - Production build script
@@ -59,15 +59,17 @@ If you want to keep using Dockerfile for your template, you can use the `fromDoc
 We'll automatically parse the Dockerfile for you and build the template based on it.
 You can find more at [Base Image](/template/customization/base-image#parsing-existing-dockerfiles).
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript template.ts
+```typescript JavaScript & TypeScript
+// template.ts
 import { Template } from "e2b";
 
 const template = Template()
   .fromDockerfile(dockerfileContent);
 ```
-```python template.py
+```python Python
+# template.py
 from e2b import Template
 
 template = (
@@ -96,15 +98,17 @@ Simply build the Docker image for the `linux/amd64` platform, push it to a regis
 You can also specify credentials for private registries as described in the [Base Image](/template/customization/base-image#custom-base-image) section.
 
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript template.ts
+```typescript JavaScript & TypeScript
+// template.ts
 import { Template } from "e2b";
 
 const template = Template()
   .fromImage("image-tag");
 ```
-```python template.py
+```python Python
+# template.py
 from e2b import Template
 
 template = (

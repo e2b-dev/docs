@@ -7,9 +7,9 @@ description: "How to create your own template"
 
 All template methods return the template instance, allowing for fluent API usage:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 const template = Template()
   .fromUbuntuImage("22.04")
   .aptInstall(["curl"]) // necessary for waitForPort
@@ -19,7 +19,7 @@ const template = Template()
   .setStartCmd("npm start", waitForPort(3000));
 ```
 
-```python
+```python Python
 template = (
     Template()
     .from_ubuntu_image("22.04")
@@ -35,9 +35,9 @@ template = (
 
 Set the working directory and user for the template:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 // Set working directory
 template.setWorkdir("/app");
 
@@ -46,7 +46,7 @@ template.setUser('node')
 template.setUser("1000:1000"); // User ID and group ID
 ```
 
-```python
+```python Python
 # Set working directory
 template.set_workdir("/app")
 
@@ -61,9 +61,9 @@ template.set_user("1000:1000")  # User ID and group ID
 
 Copy files from your local filesystem to the template:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 // Copy a single file
 template.copy("package.json", "/app/package.json");
 
@@ -83,7 +83,7 @@ template.copy("config.json", "/app/config.json", {
 });
 ```
 
-```python
+```python Python
 # Copy a single file
 template.copy("package.json", "/app/package.json")
 
@@ -106,9 +106,9 @@ template.copy("config.json", "/app/config.json", user="appuser", mode=0o644)
 
 Perform various file operations during template build:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 // Remove files or directories
 template.remove("/tmp/temp-file.txt");
 template.remove("/old-directory", { recursive: true });
@@ -126,7 +126,7 @@ template.makeDir("/app/data", { mode: 0o755 });
 template.makeSymlink("/app/data", "/app/logs/data");
 ```
 
-```python
+```python Python
 # Remove files or directories
 template.remove("/tmp/old-file")
 template.remove("/tmp/old-dir", recursive=True)
@@ -150,9 +150,9 @@ template.make_symlink("/path/to/target", "/path/to/link")
 
 Install packages using package managers:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 // Install Python packages
 template.pipInstall('requests pandas numpy')
 template.pipInstall(['requests', 'pandas', 'numpy'])
@@ -166,7 +166,7 @@ template.aptInstall('curl wget git')
 template.aptInstall(['curl', 'wget', 'git'])
 ```
 
-```python
+```python Python
 # Install Python packages
 template.pip_install("requests pandas numpy")
 template.pip_install(["requests", "pandas", "numpy"])
@@ -186,9 +186,9 @@ template.apt_install(["curl", "wget", "git"])
 
 Clone Git repositories during template build (requires `git` to be installed):
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 // Clone a repository
 template.gitClone('https://github.com/user/repo.git')
 
@@ -206,7 +206,7 @@ template.gitClone('https://github.com/user/repo.git', '/app/repo', {
 })
 ```
 
-```python
+```python Python
 # Clone a repository
 template.git_clone("https://github.com/user/repo.git")
 
@@ -227,9 +227,9 @@ template.git_clone("https://github.com/user/repo.git", "/app/repo", depth=1)
 
 Set environment variables in the template:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 template.setEnvs({
   NODE_ENV: 'production',
   API_KEY: 'your-api-key',
@@ -237,7 +237,7 @@ template.setEnvs({
 })
 ```
 
-```python
+```python Python
 template.set_envs({
     "NODE_ENV": "production",
     "API_KEY": "your-api-key",
@@ -253,7 +253,7 @@ Execute shell commands during template build:
 
 <CodeGroup dropdown>
 
-```typescript
+```typescript JavaScript & TypeScript
 // Run a single command
 template.runCmd('apt-get update && apt-get install -y curl')
 
@@ -264,7 +264,7 @@ template.runCmd(['apt-get update', 'apt-get install -y curl', 'curl --version'])
 template.runCmd('npm install', { user: 'node' })
 ```
 
-```python
+```python Python
 # Run a single command
 template.run_cmd("apt-get update && apt-get install -y curl")
 

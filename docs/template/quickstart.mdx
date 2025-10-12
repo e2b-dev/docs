@@ -22,7 +22,7 @@ You can use the E2B CLI to create a new template.
     </Step>
     <Step title="Create a new template">
     ```bash
-    e2b template init-v2
+    e2b template create
     ```
     </Step>
     <Step title="Follow the prompts">
@@ -40,13 +40,13 @@ You can use the E2B CLI to create a new template.
 Requires the E2B version at least 2.1.0
 </Warning>
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript Terminal
+```bash JavaScript & TypeScript
 npm install e2b dotenv
 ```
 
-```python Terminal
+```bash Python
 pip install e2b dotenv
 ```
 
@@ -61,9 +61,10 @@ E2B_API_KEY=e2b_***
 ### Create a new template file
 Create a template file with the following name and content
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript template.ts
+```typescript JavaScript & TypeScript
+// template.ts
 import { Template, waitForTimeout } from "e2b";
 
 export const template = Template()
@@ -74,7 +75,8 @@ export const template = Template()
   .setStartCmd("echo $HELLO", waitForTimeout(5_000));
 ```
 
-```python template.py
+```python Python
+# template.py
 from e2b import Template, wait_for_timeout
 
 template = (
@@ -93,9 +95,10 @@ template = (
 
 ### Create a development build script
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript build.dev.ts
+```typescript JavaScript & TypeScript
+// build.dev.ts
 import "dotenv/config";
 import { template } from "./template";
 import { Template } from "e2b";
@@ -112,7 +115,8 @@ async function main() {
 main().catch(console.error);
 ```
 
-```python build_dev.py
+```python Python
+# build_dev.py
 from dotenv import load_dotenv
 from e2b import Template
 from template import template
@@ -133,13 +137,13 @@ if __name__ == '__main__':
 
 Build the development template
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript Terminal
+```bash JavaScript & TypeScript
 npx tsx build.dev.ts
 ```
 
-```python Terminal
+```bash Python
 python build_dev.py
 ```
 
@@ -147,9 +151,10 @@ python build_dev.py
 
 ### Create a production build script
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript build.prod.ts
+```typescript JavaScript & TypeScript
+// build.prod.ts
 import "dotenv/config";
 import { template } from "./template";
 import { Template } from "e2b";
@@ -166,7 +171,8 @@ async function main() {
 main().catch(console.error);
 ```
 
-```python build_prod.py
+```python Python
+# build_prod.py
 from dotenv import load_dotenv
 from e2b import Template
 from template import template
@@ -187,13 +193,13 @@ if __name__ == '__main__':
 
 Build the production template
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript Terminal
+```bash JavaScript & TypeScript
 npx tsx build.prod.ts
 ```
 
-```python Terminal
+```bash Python
 python build_prod.py
 ```
 
@@ -201,9 +207,9 @@ python build_prod.py
 
 ## Create a new Sandbox from the Template
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 import "dotenv/config";
 import { Sandbox } from "e2b";
 
@@ -214,7 +220,7 @@ const sandbox = await Sandbox.create("template-tag-dev");
 const sandbox = await Sandbox.create("template-tag");
 ```
 
-```python
+```python Python
 from dotenv import load_dotenv
 from e2b import Sandbox
 

@@ -7,16 +7,16 @@ description: "How to define a base image for your template"
 
 When creating a template, you can specify options:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 const template = Template({
   fileContextPath: ".", // Custom file context path
   fileIgnorePatterns: [".git", "node_modules"], // File patterns to ignore
 });
 ```
 
-```python
+```python Python
 template = Template(
     file_context_path=".",  # Custom file context path
     file_ignore_patterns=[".git", "node_modules"],  # File patterns to ignore
@@ -30,9 +30,9 @@ template = Template(
 ## Defining base image
 Choose from predefined base images or use custom ones:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 // Predefined base images
 template.fromUbuntuImage("lts"); // ubuntu:lts
 template.fromUbuntuImage("22.04"); // ubuntu:22.04
@@ -61,7 +61,7 @@ ENV NODE_ENV=production`;
 template.fromDockerfile(dockerfileContent);
 ```
 
-```python
+```python Python
 # Predefined base images
 template.from_ubuntu_image("lts")  # ubuntu:lts
 template.from_ubuntu_image("22.04")  # ubuntu:22.04
@@ -96,9 +96,9 @@ You can only call base image methods once per template. Subsequent calls will th
 
 Convert existing Dockerfiles to template format using `fromDockerfile()`:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```typescript JavaScript & TypeScript
 const dockerfileContent = `
 FROM ubuntu:22.04
 RUN apt-get update && apt-get install -y curl
@@ -113,7 +113,7 @@ const template = Template()
   .setStartCmd("npm start", waitForTimeout(5_000));
 ```
 
-```python
+```python Python
 dockerfile_content = """
 FROM ubuntu:22.04
 RUN apt-get update && apt-get install -y curl
