@@ -57,7 +57,7 @@ build_prod.py - Production build script
 
 If you want to keep using Dockerfile for your template, you can use the `fromDockerfile()` method.
 We'll automatically parse the Dockerfile for you and build the template based on it.
-You can find more at [Base Image](/template/customization/base-image#parsing-existing-dockerfiles).
+You can find more at [Base Image](/docs/template/base-image#parsing-existing-dockerfiles).
 
 <CodeGroup>
 
@@ -88,14 +88,14 @@ template = (
     `FROM`, `RUN`, `COPY`, `ADD`, `WORKDIR`, `USER`, `ENV`, `ARG`, `CMD`, `ENTRYPOINT`
 </Info>
 
-After the template definition, you can create the build scripts as described in the [Quickstart](/template/quickstart#create-a-development-build-script) section.
+After the template definition, you can create the build scripts as described in the [Quickstart](/docs/template/quickstart#create-a-development-build-script) section.
 
 
 ## Using `fromImage()` Method
 
 If you already have a Docker image built, or you want to keep building the Docker image yourself you can use the `fromImage()` method.
 Simply build the Docker image for the `linux/amd64` platform, push it to a registry of your choice and reference the image tag in the `fromImage()` method.
-You can also specify credentials for private registries as described in the [Base Image](/template/customization/base-image#custom-base-image) section.
+You can also specify credentials for private registries as described in the [Base Image](/docs/template/base-image#custom-base-image) section.
 
 
 <CodeGroup>
