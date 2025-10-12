@@ -100,15 +100,15 @@ template = (
 ```typescript JavaScript & TypeScript
 // build.dev.ts
 import "dotenv/config";
+import { Template, defaultBuildLogger } from "e2b";
 import { template } from "./template";
-import { Template } from "e2b";
 
 async function main() {
   await Template.build(template, {
     alias: "template-tag-dev",
     cpuCount: 1,
     memoryMB: 1024,
-    onBuildLogs: (logEntry) => console.log(logEntry.toString()),
+    onBuildLogs: defaultBuildLogger(),
   });
 }
 
@@ -118,7 +118,7 @@ main().catch(console.error);
 ```python Python
 # build_dev.py
 from dotenv import load_dotenv
-from e2b import Template
+from e2b import Template, default_build_logger
 from template import template
 
 load_dotenv()
@@ -129,7 +129,7 @@ if __name__ == '__main__':
         alias="template-tag-dev",
         cpu_count=1,
         memory_mb=1024,
-        on_build_logs=lambda log_entry: print(log_entry),
+        on_build_logs=default_build_logger(),
     )
 ```
 
@@ -156,15 +156,15 @@ python build_dev.py
 ```typescript JavaScript & TypeScript
 // build.prod.ts
 import "dotenv/config";
+import { Template, defaultBuildLogger } from "e2b";
 import { template } from "./template";
-import { Template } from "e2b";
 
 async function main() {
   await Template.build(template, {
     alias: "template-tag",
     cpuCount: 1,
     memoryMB: 1024,
-    onBuildLogs: (logEntry) => console.log(logEntry.toString()),
+    onBuildLogs: defaultBuildLogger(),
   });
 }
 
@@ -174,7 +174,7 @@ main().catch(console.error);
 ```python Python
 # build_prod.py
 from dotenv import load_dotenv
-from e2b import Template
+from e2b import Template, default_build_logger
 from template import template
 
 load_dotenv()
@@ -185,7 +185,7 @@ if __name__ == '__main__':
         alias="template-tag",
         cpu_count=1,
         memory_mb=1024,
-        on_build_logs=lambda log_entry: print(log_entry),
+        on_build_logs=default_build_logger(),
     )
 ```
 

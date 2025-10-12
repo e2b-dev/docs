@@ -55,28 +55,28 @@ template = (
 
 ```typescript JavaScript & TypeScript
 // build.ts
-import { Template } from 'e2b'
+import { Template, defaultBuildLogger } from 'e2b'
 import { template as nextJSTemplate } from './template'
 
 Template.build(nextJSTemplate, {
   alias: 'nextjs-app',
   cpuCount: 1,
   memoryMB: 1024,
-  onBuildLogs: (logEntry) => console.log(logEntry.toString()),
+  onBuildLogs: defaultBuildLogger(),
 })
 ```
 
 
 ```python Python
 # build.py
-from e2b import Template
+from e2b import Template, default_build_logger
 from .template import template as nextjsTemplate
 
 Template.build(nextjsTemplate,
     alias="nextjs-app",
     cpu_count=4,
     memory_mb=4096,
-    on_build_logs=lambda log_entry: print(log_entry),
+    on_build_logs=default_build_logger(),
 )
 ```
 
@@ -244,27 +244,27 @@ sleep 2
 
 ```typescript JavaScript & TypeScript
 // build.ts
-import { Template } from 'e2b'
+import { Template, defaultBuildLogger } from 'e2b'
 import { template as desktopTemplate } from './template'
 
 await Template.build(desktopTemplate, {
   alias: 'desktop',
   cpuCount: 8,
   memoryMB: 8192,
-  onBuildLogs: (logEntry) => console.log(logEntry.toString()),
+  onBuildLogs: defaultBuildLogger(),
 })
 ```
 
 ```python Python
 # build.py
-from e2b import Template
+from e2b import Template, default_build_logger
 from .template import template as desktopTemplate
 
 Template.build(desktopTemplate,
     alias="desktop",
     cpu_count=8,
     memory_mb=8192,
-    on_build_logs=lambda log_entry: print(log_entry),
+    on_build_logs=default_build_logger(),
 )
 ```
 
@@ -308,27 +308,27 @@ template = (
 
 ```typescript JavaScript & TypeScript
 // build.ts
-import { Template } from 'e2b'
+import { Template, defaultBuildLogger } from 'e2b'
 import { template as claudeCodeTemplate } from './template'
 
 Template.build(claudeCodeTemplate, {
   alias: 'claude-code',
   cpuCount: 1,
   memoryMB: 1024,
-  onBuildLogs: (logEntry) => console.log(logEntry.toString()),
+  onBuildLogs: defaultBuildLogger(),
 })
 ```
 
 ```python Python
 # build.py
-from e2b import Template
+from e2b import Template, default_build_logger
 from .template import template as claudeCodeTemplate
 
 Template.build(claudeCodeTemplate,
     alias="claude-code",
     cpu_count=1,
     memory_mb=1024,
-    on_build_logs=lambda log_entry: print(log_entry),
+    on_build_logs=default_build_logger(),
 )
 ```
 

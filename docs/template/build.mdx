@@ -13,7 +13,7 @@ Template.build(template, {
   cpuCount: 2, // CPU cores
   memoryMB: 2048, // Memory in MB
   skipCache: false, // Configure cache skip (except for files)
-  onBuildLogs: (logEntry) => console.log(logEntry.toString()), // Log callback receives LogEntry objects
+  onBuildLogs: defaultBuildLogger(), // Log callback receives LogEntry objects
   apiKey: 'your-api-key', // Override API key
   domain: 'your-domain', // Override domain
 })
@@ -26,7 +26,7 @@ Template.build(
     cpu_count=2,  # CPU cores
     memory_mb=2048,  # Memory in MB
     skip_cache=False,  # Configure cache skip (except for files)
-    on_build_logs=lambda log_entry: print(log_entry),  # Log callback receives LogEntry objects
+    on_build_logs=default_build_logger(),  # Log callback receives LogEntry objects
     api_key="your-api-key",  # Override API key
     domain="your-domain",  # Override domain
 )
