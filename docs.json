@@ -85,10 +85,27 @@
           {
             "group": "Templates",
             "pages": [
-              "docs/sandbox-template",
-              "docs/sandbox-template/start-cmd",
-              "docs/sandbox-template/ready-cmd",
-              "docs/sandbox-template/customize-cpu-ram"
+              "docs/template/quickstart",
+              "docs/template/how-it-works",
+              "docs/template/caching",
+              "docs/template/base-image",
+              "docs/template/private-registries",
+              "docs/template/defining-template",
+              "docs/template/start-ready-command",
+              "docs/template/build",
+              "docs/template/logging",
+              "docs/template/error-handling",
+              "docs/template/examples",
+              "docs/template/migration",
+              {
+                "group": "V1 Docs",
+                "pages": [
+                  "docs/sandbox-template",
+                  "docs/sandbox-template/start-cmd",
+                  "docs/sandbox-template/ready-cmd",
+                  "docs/sandbox-template/customize-cpu-ram"
+                ]
+              }
             ]
           },
           {

@@ -1,7 +1,6 @@
 ---
 title: "Caching"
 description: "How the caching process works"
-icon: "layer-group"
 ---
 
 The caching concept is similar to [Docker's layer caching](https://docs.docker.com/build/cache/). For each layer command (`.copy()`, `.runCmd()`, `.setEnvs()`, etc.), we create a new layer on top of the existing.
