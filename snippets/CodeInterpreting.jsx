@@ -1,13 +1,14 @@
 export const CodeInterpreting = () => {
   const items = [
     {
-      href: "/code-interpreting/analyze-data-with-ai",
+      href: "/docs/code-interpreting/analyze-data-with-ai",
       title: "Analyze data with AI",
-      description: "Learn how to use E2B run AI-generated code to analyze yourdata.",
+      description:
+        "Learn how to use E2B run AI-generated code to analyze yourdata.",
       icon: "file-circle-question",
     },
     {
-      href: "/code-interpreting/create-charts-visualizations",
+      href: "/docs/code-interpreting/create-charts-visualizations",
       title: "Create charts & visualizations",
       description: "Create interactive charts by running Python code in E2B.",
       icon: "chart-waterfall",
