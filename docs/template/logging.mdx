@@ -85,7 +85,6 @@ The `onBuildLogs`/`on_build_logs` callback receives structured `LogEntry` object
 <CodeGroup>
 
 ```typescript JavaScript & TypeScript
-// Log levels
 type LogEntryLevel = 'debug' | 'info' | 'warn' | 'error'
 
 class LogEntry {
@@ -114,7 +113,6 @@ class LogEntryEnd extends LogEntry {
 ```
 
 ```python Python
-# Log levels
 LogEntryLevel = Literal["debug", "info", "warn", "error"]
 
 @dataclass
