@@ -111,7 +111,7 @@
                   "docs/template/examples/claude-code"
                 ]
               },
-              "docs/template/migration",
+              "docs/template/migration-v2",
               {
                 "group": "V1 Docs",
                 "pages": [
