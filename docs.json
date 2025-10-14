@@ -42,6 +42,15 @@
             ]
           },
           {
+            "group": "MCP Gateway",
+            "pages": [
+              "docs/mcp",
+              "docs/mcp/quickstart",
+              "docs/mcp/available-servers",
+              "docs/mcp/examples"
+            ]
+          },
+          {
             "group": "Code Interpreting",
             "pages": [
               {

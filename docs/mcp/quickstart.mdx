@@ -1,0 +1,61 @@
+---
+title: Quickstart
+description: Get started with MCP integration
+---
+
+Get started with MCP servers in E2B sandboxes.
+
+## Create an MCP-Enabled Sandbox
+
+<CodeGroup>
+```typescript TypeScript
+import Sandbox from 'e2b'
+
+const sandbox = await Sandbox.Create({
+    mcp: {
+        duckduckgo: {},
+    },
+});
+
+const mcpUrl = sandbox.getMcpUrl();
+```
+
+```python Python
+from e2b import Sandbox
+
+sandbox = await Sandbox.create(
+    mcp={
+        "duckduckgo": {},
+    },
+)
+
+mcp_url = sandbox.get_mcp_url()
+```
+</CodeGroup>
+
+## Multiple Servers
+
+<CodeGroup>
+```typescript TypeScript
+const sandbox = await Sandbox.Create({
+    mcp: {
+        duckduckgo: {},
+        arxiv: {
+            storagePath: '/papers'
+        },
+    },
+});
+```
+
+```python Python
+sandbox = await Sandbox.create(
+    mcp={
+        "duckduckgo": {},
+        "arxiv": {
+            "storagePath": "/papers",
+        },
+    },
+)
+```
+</CodeGroup>
+

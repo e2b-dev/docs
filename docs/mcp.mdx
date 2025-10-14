@@ -1,0 +1,55 @@
+---
+title: Overview
+description: Connect to 200+ tools through the Model Context Protocol
+---
+
+E2B provides a batteries-included MCP gateway that runs inside sandboxes, giving you type-safe access to 200+ MCP tools through a unified interface.
+
+## Quick Example
+
+<CodeGroup>
+```typescript TypeScript
+import Sandbox from 'e2b'
+
+const sandbox = await Sandbox.Create({
+    mcp: {
+        duckduckgo: {},
+        arxiv: {
+            storagePath: '/'
+        },
+    },
+});
+
+const mcpUrl = sandbox.getMcpUrl();
+```
+
+```python Python
+from e2b import Sandbox
+
+sandbox = await Sandbox.create(
+    mcp={
+        "duckduckgo": {},
+        "arxiv": {
+            "storagePath": "/",
+        },
+    },
+)
+
+mcp_url = sandbox.get_mcp_url()
+```
+</CodeGroup>
+
+## Documentation
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/mcp/quickstart">
+    Get started with MCP
+  </Card>
+  <Card title="Available Servers" icon="server" href="/mcp/available-servers">
+    Browse available MCP servers
+  </Card>
+  <Card title="Examples" icon="code" href="/mcp/examples">
+    See examples
+  </Card>
+</CardGroup>
+
