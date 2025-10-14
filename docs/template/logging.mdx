@@ -85,11 +85,28 @@ The `onBuildLogs`/`on_build_logs` callback receives structured `LogEntry` object
 <CodeGroup>
 
 ```typescript JavaScript & TypeScript
-type LogEntry = {
-  timestamp: Date
-  level: 'debug' | 'info' | 'warn' | 'error'
-  message: string
-  toString(): string // Returns formatted log string
+class LogEntry {
+  constructor(
+    public readonly timestamp: Date,
+    public readonly level: LogEntryLevel,
+    public readonly message: string
+  )
+
+  toString() // Returns formatted log string
+}
+
+// Indicates the start of the build process
+class LogEntryStart extends LogEntry {
+  constructor(timestamp: Date, message: string) {
+    super(timestamp, 'debug', message)
+  }
+}
+
+// Indicates the end of the build process
+class LogEntryEnd extends LogEntry {
+  constructor(timestamp: Date, message: string) {
+    super(timestamp, 'debug', message)
+  }
 }
 ```
 
@@ -97,10 +114,21 @@ type LogEntry = {
 @dataclass
 class LogEntry:
     timestamp: datetime
-    level: Literal["debug", "info", "warn", "error"]
+    level: LogEntryLevel
     message: str
 
     def __str__(self) -> str:  # Returns formatted log string
+
+
+# Indicates the start of the build process
+@dataclass
+class LogEntryStart(LogEntry):
+    level: LogEntryLevel = field(default="debug", init=False)
+
+# Indicates the end of the build process
+@dataclass
+class LogEntryEnd(LogEntry):
+    level: LogEntryLevel = field(default="debug", init=False)
 ```
 
 </CodeGroup>
