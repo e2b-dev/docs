@@ -9,6 +9,12 @@ We've made ready for you three ways how to migrate existing template to the new 
 - Using the `fromDockerfile()` method to parse existing Dockerfile
 - Building the Docker image manually and using `fromImage()` method
 
+<Warning>
+    _This is handled for you automatically when using any of the options below._
+
+    The default user for the template is `user` with the working directory set to the user home directory. This is a difference from the Docker defaults.
+</Warning>
+
 ## Migration Command (Recommended)
 
 To migrate the existing template definition to the new format, follow these steps:
