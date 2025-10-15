@@ -87,7 +87,7 @@ console.log(teamSandboxEvents)
 import requests
 from e2b_code_interpreter import Sandbox
 
-sbx = Sandbox()
+sbx = Sandbox.create()
 
 # Get the latest events for a specific sandbox
 resp1 = requests.get(
