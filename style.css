@@ -33,7 +33,7 @@ code {
     font-family: "IBM Plex Mono";
 }
 
-.callout {
+.callout[data-callout-type="note"] {
     border-color: rgb(
         249 115 22 / 0.2
     ) !important; /* orange-500 at 20% opacity */
@@ -42,7 +42,7 @@ code {
     ) !important; /* orange-50 at 50% opacity */
 }
 
-.dark .callout {
+.dark .callout[data-callout-type="note"] {
     border-color: rgb(
         249 115 22 / 0.3
     ) !important; /* orange-500 at 30% opacity */
