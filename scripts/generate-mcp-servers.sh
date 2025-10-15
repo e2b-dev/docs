@@ -42,6 +42,8 @@ get_field_type() {
 jq -r '.properties | keys[]' "$SPEC_FILE" | sort | while read -r server; do
     # Get server title
     title=$(jq -r ".properties.${server}.title // \"\"" "$SPEC_FILE")
+    # Remove "MCP SERVER" (case insensitive) and trim whitespace
+    title=$(echo "$title" | sed -E 's/MCP SERVER//i' | xargs)
     
     # Get description and Docker Hub URL
     description=$(jq -r ".properties.${server}.description // \"\"" "$SPEC_FILE")
