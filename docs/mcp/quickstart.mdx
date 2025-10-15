@@ -5,8 +5,6 @@ description: Get started with MCP integration
 
 Get started with MCP servers in E2B sandboxes.
 
-## Create an MCP-Enabled Sandbox
-
 <CodeGroup>
 ```typescript TypeScript
 import Sandbox from 'e2b'
@@ -32,40 +30,54 @@ sandbox = await Sandbox.create(
 mcp_url = sandbox.get_mcp_url()
 ```
 </CodeGroup>
+## Accessing the MCP Gateway
 
-## Authentication
+The MCP gateway can be accessed from both outside and inside the sandbox, depending on your use case. Both require you to use the Authorization header.
 
-Each MCP server is secured by a unique token generated per sandbox. Use this token in the `Authorization` header when connecting:
+### From Outside the Sandbox
+
+You can access the MCP gateway from outside the sandbox using the URL and authentication token:
 
 <CodeGroup>
 ```typescript TypeScript
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
-
-const client = new Client({
-    name: 'e2b-mcp-client',
-    version: '1.0.0'
-});
+import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/transports';
 
 const transport = new StreamableHTTPClientTransport(
-    new URL(sandbox.getMcpUrl()), 
+    new URL(sandbox.betaGetMcpUrl()), 
     {
         requestInit: {
             headers: {
-                'Authorization': `Bearer ${await sandbox.getMcpToken()}`
+                'Authorization': `Bearer ${await sandbox.betaGetMcpToken()}`
             }
         }
     }
 );
 
 await client.connect(transport);
+
+const tools = await client.listTools();
 ```
 
+```python Python
+# Get the MCP token
+token = await sandbox.beta_get_mcp_token()
+
+# Create transport with authentication
+# TODO
+```
 </CodeGroup>
 
+### From Inside the Sandbox
 
-## Template
+If you need to access the MCP gateway from within the sandbox itself, it's available at:
+```
+http://e2b.local:50005/mcp
+```
 
-## Custom MCP
 
-## Troubleshooting
+## Limitations
+
+- slow docker pull
+- no custom mcp server support
+- no oauth support
