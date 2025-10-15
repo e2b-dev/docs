@@ -33,29 +33,39 @@ mcp_url = sandbox.get_mcp_url()
 ```
 </CodeGroup>
 
-## Multiple Servers
+## Authentication
+
+Each MCP server is secured by a unique token generated per sandbox. Use this token in the `Authorization` header when connecting:
 
 <CodeGroup>
 ```typescript TypeScript
-const sandbox = await Sandbox.Create({
-    mcp: {
-        duckduckgo: {},
-        arxiv: {
-            storagePath: '/papers'
-        },
-    },
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+
+const client = new Client({
+    name: 'e2b-mcp-client',
+    version: '1.0.0'
 });
+
+const transport = new StreamableHTTPClientTransport(
+    new URL(sandbox.getMcpUrl()), 
+    {
+        requestInit: {
+            headers: {
+                'Authorization': `Bearer ${await sandbox.getMcpToken()}`
+            }
+        }
+    }
+);
+
+await client.connect(transport);
 ```
 
-```python Python
-sandbox = await Sandbox.create(
-    mcp={
-        "duckduckgo": {},
-        "arxiv": {
-            "storagePath": "/papers",
-        },
-    },
-)
-```
 </CodeGroup>
 
+
+## Template
+
+## Custom MCP
+
+## Troubleshooting
