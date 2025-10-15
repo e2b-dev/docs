@@ -41,7 +41,7 @@ get_field_type() {
 # Process each server in the spec.json
 jq -r '.properties | keys[]' "$SPEC_FILE" | sort | while read -r server; do
     # Get server title
-    title=$(camel_to_title "$server")
+    title=$(jq -r ".properties.${server}.title // \"\"" "$SPEC_FILE")
     
     # Get description and Docker Hub URL
     description=$(jq -r ".properties.${server}.description // \"\"" "$SPEC_FILE")
