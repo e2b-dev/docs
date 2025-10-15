@@ -53,13 +53,16 @@ sbx.commands.run("pwd") // /home/guest
 template = (
     Template()
     .from_base_image()
-    .run_cmd("whoami")  # root
-    .run_cmd("pwd")  # /root
+    .run_cmd("whoami") # user
+    .run_cmd("pwd") # /home/user
+    .set_user("guest")
+    .run_cmd("whoami") # guest
+    .run_cmd("pwd") # /home/guest
 )
 
 sbx = Sandbox.create()
-sbx.commands.run("whoami")  # root
-sbx.commands.run("pwd")  # //root
+sbx.commands.run("whoami")  # guest
+sbx.commands.run("pwd")  # /home/guest
 ```
 
 </CodeGroup>
@@ -68,25 +71,25 @@ sbx.commands.run("pwd")  # //root
 ```typescript JavaScript & TypeScript
 const template = Template()
   .fromBaseImage()
-  .runCmd("whoami") // root
-  .runCmd("pwd") // /root
+  .runCmd("whoami") // user
+  .runCmd("pwd") // /home/user
 
 const sbx = await Sandbox.create()
-sbx.commands.run("whoami") // root
-sbx.commands.run("pwd") // //root
+sbx.commands.run("whoami") // user
+sbx.commands.run("pwd") // /home/user
 ```
 
 ```python Python
 template = (
     Template()
     .from_base_image()
-    .run_cmd("whoami")  # root
-    .run_cmd("pwd")  # /root
+    .run_cmd("whoami")  # user
+    .run_cmd("pwd")  # /home/user
 )
 
 sbx = Sandbox.create()
-sbx.commands.run("whoami")  # root
-sbx.commands.run("pwd")  # //root
+sbx.commands.run("whoami")  # user
+sbx.commands.run("pwd")  # /home/user
 ```
 
 </CodeGroup>
