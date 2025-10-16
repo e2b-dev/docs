@@ -45,8 +45,8 @@ const template = Template()
   .runCmd("pwd") // /home/guest
 
 const sbx = await Sandbox.create()
-sbx.commands.run("whoami") // guest
-sbx.commands.run("pwd") // /home/guest
+await sbx.commands.run("whoami") // guest
+await sbx.commands.run("pwd") // /home/guest
 ```
 
 ```python Python
@@ -75,8 +75,8 @@ const template = Template()
   .runCmd("pwd") // /home/user
 
 const sbx = await Sandbox.create()
-sbx.commands.run("whoami") // user
-sbx.commands.run("pwd") // /home/user
+await sbx.commands.run("whoami") // user
+await sbx.commands.run("pwd") // /home/user
 ```
 
 ```python Python
