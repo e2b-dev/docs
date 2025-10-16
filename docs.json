@@ -113,7 +113,7 @@
               },
               "docs/template/migration-v2",
               {
-                "group": "V1 Docs",
+                "group": "Legacy Docs",
                 "pages": [
                   "docs/sandbox-template",
                   "docs/sandbox-template/start-cmd",
