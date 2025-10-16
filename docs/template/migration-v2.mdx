@@ -1,7 +1,6 @@
 ---
-title: "Migration"
+title: "V2 Migration Guide"
 description: "How to migrate from the legacy template definition"
-icon: "forward-fast"
 ---
 
 We've made ready for you three ways how to migrate existing template to the new definition format.
@@ -9,6 +8,12 @@ We've made ready for you three ways how to migrate existing template to the new 
 - Using the migration command (recommended)
 - Using the `fromDockerfile()` method to parse existing Dockerfile
 - Building the Docker image manually and using `fromImage()` method
+
+<Warning>
+    _This is handled for you automatically when using any of the options below._
+
+    The default user for the template is `user` with the working directory set to the user home directory. This is a difference from the Docker defaults.
+</Warning>
 
 ## Migration Command (Recommended)
 
@@ -37,15 +42,15 @@ To migrate the existing template definition to the new format, follow these step
 The migration command generates three files (based on the selected language).
 
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript
+```markdown JavaScript & TypeScript
 template.ts - Template definition using the SDK
 build.dev.ts - Development build script
 build.prod.ts - Production build script
 ```
 
-```python
+```markdown Python
 template.py - Template definition using the SDK
 build_dev.py - Development build script
 build_prod.py - Production build script
@@ -58,17 +63,19 @@ build_prod.py - Production build script
 
 If you want to keep using Dockerfile for your template, you can use the `fromDockerfile()` method.
 We'll automatically parse the Dockerfile for you and build the template based on it.
-You can find more at [Base Image](/template/customization/base-image#parsing-existing-dockerfiles).
+You can find more at [Base Image](/docs/template/base-image#parsing-existing-dockerfiles).
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript template.ts
+```typescript JavaScript & TypeScript
+// template.ts
 import { Template } from "e2b";
 
 const template = Template()
   .fromDockerfile(dockerfileContent);
 ```
-```python template.py
+```python Python
+# template.py
 from e2b import Template
 
 template = (
@@ -87,25 +94,27 @@ template = (
     `FROM`, `RUN`, `COPY`, `ADD`, `WORKDIR`, `USER`, `ENV`, `ARG`, `CMD`, `ENTRYPOINT`
 </Info>
 
-After the template definition, you can create the build scripts as described in the [Quickstart](/template/quickstart#create-a-development-build-script) section.
+After the template definition, you can create the build scripts as described in the [Quickstart](/docs/template/quickstart#create-a-development-build-script) section.
 
 
 ## Using `fromImage()` Method
 
 If you already have a Docker image built, or you want to keep building the Docker image yourself you can use the `fromImage()` method.
 Simply build the Docker image for the `linux/amd64` platform, push it to a registry of your choice and reference the image tag in the `fromImage()` method.
-You can also specify credentials for private registries as described in the [Base Image](/template/customization/base-image#custom-base-image) section.
+You can also specify credentials for private registries as described in the [Base Image](/docs/template/base-image#custom-base-image) section.
 
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript template.ts
+```typescript JavaScript & TypeScript
+// template.ts
 import { Template } from "e2b";
 
 const template = Template()
   .fromImage("image-tag");
 ```
-```python template.py
+```python Python
+# template.py
 from e2b import Template
 
 template = (

@@ -1,0 +1,81 @@
+---
+title: "Next.js App"
+description: "Next.js web app running in the sandbox on start"
+---
+
+Basic Next.js app with Tailwind and shadcn UI
+
+<CodeGroup>
+
+```typescript JavaScript & TypeScript
+// template.ts
+import { Template, waitForPort } from 'e2b'
+
+export const template = Template()
+  .fromNodeImage('21-slim')
+  .setWorkdir('/home/user/nextjs-app')
+  .runCmd(
+    'npx create-next-app@14.2.30 . --ts --tailwind --no-eslint --import-alias "@/*" --use-npm --no-app --no-src-dir'
+  )
+  .runCmd('npx shadcn@2.1.7 init -d')
+  .runCmd('npx shadcn@2.1.7 add --all')
+  .runCmd(
+    'mv /home/user/nextjs-app/* /home/user/ && rm -rf /home/user/nextjs-app'
+  )
+  .setWorkdir('/home/user')
+  .setStartCmd('npx next --turbo', waitForPort(3000))
+
+```
+
+
+```python Python
+# template.py
+from e2b import Template, wait_for_port
+
+template = (
+    Template()
+    .from_node_image("21-slim")
+    .set_workdir("/home/user/nextjs-app")
+    .run_cmd(
+        'npx create-next-app@14.2.30 . --ts --tailwind --no-eslint --import-alias "@/*" --use-npm --no-app --no-src-dir'
+    )
+    .run_cmd("npx shadcn@2.1.7 init -d")
+    .run_cmd("npx shadcn@2.1.7 add --all")
+    .run_cmd("mv /home/user/nextjs-app/* /home/user/ && rm -rf /home/user/nextjs-app")
+    .set_workdir("/home/user")
+    .set_start_cmd("npx next --turbo", wait_for_port(3000))
+)
+```
+
+</CodeGroup>
+
+<CodeGroup>
+
+```typescript JavaScript & TypeScript
+// build.ts
+import { Template, defaultBuildLogger } from 'e2b'
+import { template as nextJSTemplate } from './template'
+
+Template.build(nextJSTemplate, {
+  alias: 'nextjs-app',
+  cpuCount: 1,
+  memoryMB: 1024,
+  onBuildLogs: defaultBuildLogger(),
+})
+```
+
+
+```python Python
+# build.py
+from e2b import Template, default_build_logger
+from .template import template as nextjsTemplate
+
+Template.build(nextjsTemplate,
+    alias="nextjs-app",
+    cpu_count=4,
+    memory_mb=4096,
+    on_build_logs=default_build_logger(),
+)
+```
+
+</CodeGroup>
