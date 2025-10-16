@@ -4,232 +4,36 @@ description: "Start with custom sandbox templates"
 icon: "rocket"
 ---
 
-E2B templates allow you to define custom sandboxes.
-You can define the base image, environment variables, files to copy, commands to run, and
-a start command that will be already running when you spawn the sandbox.
-This way, you can have fully configured sandboxes with running processes ready to use with zero wait time for your users.
+**Build System 2.0** is now public and available for all users! Please check out the [documentation here](https://e2b.dev/docs/template) for more details.
 
-There are two ways how you can start creating a new template:
-- using the CLI
-- manually using the SDK
+## Migrating from the pre-release SDK version (pre 2.3.0)
+If you have been using the pre-release version of the SDK, please note that there are some breaking changes in the new version.
 
-## CLI
+The most notable change is that the default user in the template is now `user` and the set user and working directory are persisted to the Sandbox runtime.
 
-You can use the E2B CLI to create a new template.
+If you want to keep your existing template code, simply add the following lines to your template (`fromDockerfile`/`from_dockerfile` handles this automatically):
 
-<Steps>
-    <Step title="Install the E2B CLI">
-        Install the latest version of the [E2B CLI](https://e2b.dev/docs/cli)
-    </Step>
-    <Step title="Create a new template">
-    ```bash
-    e2b template init-v2
-    ```
-    </Step>
-    <Step title="Follow the prompts">
-        Follow the prompts to create a new template.
-    </Step>
-    <Step title="Done">
-        Check the generated `README.md` file to see how to build and use your new template.
-    </Step>
-</Steps>
-
-## Manual
-
-### Install the packages
-<Warning>
-Requires the E2B version at least 2.1.0
-</Warning>
-
-<CodeGroup dropdown>
-
-```typescript Terminal
-npm install e2b dotenv
+<CodeGroup>
+```ts JavaScript & TypeScript
+const template = Template()
+    .fromImage("your-image")
+    // Switch to root to perform setup steps
+    .setUser("root")
+    //... steps
+    // Switch back to user for the Sandbox runtime
+    .setUser("user")
 ```
 
-```python Terminal
-pip install e2b dotenv
-```
-
-</CodeGroup>
-
-Create the `.env` file
-
-```bash
-E2B_API_KEY=e2b_***
-```
-
-### Create a new template file
-Create a template file with the following name and content
-
-<CodeGroup dropdown>
-
-```typescript template.ts
-import { Template, waitForTimeout } from "e2b";
-
-export const template = Template()
-  .fromBaseImage()
-  .setEnvs({
-    HELLO: "Hello, World!",
-  })
-  .setStartCmd("echo $HELLO", waitForTimeout(5_000));
-```
-
-```python template.py
-from e2b import Template, wait_for_timeout
-
+```python Python
 template = (
     Template()
-    .from_base_image()
-    .set_envs(
-        {
-            "HELLO": "Hello, World!",
-        }
-    )
-    .set_start_cmd("echo $HELLO", wait_for_timeout(5_000)))
+    .from_image("your-image")
+    # Switch to root to perform setup steps
+    .set_user("root")
+    #... steps
+    # Switch back to user for the Sandbox runtime
+    .set_user("user")
+)
 ```
 
 </CodeGroup>
-
-
-### Create a development build script
-
-<CodeGroup dropdown>
-
-```typescript build.dev.ts
-import "dotenv/config";
-import { template } from "./template";
-import { Template } from "e2b";
-
-async function main() {
-  await Template.build(template, {
-    alias: "template-tag-dev",
-    cpuCount: 1,
-    memoryMB: 1024,
-    onBuildLogs: (logEntry) => console.log(logEntry.toString()),
-  });
-}
-
-main().catch(console.error);
-```
-
-```python build_dev.py
-from dotenv import load_dotenv
-from e2b import Template
-from template import template
-
-load_dotenv()
-
-if __name__ == '__main__':
-    Template.build(
-        template,
-        alias="template-tag-dev",
-        cpu_count=1,
-        memory_mb=1024,
-        on_build_logs=lambda log_entry: print(log_entry),
-    )
-```
-
-</CodeGroup>
-
-Build the development template
-
-<CodeGroup dropdown>
-
-```typescript Terminal
-npx tsx build.dev.ts
-```
-
-```python Terminal
-python build_dev.py
-```
-
-</CodeGroup>
-
-### Create a production build script
-
-<CodeGroup dropdown>
-
-```typescript build.prod.ts
-import "dotenv/config";
-import { template } from "./template";
-import { Template } from "e2b";
-
-async function main() {
-  await Template.build(template, {
-    alias: "template-tag",
-    cpuCount: 1,
-    memoryMB: 1024,
-    onBuildLogs: (logEntry) => console.log(logEntry.toString()),
-  });
-}
-
-main().catch(console.error);
-```
-
-```python build_prod.py
-from dotenv import load_dotenv
-from e2b import Template
-from template import template
-
-load_dotenv()
-
-if __name__ == '__main__':
-    Template.build(
-        template,
-        alias="template-tag",
-        cpu_count=1,
-        memory_mb=1024,
-        on_build_logs=lambda log_entry: print(log_entry),
-    )
-```
-
-</CodeGroup>
-
-Build the production template
-
-<CodeGroup dropdown>
-
-```typescript Terminal
-npx tsx build.prod.ts
-```
-
-```python Terminal
-python build_prod.py
-```
-
-</CodeGroup>
-
-## Create a new Sandbox from the Template
-
-<CodeGroup dropdown>
-
-```typescript
-import "dotenv/config";
-import { Sandbox } from "e2b";
-
-// Create a Sandbox from development template
-const sandbox = await Sandbox.create("template-tag-dev");
-
-// Create a Sandbox from production template
-const sandbox = await Sandbox.create("template-tag");
-```
-
-```python
-from dotenv import load_dotenv
-from e2b import Sandbox
-
-load_dotenv()
-
-# Create a new Sandbox from the development template
-sbx = Sandbox(template="template-tag-dev")
-
-# Create a new Sandbox from the production template
-sbx = Sandbox(template="template-tag")
-```
-
-</CodeGroup>
-
-<Note>
-The template alias is the identifier that can be used to create a new Sandbox.
-</Note>

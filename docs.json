@@ -16,26 +16,7 @@
         "groups": [
           {
             "group": "Custom sandbox",
-            "pages": [
-              "template/quickstart",
-              "template/how-it-works",
-              "template/caching",
-              {
-                "group": "Customization",
-                "icon": "wand-magic-sparkles",
-                "pages": [
-                  "template/customization/authentication",
-                  "template/customization/base-image",
-                  "template/customization/defining-template",
-                  "template/customization/start-ready-command",
-                  "template/customization/build",
-                  "template/customization/logging",
-                  "template/customization/error-handling"
-                ]
-              },
-              "template/examples",
-              "template/migration"
-            ]
+            "pages": ["template/quickstart"]
           }
         ]
       }
