@@ -5,13 +5,23 @@ description: Connect to 200+ tools through the Model Context Protocol
 
 E2B provides a batteries-included MCP gateway that runs inside sandboxes, giving you type-safe access to 200+ MCP tools through a unified interface.
 
-## Quick Example
+The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-started/intro) is an open standard for connecting AI models to external tools and data sources. E2B sandboxes provide an ideal environment for running MCP tools, giving AI full access to an internet-connected Linux machine where it can safely install packages, write files, and run services.
 
-<CodeGroup>
-```typescript TypeScript
+## Running Claude CLI with MCP in a Sandbox
+
+This example runs Claude CLI inside an E2B sandbox with access to MCP tools. Claude uses multiple MCP servers (arXiv and DuckDuckGo) to:
+1. Search arXiv for recent papers on large language models
+2. Use DuckDuckGo to research the paper's authors
+3. Create an HTML page with the findings
+4. Serve it on a public URL
+
+```typescript
 import Sandbox from 'e2b'
 
-const sandbox = await Sandbox.betaCreate({
+const sbx = await Sandbox.betaCreate({
+    envs: {
+        ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY!,
+    },
     mcp: {
         duckduckgo: {},
         arxiv: {
@@ -20,24 +30,33 @@ const sandbox = await Sandbox.betaCreate({
     },
 });
 
-const mcpUrl = sandbox.betaGetMcpUrl();
-```
+const mcpUrl = sbx.betaGetMcpUrl();
+console.log(`Sandbox created with MCP URL: ${mcpUrl}`);
 
-```python Python
-from e2b import Sandbox
+// Add the MCP gateway to Claude
+await sbx.commands.run('claude mcp add --transport http e2b-mcp-gateway ' + mcpUrl, { 
+    timeoutMs: 0, 
+    onStdout: console.log, 
+    onStderr: console.log 
+});
 
-sandbox = await Sandbox.beta_create(
-    mcp={
-        "duckduckgo": {},
-        "arxiv": {
-            "storagePath": "/",
-        },
-    },
+// Use Claude with MCP tools to search, analyze, and create content
+await sbx.commands.run(
+    `echo 'Use arxiv to search for a new paper about large language models and summarize it. Then use duckduckgo to find information about the main authors. Finally, create a minimal index.html page outlining the paper and authors.' | claude -p --dangerously-skip-permissions`,
+    { timeoutMs: 0, onStdout: console.log, onStderr: console.log }
 )
 
-mcp_url = sandbox.beta_get_mcp_url()
+// Start a web server to view the results
+await sbx.commands.run('python3 -m http.server 3000', { 
+    background: true, 
+    timeoutMs: 0, 
+    onStdout: console.log, 
+    onStderr: console.log 
+});
+
+const webserverUrl = sbx.getHost(3000);
+console.log(`Visit the web page at https://${webserverUrl}`);
 ```
-</CodeGroup>
 
 ## Documentation
 
