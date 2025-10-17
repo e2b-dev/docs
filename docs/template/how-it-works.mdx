@@ -1,0 +1,99 @@
+---
+title: "How It Works"
+description: "How the template building process works"
+---
+
+## General overview
+Every time you are building a sandbox template, we create a container based on the definition.
+We extract the container's filesystem, do provisioning and configuration (e.g. installing required dependencies), run layers commands and start a sandbox.
+
+Then, these steps happen:
+    1. We take the running sandbox.
+    2. (Only if you specified the [start command](/docs/template/start-ready-command#start-command), otherwise this step is skipped) Execute the start command.
+    3. Wait for readiness (by default 20 seconds if start command is specified, otherwise immediately ready). Readiness check can be configured using [ready command](/docs/template/start-ready-command#ready-command).
+    4. Snapshot the sandbox and make it ready for you to spawn it with the SDK.
+
+We call this sandbox snapshot a _sandbox template_.
+
+<Note title="Sandbox Snapshot">
+  Snapshots are saved running sandboxes. We serialize and save the whole sandbox's filesystem together with all the
+  running processes in a way that can be loaded later.
+
+  This allows us to load the sandbox in a few hundred milliseconds any time later with all the processes already running
+  and the filesystem exactly as it was.
+</Note>
+
+## Default User And Workdir
+The default user in the template is `user` with the `/home/user` (home directory) as the working directory.
+This is different from the Docker defaults, where the default user is `root` with `/` as the working directory. This is to help with tools installation, and to improve default security.
+
+The last set user and workdir in the template is then persisted as a default to the sandbox execution.
+Example of setting user and workdir in the template definition are below.
+
+<Info>
+    Requires the E2B SDK version at least 2.3.0
+</Info>
+
+<CodeGroup>
+```typescript JavaScript & TypeScript
+const template = Template()
+  .fromBaseImage()
+  .runCmd("whoami") // user
+  .runCmd("pwd") // /home/user
+  .setUser("guest")
+  .runCmd("whoami") // guest
+  .runCmd("pwd") // /home/guest
+
+const sbx = await Sandbox.create()
+await sbx.commands.run("whoami") // guest
+await sbx.commands.run("pwd") // /home/guest
+```
+
+```python Python
+template = (
+    Template()
+    .from_base_image()
+    .run_cmd("whoami") # user
+    .run_cmd("pwd") # /home/user
+    .set_user("guest")
+    .run_cmd("whoami") # guest
+    .run_cmd("pwd") # /home/guest
+)
+
+sbx = Sandbox.create()
+sbx.commands.run("whoami")  # guest
+sbx.commands.run("pwd")  # /home/guest
+```
+
+</CodeGroup>
+
+<CodeGroup>
+```typescript JavaScript & TypeScript
+const template = Template()
+  .fromBaseImage()
+  .runCmd("whoami") // user
+  .runCmd("pwd") // /home/user
+
+const sbx = await Sandbox.create()
+await sbx.commands.run("whoami") // user
+await sbx.commands.run("pwd") // /home/user
+```
+
+```python Python
+template = (
+    Template()
+    .from_base_image()
+    .run_cmd("whoami")  # user
+    .run_cmd("pwd")  # /home/user
+)
+
+sbx = Sandbox.create()
+sbx.commands.run("whoami")  # user
+sbx.commands.run("pwd")  # /home/user
+```
+
+</CodeGroup>
+
+
+## Caching
+To learn more about caching, please refer to the [Caching](/docs/template/caching) section.

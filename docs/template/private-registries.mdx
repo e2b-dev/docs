@@ -1,0 +1,87 @@
+---
+title: "Private Registries"
+description: "Access private registries as the base image"
+---
+
+If your base image is hosted in a private registry, you can provide credentials using the following helpers:
+- General registry
+- GCP Artifact Registry
+- AWS ECR
+
+## General Registry
+
+<CodeGroup>
+
+```typescript JavaScript & TypeScript
+Template().fromImage('ubuntu:22.04', {
+  username: 'user',
+  password: 'pass',
+})
+```
+
+```python Python
+Template().from_image(
+    image="ubuntu:22.04",
+    username="user",
+    password="pass",
+)
+```
+
+</CodeGroup>
+
+
+## GCP Artifact Registry
+
+<CodeGroup>
+
+```typescript JavaScript & TypeScript
+// From file path
+Template().fromGCPRegistry('ubuntu:22.04', {
+  serviceAccountJSON: './service_account.json',
+})
+
+// From object
+Template().fromGCPRegistry('ubuntu:22.04', {
+  serviceAccountJSON: { project_id: '123', private_key_id: '456' },
+})
+```
+
+```python Python
+# From file path
+Template().from_gcp_registry(
+    image="ubuntu:22.04",
+    service_account_json="./service_account.json",
+)
+
+# From object
+Template().from_gcp_registry(
+    image="ubuntu:22.04",
+    service_account_json={"project_id": "123", "private_key_id": "456"},
+)
+```
+
+</CodeGroup>
+
+
+## AWS ECR
+
+<CodeGroup>
+
+```typescript JavaScript & TypeScript
+Template().fromAWSRegistry('ubuntu:22.04', {
+  accessKeyId: '123',
+  secretAccessKey: '456',
+  region: 'us-west-1',
+})
+```
+
+```python Python
+Template().from_aws_registry(
+    image="ubuntu:22.04",
+    access_key_id="123",
+    secret_access_key="456",
+    region="us-west-1",
+)
+```
+
+</CodeGroup>

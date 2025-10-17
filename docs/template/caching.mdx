@@ -1,7 +1,6 @@
 ---
 title: "Caching"
 description: "How the caching process works"
-icon: "layer-group"
 ---
 
 The caching concept is similar to [Docker's layer caching](https://docs.docker.com/build/cache/). For each layer command (`.copy()`, `.runCmd()`, `.setEnvs()`, etc.), we create a new layer on top of the existing.
@@ -17,16 +16,16 @@ You can invalidate the caches only partially, or for the whole template.
 ### Partial
 Force rebuild from the next instruction, use the method:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript highlight={3}
+```typescript JavaScript & TypeScript highlight={3}
 const template = Template()
   .fromBaseImage()
   .skipCache()
   .runCmd("echo 'Hello, World!'")
 ```
 
-```python highlight={4}
+```python Python highlight={4}
 template = (
     Template()
     .from_base_image()
@@ -42,16 +41,16 @@ This will force rebuild from the next instruction, invalidating the cache for al
 ### Whole Template
 To force rebuild the whole template, you can use also `skipCache`/`skip_cache` parameter in the `Template.build` method:
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript wrap highlight={3}
+```typescript JavaScript & TypeScript wrap highlight={3}
 Template.build(template, {
   alias: 'my-template',
   skipCache: true, // Configure cache skip (except for files)
 })
 ```
 
-```python wrap highlight={4}
+```python Python wrap highlight={4}
 Template.build(
     template,
     alias="my-template",
@@ -72,15 +71,15 @@ The `copy()` command will still be re-executed, but the files for the layer will
 
 To invalidate the cache for all subsequent instructions in the template **AND** the layer files cache, use the `forceUpload`/`force_upload` parameter.
 
-<CodeGroup dropdown>
+<CodeGroup>
 
-```typescript highlight={3}
+```typescript JavaScript & TypeScript highlight={3}
 const template = Template()
   .fromBaseImage()
   .copy("config.json", "/app/config.json", { forceUpload: true })
 ```
 
-```python highlight={4}
+```python Python highlight={4}
 template = (
     Template()
     .from_base_image()
