@@ -95,6 +95,7 @@
             "pages": [
               "docs/template/quickstart",
               "docs/template/how-it-works",
+              "docs/template/user-and-workdir",
               "docs/template/caching",
               "docs/template/base-image",
               "docs/template/private-registries",
@@ -153,18 +154,24 @@
           },
           {
             "group": "Deployment",
-            "pages": ["docs/byoc"]
+            "pages": [
+              "docs/byoc"
+            ]
           },
           {
             "group": "Migration",
-            "pages": ["docs/migration/v2"]
+            "pages": [
+              "docs/migration/v2"
+            ]
           },
           {
             "group": "Troubleshooting",
             "pages": [
               {
                 "group": "SDKs",
-                "pages": ["docs/troubleshooting/sdks/workers-edge-runtime"]
+                "pages": [
+                  "docs/troubleshooting/sdks/workers-edge-runtime"
+                ]
               },
               {
                 "group": "Templates",
