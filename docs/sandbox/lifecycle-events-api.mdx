@@ -11,7 +11,6 @@ Query Parameters:
 - `limit` (optional): Number of events to return (default: 10, min: 1, max: 100)
 - `orderAsc` (optional): Sort order - true for ascending, false for descending (default: false)
 
-
 <CodeGroup>
 ```js JavaScript & TypeScript
 import { Sandbox } from '@e2b/code-interpreter'
@@ -46,9 +45,9 @@ console.log(teamSandboxEvents)
 
 // [
 //   {
-//     "eventCategory": "lifecycle",
+//     "version": "v1",
+//     "type": "sandbox.lifecycle.killed",
 //     "eventData": null,
-//     "eventLabel": "kill",
 //     "sandboxBuildId": "a979a14b-bdcc-49e6-bc04-1189fc9fe7c2",
 //     "sandboxExecutionId": "1dae9e1c-9957-4ce7-a236-a99d5779aadf",
 //     "sandboxId": "${SANDBOX_ID}",
@@ -57,11 +56,11 @@ console.log(teamSandboxEvents)
 //     "timestamp": "2025-08-06T20:59:36Z"
 //   },
 //   {
-//     "eventCategory": "lifecycle",
+//     "version": "v1",
+//     "type": "sandbox.lifecycle.updated",
 //     "eventData": {
 //       "set_timeout": "2025-08-06T20:59:59Z"
 //     },
-//     "eventLabel": "update",
 //     "sandboxBuildId": "a979a14b-bdcc-49e6-bc04-1189fc9fe7c2",
 //     "sandboxExecutionId": "1dae9e1c-9957-4ce7-a236-a99d5779aadf",
 //     "sandboxId": "${SANDBOX_ID}",
@@ -71,9 +70,9 @@ console.log(teamSandboxEvents)
 //   },
 //   [...]
 //   {
-//     "eventCategory": "lifecycle",
+//     "version": "v1",
+//     "type": "sandbox.lifecycle.created",
 //     "eventData": null,
-//     "eventLabel": "create",
 //     "sandboxBuildId": "a979a14b-bdcc-49e6-bc04-1189fc9fe7c2",
 //     "sandboxExecutionId": "1dae9e1c-9957-4ce7-a236-a99d5779aadf",
 //     "sandboxId": "${SANDBOX_ID}",
@@ -111,9 +110,9 @@ print(team_sandbox_events)
 
 # [
 #   {
-#     "eventCategory": "lifecycle",
+#     "version": "v1",
+#     "type": "sandbox.lifecycle.killed",
 #     "eventData": null,
-#     "eventLabel": "kill",
 #     "sandboxBuildId": "a979a14b-bdcc-49e6-bc04-1189fc9fe7c2",
 #     "sandboxExecutionId": "1dae9e1c-9957-4ce7-a236-a99d5779aadf",
 #     "sandboxId": "${SANDBOX_ID}",
@@ -122,11 +121,11 @@ print(team_sandbox_events)
 #     "timestamp": "2025-08-06T20:59:36Z"
 #   },
 #   {
-#     "eventCategory": "lifecycle",
+#     "version": "v1",
+#     "type": "sandbox.lifecycle.updated",
 #     "eventData": {
 #       "set_timeout": "2025-08-06T20:59:59Z"
 #     },
-#     "eventLabel": "update",
 #     "sandboxBuildId": "a979a14b-bdcc-49e6-bc04-1189fc9fe7c2",
 #     "sandboxExecutionId": "1dae9e1c-9957-4ce7-a236-a99d5779aadf",
 #     "sandboxId": "${SANDBOX_ID}",
@@ -136,9 +135,9 @@ print(team_sandbox_events)
 #   },
 #   [...]
 #   {
-#     "eventCategory": "lifecycle",
+#     "version": "v1",
+#     "type": "sandbox.lifecycle.created",
 #     "eventData": null,
-#     "eventLabel": "create",
 #     "sandboxBuildId": "a979a14b-bdcc-49e6-bc04-1189fc9fe7c2",
 #     "sandboxExecutionId": "1dae9e1c-9957-4ce7-a236-a99d5779aadf",
 #     "sandboxId": "${SANDBOX_ID}",
