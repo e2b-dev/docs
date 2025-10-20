@@ -40,8 +40,8 @@ async def main():
     sbx = await AsyncSandbox.beta_create(
         mcp={
             "github/modelcontextprotocol/servers": {
-                "installCmd": "npm install",
-                "runCmd": "sudo npx -y @modelcontextprotocol/server-filesystem /root",
+                "install_cmd": "npm install",
+                "runc_cmd": "sudo npx -y @modelcontextprotocol/server-filesystem /root",
             },
         },
         timeout=600_000,
