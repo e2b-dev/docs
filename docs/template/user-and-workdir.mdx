@@ -1,0 +1,74 @@
+---
+title: "User And Workdir"
+description: "Default user and working directory in the sandbox and template"
+---
+
+The default user in the template is `user` with the `/home/user` (home directory) as the working directory.
+This is different from the Docker defaults, where the default user is `root` with `/` as the working directory. This is to help with tools installation, and to improve default security.
+
+The last set user and workdir in the template is then persisted as a default to the sandbox execution.
+Example of setting user and workdir in the template definition are below.
+
+<Info>
+    Requires the E2B SDK version at least 2.3.0
+</Info>
+
+<CodeGroup>
+```typescript JavaScript & TypeScript
+const template = Template()
+  .fromBaseImage()
+  .runCmd("whoami") // user
+  .runCmd("pwd") // /home/user
+  .setUser("guest")
+  .runCmd("whoami") // guest
+  .runCmd("pwd") // /home/guest
+
+const sbx = await Sandbox.create()
+await sbx.commands.run("whoami") // guest
+await sbx.commands.run("pwd") // /home/guest
+```
+
+```python Python
+template = (
+    Template()
+    .from_base_image()
+    .run_cmd("whoami") # user
+    .run_cmd("pwd") # /home/user
+    .set_user("guest")
+    .run_cmd("whoami") # guest
+    .run_cmd("pwd") # /home/guest
+)
+
+sbx = Sandbox.create()
+sbx.commands.run("whoami")  # guest
+sbx.commands.run("pwd")  # /home/guest
+```
+
+</CodeGroup>
+
+<CodeGroup>
+```typescript JavaScript & TypeScript
+const template = Template()
+  .fromBaseImage()
+  .runCmd("whoami") // user
+  .runCmd("pwd") // /home/user
+
+const sbx = await Sandbox.create()
+await sbx.commands.run("whoami") // user
+await sbx.commands.run("pwd") // /home/user
+```
+
+```python Python
+template = (
+    Template()
+    .from_base_image()
+    .run_cmd("whoami")  # user
+    .run_cmd("pwd")  # /home/user
+)
+
+sbx = Sandbox.create()
+sbx.commands.run("whoami")  # user
+sbx.commands.run("pwd")  # /home/user
+```
+
+</CodeGroup>
