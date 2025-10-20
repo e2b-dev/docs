@@ -3,4 +3,90 @@ title: Custom Templates
 description: Use MCP servers with custom sandbox templates
 ---
 
-Coming soon.
+You can prepull MCP server Docker images during template build time to significantly improve runtime performance.
+## How it works
+
+When you build a template with prepulled MCP servers, the Docker images for those servers are downloaded and cached during the build process. This means when you create a sandbox from that template, the MCP servers are ready to use immediately without waiting for image downloads.
+
+<Info>
+You must use the MCP gateway enabled template (`mcp-gateway-v0-3`) as your base template to use this feature.
+</Info>
+
+## Building a template with MCP servers
+
+Use the `betaAddMCPServer()` method (TypeScript) or `beta_add_mcp_server()` method (Python) to prepull MCP server images during template build. You can pass a single server or an array of servers.
+
+The server names (like `"browserbase"` and `"exa"`) correspond to the keys defined in the [Available Servers](/docs/mcp/available-servers) documentation.
+
+<CodeGroup>
+
+```typescript JavaScript & TypeScript
+import "dotenv/config";
+import { Template } from "e2b";
+
+// Define template with prepulled MCP servers
+export const template = Template()
+  .fromTemplate("mcp-gateway-v0-3")
+  .betaAddMCPServer(["browserbase", "exa"]);
+
+// Build the template
+await Template.build(template, {
+  alias: "my-mcp-gateway",
+  cpuCount: 1,
+  memoryMB: 1024,
+  onBuildLogs: console.log,
+});
+```
+
+```python Python
+from dotenv import load_dotenv
+from e2b import Template
+
+load_dotenv()
+
+# Define template with prepulled MCP servers
+template = (
+    Template()
+    .from_template("mcp-gateway-v0-3")
+    .beta_add_mcp_server(["browserbase", "exa"])
+)
+
+# Build the template
+Template.build(
+    template,
+    alias="my-mcp-gateway",
+    cpu_count=1,
+    memory_mb=1024,
+)
+```
+
+</CodeGroup>
+
+## Using the template
+
+Once built, create sandboxes from your template alias:
+
+<CodeGroup>
+
+```typescript JavaScript & TypeScript
+import { Sandbox } from "e2b";
+
+const sandbox = await Sandbox.create("my-mcp-gateway");
+// MCP servers are ready to use immediately
+```
+
+```python Python
+from e2b import Sandbox
+
+sbx = Sandbox(template="my-mcp-gateway")
+# MCP servers are ready to use immediately
+```
+
+</CodeGroup>
+
+## Learn more
+
+For more information about working with templates, see:
+- [Template Quickstart](/docs/template/quickstart) - Get started with custom templates
+- [Defining Templates](/docs/template/defining-template) - Learn all template configuration options
+- [Template Build](/docs/template/build) - Understand the build process
