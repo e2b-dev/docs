@@ -97,7 +97,6 @@ A universal MCP (Model Context Protocol) server to integrate any API with Claude
 </ResponseField>
 
 ## ArXiv
-
 The ArXiv MCP Server provides a comprehensive bridge between AI assistants and arXiv's research repository through the Model Context Protocol (MCP).
 
 **Features:**
@@ -107,8 +106,19 @@ The ArXiv MCP Server provides a comprehensive bridge between AI assistants and a
 - Deep research analysis prompts
 - Local paper management and storage
 - Enhanced tool descriptions optimized for local AI models
+- Docker MCP Gateway compatible with detailed context
 
-Perfect for researchers, academics, and AI assistants conducting literature reviews and research analysis.
+[View on Docker Hub](https://hub.docker.com/mcp/server/arxiv-mcp-server/overview)
+
+<ResponseField name="arxiv" type="object">
+  <Expandable title="properties">
+    <ResponseField name="storagePath" type="string" required>
+      Directory path where downloaded papers will be stored
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+The ArXiv MCP Server provides a comprehensive bridge between AI assistants and arXiv's research repository through the Model Context Protocol (MCP).   Features: • Search arXiv papers with advanced filtering • Download and store papers locally as markdown • Read and analyze paper content • Deep research analysis prompts • Local paper management and storage • Enhanced tool descriptions optimized for local AI models • Docker MCP Gateway compatible with detailed context  Perfect for researchers, academics, and AI assistants conducting literature reviews and research analysis.  **Recent Update**: Enhanced tool descriptions specifically designed to resolve local AI model confusion and improve Docker MCP Gateway compatibility.
 
 [View on Docker Hub](https://hub.docker.com/mcp/server/arxiv-mcp-server/overview)
 
@@ -382,7 +392,7 @@ Search the Web for pages, images, news, videos, and more using the Brave Search 
 
 ## Browserbase
 
-Browserbase provides cloud-based browser automation infrastructure. Access scalable, headless browsers for web scraping, testing, and automation tasks.
+Allow LLMs to control a browser with Browserbase and Stagehand for AI-powered web automation, intelligent data extraction, and screenshot capture.
 
 [View on Docker Hub](https://hub.docker.com/mcp/server/browserbase/overview)
 
@@ -662,6 +672,26 @@ Couchbase is a distributed document database with a powerful search engine and i
 
     <ResponseField name="cbUsername" type="string" required>
       Username for the Couchbase cluster with access to the bucket.
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+## The official for Cylera.
+
+Brings context about device inventory, threats, risks and utilization powered by the Cylera Partner API into an LLM.
+
+[View on Docker Hub](https://hub.docker.com/mcp/server/cylera-mcp-server/overview)
+
+<ResponseField name="cylera" type="object">
+  <Expandable title="properties">
+    <ResponseField name="cyleraBaseUrl" type="string" required>
+    </ResponseField>
+
+    <ResponseField name="cyleraPassword" type="string" required>
+    </ResponseField>
+
+    <ResponseField name="cyleraUsername" type="string" required>
     </ResponseField>
 
   </Expandable>
@@ -1819,6 +1849,15 @@ A lightweight MCP server for calling MarkItDown.
   </Expandable>
 </ResponseField>
 
+## Maven Tools
+
+JVM dependency intelligence for any build tool using Maven Central Repository. Includes Context7 integration for upgrade documentation and guidance.
+
+[View on Docker Hub](https://hub.docker.com/mcp/server/maven-tools-mcp/overview)
+
+<ResponseField name="mavenTools" type="object">
+</ResponseField>
+
 ## Memory (Reference)
 
 Knowledge graph-based persistent memory system.
@@ -2261,6 +2300,20 @@ Fetch, validate, and generate code or curl from any OpenAPI or Swagger spec - al
 <ResponseField name="openapi" type="object">
   <Expandable title="properties">
     <ResponseField name="mode" type="string" required>
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+## OpenAPI Schema
+
+OpenAPI Schema Model Context Protocol Server.
+
+[View on Docker Hub](https://hub.docker.com/mcp/server/openapi-schema/overview)
+
+<ResponseField name="openapiSchema" type="object">
+  <Expandable title="properties">
+    <ResponseField name="SchemaPath" type="string" required>
     </ResponseField>
 
   </Expandable>
