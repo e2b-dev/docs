@@ -9,7 +9,7 @@ You can prepull MCP server Docker images during template build time to significa
 When you build a template with prepulled MCP servers, the Docker images for those servers are downloaded and cached during the build process. This means when you create a sandbox from that template, the MCP servers are ready to use immediately without waiting for image downloads.
 
 <Info>
-You must use the MCP gateway enabled template (`mcp-gateway-v0-3`) as your base template to use this feature.
+You must use the MCP gateway enabled template (`mcp-gateway`) as your base template to use this feature.
 </Info>
 
 ## Building a template with MCP servers
@@ -26,7 +26,7 @@ import { Template } from "e2b";
 
 // Define template with prepulled MCP servers
 export const template = Template()
-  .fromTemplate("mcp-gateway-v0-3")
+  .fromTemplate("mcp-gateway")
   .betaAddMcpServer(["browserbase", "exa"]);
 
 // Build the template
@@ -47,7 +47,7 @@ load_dotenv()
 # Define template with prepulled MCP servers
 template = (
     Template()
-    .from_template("mcp-gateway-v0-3")
+    .from_template("mcp-gateway")
     .beta_add_mcp_server(["browserbase", "exa"])
 )
 
