@@ -3,46 +3,26 @@ title: Quickstart
 description: Get started with MCP integration
 ---
 
-Get started with MCP servers in E2B sandboxes.
-
 <CodeGroup>
 ```typescript TypeScript
 import Sandbox from 'e2b'
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 
+// Create sandbox with MCP servers
 const sandbox = await Sandbox.betaCreate({
     mcp: {
         duckduckgo: {},
     },
 });
 
-const mcpUrl = sandbox.getMcpUrl();
-```
+// Create MCP client
+const client = new Client({
+    name: 'e2b-mcp-client',
+    version: '1.0.0'
+});
 
-```python Python
-from e2b import Sandbox
-
-sandbox = await Sandbox.betaCreate(
-    mcp={
-        "duckduckgo": {},
-    },
-)
-
-mcp_url = sandbox.get_mcp_url()
-```
-</CodeGroup>
-## Accessing the MCP Gateway
-
-The MCP gateway can be accessed from both outside and inside the sandbox, depending on your use case. Both require you to use the Authorization header.
-
-### From Outside the Sandbox
-
-You can access the MCP gateway from outside the sandbox using the URL and authentication token:
-
-<CodeGroup>
-```typescript TypeScript
-import { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/transports';
-
+// Connect to the MCP gateway
 const transport = new StreamableHTTPClientTransport(
     new URL(sandbox.betaGetMcpUrl()), 
     {
@@ -56,28 +36,115 @@ const transport = new StreamableHTTPClientTransport(
 
 await client.connect(transport);
 
+// List available tools
 const tools = await client.listTools();
+console.log('Available tools:', tools.tools.map(t => t.name));
+
+// Use a tool
+const result = await client.callTool({
+    name: 'duckduckgo_search',
+    arguments: { query: 'E2B sandboxes' }
+});
+console.log('Search results:', result);
+
+// Clean up
+await client.close();
+await sandbox.kill();
 ```
 
 ```python Python
-# Get the MCP token
-token = await sandbox.beta_get_mcp_token()
+import asyncio
+from e2b import AsyncSandbox
+import httpx
+from mcp import ClientSession
+from mcp.client.sse import sse_client
 
-# Create transport with authentication
-# TODO
+async def main():
+    # Create sandbox with MCP servers
+    sandbox = await AsyncSandbox.beta_create(
+        mcp={
+            "duckduckgo": {},
+        },
+    )
+    
+    # Get MCP connection details
+    mcp_url = sandbox.beta_get_mcp_url()
+    mcp_token = await sandbox.beta_get_mcp_token()
+    
+    # Connect to MCP gateway
+    async with httpx.AsyncClient() as http_client:
+        async with sse_client(
+            url=mcp_url,
+            headers={"Authorization": f"Bearer {mcp_token}"}
+        ) as (read, write):
+            async with ClientSession(read, write) as session:
+                await session.initialize()
+                
+                # List available tools
+                tools = await session.list_tools()
+                print('Available tools:', [tool.name for tool in tools.tools])
+                
+                # Use a tool
+                result = await session.call_tool('duckduckgo_search', {'query': 'E2B sandboxes'})
+                print('Search results:', result)
+    
+    # Clean up
+    await sandbox.kill()
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 </CodeGroup>
 
-### From Inside the Sandbox
+## From Inside the Sandbox
 
 If you need to access the MCP gateway from within the sandbox itself, it's available at:
 ```
 http://localhost:50005/mcp
 ```
 
+You'll need to include the Authorization header with the MCP token when making requests from inside the sandbox.
 
-## Limitations
+## Adding to Claude Desktop
 
-- slow docker pull
-- no custom mcp server support
-- no oauth support
+You can add the E2B MCP gateway to Claude Desktop using the CLI. First, get your MCP URL and token:
+
+<CodeGroup>
+```typescript TypeScript
+const mcpUrl = sandbox.betaGetMcpUrl();
+const mcpToken = await sandbox.betaGetMcpToken();
+console.log(`claude mcp add --transport http e2b-mcp-gateway ${mcpUrl} --header "Authorization: Bearer ${mcpToken}"`);
+```
+
+```python Python
+mcp_url = sandbox.beta_get_mcp_url()
+mcp_token = await sandbox.beta_get_mcp_token()
+print(f'claude mcp add --transport http e2b-mcp-gateway {mcp_url} --header "Authorization: Bearer {mcp_token}"')
+```
+</CodeGroup>
+
+Then run the printed command in your terminal.
+
+## Debugging with MCP Inspector
+
+The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is a useful tool for debugging and testing your MCP server setup. Get the command to run:
+
+<CodeGroup>
+```typescript TypeScript
+const mcpUrl = sandbox.betaGetMcpUrl();
+const mcpToken = await sandbox.betaGetMcpToken();
+console.log(`npx @modelcontextprotocol/inspector --transport http --url ${mcpUrl} --header "Authorization: Bearer ${mcpToken}"`);
+```
+
+```python Python
+mcp_url = sandbox.beta_get_mcp_url()
+mcp_token = await sandbox.beta_get_mcp_token()
+print(f'npx @modelcontextprotocol/inspector --transport http --url {mcp_url} --header "Authorization: Bearer {mcp_token}"')
+```
+</CodeGroup>
+
+Run the printed command in your terminal. This will open a web interface where you can:
+- Browse available tools, resources, and prompts
+- Test tool calls with different parameters
+- Inspect request/response payloads
+- Debug connection issues
