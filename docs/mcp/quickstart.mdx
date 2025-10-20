@@ -9,7 +9,7 @@ Get started with MCP servers in E2B sandboxes.
 ```typescript TypeScript
 import Sandbox from 'e2b'
 
-const sandbox = await Sandbox.Create({
+const sandbox = await Sandbox.betaCreate({
     mcp: {
         duckduckgo: {},
     },
@@ -21,7 +21,7 @@ const mcpUrl = sandbox.getMcpUrl();
 ```python Python
 from e2b import Sandbox
 
-sandbox = await Sandbox.create(
+sandbox = await Sandbox.betaCreate(
     mcp={
         "duckduckgo": {},
     },
