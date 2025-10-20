@@ -14,7 +14,7 @@ You must use the MCP gateway enabled template (`mcp-gateway-v0-3`) as your base 
 
 ## Building a template with MCP servers
 
-Use the `betaAddMCPServer()` method (TypeScript) or `beta_add_mcp_server()` method (Python) to prepull MCP server images during template build. You can pass a single server or an array of servers.
+Use the `betaAddMcpServer()` method (TypeScript) or `beta_add_mcp_server()` method (Python) to prepull MCP server images during template build. You can pass a single server or an array of servers.
 
 The server names (like `"browserbase"` and `"exa"`) correspond to the keys defined in the [Available Servers](/docs/mcp/available-servers) documentation.
 
@@ -27,7 +27,7 @@ import { Template } from "e2b";
 // Define template with prepulled MCP servers
 export const template = Template()
   .fromTemplate("mcp-gateway-v0-3")
-  .betaAddMCPServer(["browserbase", "exa"]);
+  .betaAddMcpServer(["browserbase", "exa"]);
 
 // Build the template
 await Template.build(template, {
@@ -64,22 +64,56 @@ Template.build(
 
 ## Using the template
 
-Once built, create sandboxes from your template alias:
+Once built, create sandboxes from your template alias. You still need to provide the configuration for each MCP server.
 
 <CodeGroup>
 
 ```typescript JavaScript & TypeScript
 import { Sandbox } from "e2b";
 
-const sandbox = await Sandbox.create("my-mcp-gateway");
-// MCP servers are ready to use immediately
+const sandbox = await Sandbox.betaCreate({
+    template: "my-mcp-gateway",
+    mcp: {
+        browserbase: {
+            apiKey: process.env.BROWSERBASE_API_KEY!,
+            geminiApiKey: process.env.GEMINI_API_KEY!,
+            projectId: process.env.BROWSERBASE_PROJECT_ID!,
+        },
+        exa: {
+            apiKey: process.env.EXA_API_KEY!,
+        },
+    },
+});
+
+const mcpUrl = sandbox.betaGetMcpUrl();
+const mcpToken = await sandbox.betaGetMcpToken();
 ```
 
 ```python Python
-from e2b import Sandbox
+from e2b import AsyncSandbox
+import asyncio
+import os
 
-sbx = Sandbox(template="my-mcp-gateway")
-# MCP servers are ready to use immediately
+async def main():
+    sbx = await AsyncSandbox.beta_create(
+        template="my-mcp-gateway",
+        mcp={
+            "browserbase": {
+                "apiKey": os.getenv("BROWSERBASE_API_KEY"),
+                "geminiApiKey": os.getenv("GEMINI_API_KEY"),
+                "projectId": os.getenv("BROWSERBASE_PROJECT_ID"),
+            },
+            "exa": {
+                "apiKey": os.getenv("EXA_API_KEY"),
+            },
+        }
+    )
+    
+    print(sbx.beta_get_mcp_url())
+    print(await sbx.beta_get_mcp_token())
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
 </CodeGroup>
