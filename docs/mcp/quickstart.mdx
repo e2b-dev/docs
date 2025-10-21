@@ -12,7 +12,12 @@ import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/
 // Create sandbox with MCP servers
 const sandbox = await Sandbox.betaCreate({
     mcp: {
-        duckduckgo: {},
+        exa: {
+            apiKey: process.env.EXA_API_KEY!,
+        },
+        notion: {
+            internalIntegrationToken: process.env.NOTION_API_KEY!,
+        },
     },
 });
 
@@ -40,59 +45,13 @@ await client.connect(transport);
 const tools = await client.listTools();
 console.log('Available tools:', tools.tools.map(t => t.name));
 
-// Use a tool
-const result = await client.callTool({
-    name: 'duckduckgo_search',
-    arguments: { query: 'E2B sandboxes' }
-});
-console.log('Search results:', result);
-
 // Clean up
 await client.close();
 await sandbox.kill();
 ```
 
 ```python Python
-import asyncio
-from e2b import AsyncSandbox
-import httpx
-from mcp import ClientSession
-from mcp.client.sse import sse_client
-
-async def main():
-    # Create sandbox with MCP servers
-    sandbox = await AsyncSandbox.beta_create(
-        mcp={
-            "duckduckgo": {},
-        },
-    )
-    
-    # Get MCP connection details
-    mcp_url = sandbox.beta_get_mcp_url()
-    mcp_token = await sandbox.beta_get_mcp_token()
-    
-    # Connect to MCP gateway
-    async with httpx.AsyncClient() as http_client:
-        async with sse_client(
-            url=mcp_url,
-            headers={"Authorization": f"Bearer {mcp_token}"}
-        ) as (read, write):
-            async with ClientSession(read, write) as session:
-                await session.initialize()
-                
-                # List available tools
-                tools = await session.list_tools()
-                print('Available tools:', [tool.name for tool in tools.tools])
-                
-                # Use a tool
-                result = await session.call_tool('duckduckgo_search', {'query': 'E2B sandboxes'})
-                print('Search results:', result)
-    
-    # Clean up
-    await sandbox.kill()
-
-if __name__ == "__main__":
-    asyncio.run(main())
+# TODO
 ```
 </CodeGroup>
 
