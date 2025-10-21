@@ -85,35 +85,25 @@ const sandbox = await Sandbox.betaCreate({
     },
 });
 
-const mcpUrl = sandbox.betaGetMcpUrl();
-const mcpToken = await sandbox.betaGetMcpToken();
 ```
 
 ```python Python
-from e2b import AsyncSandbox
-import asyncio
+from e2b import Sandbox
 import os
 
-async def main():
-    sbx = await AsyncSandbox.beta_create(
-        template="my-mcp-gateway",
-        mcp={
-            "browserbase": {
-                "apiKey": os.getenv("BROWSERBASE_API_KEY"),
-                "geminiApiKey": os.getenv("GEMINI_API_KEY"),
-                "projectId": os.getenv("BROWSERBASE_PROJECT_ID"),
-            },
-            "exa": {
-                "apiKey": os.getenv("EXA_API_KEY"),
-            },
-        }
-    )
-    
-    print(sbx.beta_get_mcp_url())
-    print(await sbx.beta_get_mcp_token())
-
-if __name__ == "__main__":
-    asyncio.run(main())
+sbx = Sandbox.beta_create(
+    template="my-mcp-gateway",
+    mcp={
+        "browserbase": {
+            "apiKey": os.getenv("BROWSERBASE_API_KEY"),
+            "geminiApiKey": os.getenv("GEMINI_API_KEY"),
+            "projectId": os.getenv("BROWSERBASE_PROJECT_ID"),
+        },
+        "exa": {
+            "apiKey": os.getenv("EXA_API_KEY"),
+        },
+    }
+)
 ```
 
 </CodeGroup>

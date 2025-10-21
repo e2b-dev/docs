@@ -62,48 +62,67 @@ If you need to access the MCP gateway from within the sandbox itself, it's avail
 http://localhost:50005/mcp
 ```
 
-You'll need to include the Authorization header with the MCP token when making requests from inside the sandbox.
+You'll need to include the Authorization header with the MCP token when making requests from inside the sandbox. How that is added depends on the MCP client you use:
 
-## Adding to Claude Desktop
+### Claude
 
-You can add the E2B MCP gateway to Claude Desktop using the CLI. First, get your MCP URL and token:
-
-<CodeGroup>
-```typescript TypeScript
-const mcpUrl = sandbox.betaGetMcpUrl();
-const mcpToken = await sandbox.betaGetMcpToken();
-console.log(`claude mcp add --transport http e2b-mcp-gateway ${mcpUrl} --header "Authorization: Bearer ${mcpToken}"`);
+```
+claude mcp add --transport http e2b-mcp-gateway <url goes here> --header "Authorization: Bearer <token goes here>"
 ```
 
-```python Python
-mcp_url = sandbox.beta_get_mcp_url()
-mcp_token = await sandbox.beta_get_mcp_token()
-print(f'claude mcp add --transport http e2b-mcp-gateway {mcp_url} --header "Authorization: Bearer {mcp_token}"')
-```
-</CodeGroup>
+### OpenAI Agents
 
-Then run the printed command in your terminal.
+```typescript
+import { MCPServerStreamableHttp } from '@openai/agents';
+
+const mcp = new MCPServerStreamableHttp({
+    url: mcpUrl,
+    name: 'E2B MCP Gateway',
+    requestInit: {
+        headers: {
+            'Authorization': `Bearer ${await sandbox.betaGetMcpToken()}`
+        }
+    },
+});
+```
+
+### Official MCP Client
+
+```typescript
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+
+const client = new Client({
+    name: 'e2b-mcp-client',
+    version: '1.0.0'
+});
+
+const transport = new StreamableHTTPClientTransport(
+    new URL(sandbox.betaGetMcpUrl()), 
+    {
+        requestInit: {
+            headers: {
+                'Authorization': `Bearer ${await sandbox.betaGetMcpToken()}`
+            }
+        }
+    }
+);
+await client.connect(transport);
+```
+
+This list is not exhaustive. You can find more examples in the [E2B Cookbook](https://github.com/e2b-dev/e2b-cookbook).
+
 
 ## Debugging with MCP Inspector
 
 The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is a useful tool for debugging and testing your MCP server setup. Get the command to run:
 
-<CodeGroup>
-```typescript TypeScript
-const mcpUrl = sandbox.betaGetMcpUrl();
-const mcpToken = await sandbox.betaGetMcpToken();
-console.log(`npx @modelcontextprotocol/inspector --transport http --url ${mcpUrl} --header "Authorization: Bearer ${mcpToken}"`);
+```bash
+npx @modelcontextprotocol/inspector --transport http --url <your-mcp-url> --header "Authorization: Bearer ${mcpToken}"
 ```
 
-```python Python
-mcp_url = sandbox.beta_get_mcp_url()
-mcp_token = await sandbox.beta_get_mcp_token()
-print(f'npx @modelcontextprotocol/inspector --transport http --url {mcp_url} --header "Authorization: Bearer {mcp_token}"')
-```
-</CodeGroup>
-
-Run the printed command in your terminal. This will open a web interface where you can:
-- Browse available tools, resources, and prompts
+Run the command in your terminal. This will open a web interface where you can:
+- Browse available tools
 - Test tool calls with different parameters
 - Inspect request/response payloads
 - Debug connection issues

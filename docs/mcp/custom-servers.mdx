@@ -28,27 +28,22 @@ const sandbox = await Sandbox.betaCreate({
             runCmd: 'sudo npx -y @modelcontextprotocol/server-filesystem /root',
         },
     },
-    timeoutMs: 600_000,
 });
 ```
 
 ```python Python
-import asyncio
-from e2b import AsyncSandbox
+from e2b import Sandbox
+import os
 
-async def main():
-    sbx = await AsyncSandbox.beta_create(
-        mcp={
-            "github/modelcontextprotocol/servers": {
+sbx = Sandbox.beta_create(
+    template="my-mcp-gateway",
+    mcp={
+        "github/modelcontextprotocol/servers": {
                 "install_cmd": "npm install",
                 "run_cmd": "sudo npx -y @modelcontextprotocol/server-filesystem /root",
-            },
         },
-        timeout=600_000,
-    )
-
-if __name__ == "__main__":
-    asyncio.run(main())
+    }
+)
 ```
 
 </CodeGroup>
