@@ -51,7 +51,40 @@ await sandbox.kill();
 ```
 
 ```python Python
-# TODO
+import os
+import dotenv
+dotenv.load_dotenv()
+from e2b import AsyncSandbox
+import asyncio
+from datetime import timedelta
+from mcp.client.session import ClientSession
+from mcp.client.streamable_http import streamablehttp_client
+
+async def main():
+    sandbox = await AsyncSandbox.beta_create(
+        mcp={
+            "exa": {
+                "api_key": os.environ["EXA_API_KEY"],
+            },
+            "notion": {
+                "internal_integration_token": os.environ["NOTION_API_KEY"],
+            },
+        }
+    )
+
+    async with streamablehttp_client(
+        url=sandbox.beta_get_mcp_url(),
+        headers={"Authorization": f"Bearer {await sandbox.beta_get_mcp_token()}"},
+        timeout=timedelta(seconds=600)
+    ) as (read_stream, write_stream, _):
+        async with ClientSession(read_stream, write_stream) as session:
+            await session.initialize()
+            tools = await session.list_tools()
+            print(f"Available tools: {[tool.name for tool in tools.tools]}")
+    await sandbox.kill()
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 </CodeGroup>
 
@@ -72,7 +105,8 @@ claude mcp add --transport http e2b-mcp-gateway <url goes here> --header "Author
 
 ### OpenAI Agents
 
-```typescript
+<CodeGroup>
+```typescript TypeScript
 import { MCPServerStreamableHttp } from '@openai/agents';
 
 const mcp = new MCPServerStreamableHttp({
@@ -86,9 +120,35 @@ const mcp = new MCPServerStreamableHttp({
 });
 ```
 
+```python Python
+import asyncio
+import os
+from e2b import AsyncSandbox
+from agents.mcp import MCPServerStreamableHttp
+
+async def main():
+    async with MCPServerStreamableHttp(
+        name="e2b-mcp-client",
+        params={
+            "url": sandbox.beta_get_mcp_url(),
+            "headers": {"Authorization": f"Bearer {await sandbox.beta_get_mcp_token()}"},
+        },
+    ) as server:
+        # List available tools
+        tools = await server.list_tools()
+        print("Available tools:", [t.name for t in tools])
+
+    # Clean up
+    await sandbox.kill()
+
+asyncio.run(main())
+```
+</CodeGroup>
+
 ### Official MCP Client
 
-```typescript
+<CodeGroup>
+```typescript Typescript
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 
@@ -109,6 +169,32 @@ const transport = new StreamableHTTPClientTransport(
 );
 await client.connect(transport);
 ```
+```python Python
+import asyncio
+from datetime import timedelta
+from mcp.client.session import ClientSession
+from mcp.client.streamable_http import streamablehttp_client
+
+async def main():
+    async with streamablehttp_client(
+        url=sandbox.beta_get_mcp_url(),
+        headers={"Authorization": f"Bearer {await sandbox.beta_get_mcp_token()}"},
+        timeout=timedelta(seconds=600)
+    ) as (read_stream, write_stream, _):
+        async with ClientSession(read_stream, write_stream) as session:
+            await session.initialize()
+            
+            # Use the session
+            tools = await session.list_tools()
+            print(f"Available tools: {[tool.name for tool in tools.tools]}")
+    await sandbox.kill()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+```
+
+</CodeGroup>
 
 This list is not exhaustive. You can find more examples in the [E2B Cookbook](https://github.com/e2b-dev/e2b-cookbook).
 
