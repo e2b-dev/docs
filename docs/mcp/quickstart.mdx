@@ -59,10 +59,10 @@ async def main():
     sandbox = await AsyncSandbox.beta_create(
         mcp={
             "exa": {
-                "api_key": os.environ["EXA_API_KEY"],
+                "apiKey": os.environ["EXA_API_KEY"],
             },
             "notion": {
-                "internal_integration_token": os.environ["NOTION_API_KEY"],
+                "internalIntegrationToken": os.environ["NOTION_API_KEY"],
             },
         }
     )
