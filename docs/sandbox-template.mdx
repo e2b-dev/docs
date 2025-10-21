@@ -3,6 +3,10 @@ title: "Sandbox templates"
 sidebarTitle: Sandbox customization
 ---
 
+import LegacyWarningBuildSystem from "/snippets/LegacyWarningBuildSystem.mdx";
+
+<LegacyWarningBuildSystem/>
+
 Sandbox templates allow you to customize the sandbox environment to your needs.
 
 To create a sandbox template, you specify the `e2b.Dockerfile`. We then take this Dockerfile and create a new sandbox template from it and give you back a template ID.
@@ -51,10 +55,10 @@ Now you can customize your sandbox template by editing the `e2b.Dockerfile` file
 <CodeGroup title="e2b.Dockerfile">
   ```bash e2b.Dockerfile highlight={2,5}
   # Make sure to use this base image
-  FROM e2bdev/code-interpreter:latest 
+  FROM e2bdev/code-interpreter:latest
 
   # Install some Python packages
-  RUN pip install cowsay 
+  RUN pip install cowsay
   ```
 </CodeGroup>
 
@@ -100,9 +104,9 @@ Now you can use the template ID to create a sandbox with the SDK.
   from e2b_code_interpreter import Sandbox
 
   # Your template ID from the previous step
-  template_id = 'id-of-your-template' 
+  template_id = 'id-of-your-template'
   # Pass the template ID to the `Sandbox.create` method
-  sandbox = Sandbox.create(template_id) 
+  sandbox = Sandbox.create(template_id)
 
   # The template installed cowsay, so we can use it
   execution = sandbox.run_code("""

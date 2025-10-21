@@ -3,6 +3,10 @@ title: "Ready Command"
 sidebarTitle: Ready command
 ---
 
+import LegacyWarningBuildSystem from "/snippets/LegacyWarningBuildSystem.mdx";
+
+<LegacyWarningBuildSystem/>
+
 The ready command allows you to specify a command that will determine **template sandbox** readiness before a [snapshot](/docs/sandbox-template#how-it-works) is created.
 It is executed in an infinite loop until it returns a successful **exit code&nbsp;0**.
 This way you can control how long should we wait for the [start command](/docs/sandbox-template/start-cmd) or any system state.
