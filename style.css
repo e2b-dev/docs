@@ -61,9 +61,3 @@ code {
 .dark\:text-sky-200:is(.dark *) {
     color: rgb(255, 183, 102) !important;
 }
-
-/* Used for deprecation warning */
-.legacy-notice .callout[data-callout-type="danger"] {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-}
