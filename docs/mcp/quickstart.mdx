@@ -9,7 +9,6 @@ import Sandbox from 'e2b'
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 
-// Create sandbox with MCP servers
 const sandbox = await Sandbox.betaCreate({
     mcp: {
         exa: {
@@ -21,13 +20,11 @@ const sandbox = await Sandbox.betaCreate({
     },
 });
 
-// Create MCP client
 const client = new Client({
     name: 'e2b-mcp-client',
     version: '1.0.0'
 });
 
-// Connect to the MCP gateway
 const transport = new StreamableHTTPClientTransport(
     new URL(sandbox.betaGetMcpUrl()), 
     {
@@ -41,11 +38,9 @@ const transport = new StreamableHTTPClientTransport(
 
 await client.connect(transport);
 
-// List available tools
 const tools = await client.listTools();
 console.log('Available tools:', tools.tools.map(t => t.name));
 
-// Clean up
 await client.close();
 await sandbox.kill();
 ```
@@ -134,7 +129,6 @@ async def main():
             "headers": {"Authorization": f"Bearer {await sandbox.beta_get_mcp_token()}"},
         },
     ) as server:
-        # List available tools
         tools = await server.list_tools()
         print("Available tools:", [t.name for t in tools])
 
@@ -184,7 +178,6 @@ async def main():
         async with ClientSession(read_stream, write_stream) as session:
             await session.initialize()
             
-            # Use the session
             tools = await session.list_tools()
             print(f"Available tools: {[tool.name for tool in tools.tools]}")
     await sandbox.kill()

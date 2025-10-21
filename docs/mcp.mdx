@@ -54,9 +54,6 @@ async def main():
             "airtableApiKey": os.getenv("AIRTABLE_API_KEY"),
         },
     })
-    print(sbx.beta_get_mcp_url())
-    print(await sbx.beta_get_mcp_token())
-
 
 if __name__ == "__main__":
     asyncio.run(main())

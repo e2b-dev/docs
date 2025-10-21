@@ -24,12 +24,10 @@ The server names (like `"browserbase"` and `"exa"`) correspond to the keys defin
 import "dotenv/config";
 import { Template } from "e2b";
 
-// Define template with prepulled MCP servers
 export const template = Template()
   .fromTemplate("mcp-gateway")
   .betaAddMcpServer(["browserbase", "exa"]);
 
-// Build the template
 await Template.build(template, {
   alias: "my-mcp-gateway",
   cpuCount: 8,
@@ -44,14 +42,12 @@ from e2b import Template
 
 load_dotenv()
 
-# Define template with prepulled MCP servers
 template = (
     Template()
     .from_template("mcp-gateway")
     .beta_add_mcp_server(["browserbase", "exa"])
 )
 
-# Build the template
 Template.build(
     template,
     alias="my-mcp-gateway",
