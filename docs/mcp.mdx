@@ -32,6 +32,7 @@ const mcpUrl = sbx.betaGetMcpUrl();
 const mcpToken = await sbx.betaGetMcpToken();
 
 // You can now connect the gateway to any MCP client, for example claude:
+// This also works for your local claude!
 await sbx.commands.run(`claude mcp add --transport http e2b-mcp-gateway ${mcpUrl} --header "Authorization: Bearer ${mcpToken}"`, { timeoutMs: 0, onStdout: console.log, onStderr: console.log });
 
 await sbx.commands.run(
@@ -68,6 +69,7 @@ async def main():
     mcp_token = await sbx.beta_get_mcp_token()
 
     # You can now connect the gateway to any MCP client, for example claude:
+    # This also works for your local claude!
     await sbx.commands.run(f'claude mcp add --transport http e2b-mcp-gateway {mcp_url} --header "Authorization: Bearer {mcp_token}"', timeout=50, on_stdout=print, on_stderr=print)
 
     await sbx.commands.run(
