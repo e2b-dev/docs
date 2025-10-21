@@ -28,8 +28,17 @@ const sandbox = await Sandbox.betaCreate({
     },
 });
 
-const mcpUrl = sandbox.betaGetMcpUrl();
-const mcpToken = await sandbox.betaGetMcpToken();
+const mcpUrl = sbx.betaGetMcpUrl();
+const mcpToken = await sbx.betaGetMcpToken();
+
+// You can now connect the gateway to any MCP client, for example claude:
+await sbx.commands.run(`claude mcp add --transport http e2b-mcp-gateway ${mcpUrl} --header "Authorization: Bearer ${mcpToken}"`, { timeoutMs: 0, onStdout: console.log, onStderr: console.log });
+
+await sbx.commands.run(
+    `echo 'Use browserbase and exa to research open positions at e2b.dev. Collect your findings in Airtable.' | claude -p --dangerously-skip-permissions`,
+    { timeoutMs: 0, onStdout: console.log, onStderr: console.log }
+)
+
 ```
 
 ```python Python
@@ -54,6 +63,17 @@ async def main():
             "airtableApiKey": os.getenv("AIRTABLE_API_KEY"),
         },
     })
+
+    mcp_url = sbx.beta_get_mcp_url()
+    mcp_token = await sbx.beta_get_mcp_token()
+
+    # You can now connect the gateway to any MCP client, for example claude:
+    await sbx.commands.run(f'claude mcp add --transport http e2b-mcp-gateway {mcp_url} --header "Authorization: Bearer {mcp_token}"', timeout=50, on_stdout=print, on_stderr=print)
+
+    await sbx.commands.run(
+        "echo 'Use browserbase and exa to research open positions at e2b.dev. Collect your findings in Airtable.' | claude -p --dangerously-skip-permissions",
+        timeout=0, on_stdout=print, on_stderr=print
+    )
 
 if __name__ == "__main__":
     asyncio.run(main())
