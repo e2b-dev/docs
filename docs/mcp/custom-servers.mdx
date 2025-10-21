@@ -41,7 +41,7 @@ async def main():
         mcp={
             "github/modelcontextprotocol/servers": {
                 "install_cmd": "npm install",
-                "runc_cmd": "sudo npx -y @modelcontextprotocol/server-filesystem /root",
+                "run_cmd": "sudo npx -y @modelcontextprotocol/server-filesystem /root",
             },
         },
         timeout=600_000,
@@ -72,4 +72,4 @@ if __name__ == "__main__":
 If your custom MCP server doesn't work as expected:
 
 1. Connect to the sandbox
-2. Check the gateway log file with  `sudo cat /var/log/mcp-gateway/gateway.log`.
+2. Check the gateway log file with `sudo cat /var/log/mcp-gateway/gateway.log`.

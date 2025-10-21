@@ -16,8 +16,8 @@ const sandbox = await Sandbox.betaCreate({
     mcp: {
         browserbase: {
             apiKey: process.env.BROWSERBASE_API_KEY!,
-            geminiApiKey: process.env.BROWSERBASE_PROJECT_ID!,
-            projectId: process.env.GEMINI_API_KEY!,
+            geminiApiKey: process.env.GEMINI_API_KEY!,
+            projectId: process.env.BROWSERBASE_PROJECT_ID!,
         },
         exa: {
             apiKey: process.env.EXA_API_KEY!,
@@ -28,7 +28,7 @@ const sandbox = await Sandbox.betaCreate({
     },
 });
 
-const mcpUrl = sbx.betaGetMcpUrl();
+const mcpUrl = sandbox.betaGetMcpUrl();
 const mcpToken = await sandbox.betaGetMcpToken();
 ```
 
@@ -44,8 +44,8 @@ async def main():
     sbx = await AsyncSandbox.beta_create(mcp={
         "browserbase": {
             "apiKey": os.getenv("BROWSERBASE_API_KEY"),
-            "geminiApiKey": os.getenv("BROWSERBASE_PROJECT_ID"),
-            "projectId": os.getenv("GEMINI_API_KEY"),
+            "geminiApiKey": os.getenv("GEMINI_API_KEY"),
+            "projectId": os.getenv("BROWSERBASE_PROJECT_ID"),
         },
         "exa": {
             "apiKey": os.getenv("EXA_API_KEY"),
