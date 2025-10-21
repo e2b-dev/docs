@@ -266,7 +266,7 @@
     },
     "posthog": {
       "apiKey": "phc_RKpQU1ejxenHPs5x4zzAm1v8lRJFZQ60E1hRxczE6Tb",
-      "apiHost": "/ph-proxy"
+      "apiHost": "https://e2b.dev/ph-proxy"
     }
   },
   "redirects": [
