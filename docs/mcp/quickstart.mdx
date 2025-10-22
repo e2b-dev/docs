@@ -7,14 +7,14 @@ You can connect to the MCPs running inside the sandbox both from outside and ins
 
 ## From outside the sandbox
 
-To connect to the MCPs running inside the sandbox, use the `sandbox.betaGetMcpUrl()` in JavaScript and `sandbox.beta_get_mcp_url()` in Python.
+To connect to the MCPs running inside the sandbox, use the `sandbox.getMcpUrl()` in JavaScript and `sandbox.get_mcp_url()` in Python.
 <CodeGroup>
 ```typescript TypeScript
 import Sandbox from 'e2b'
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 
-const sandbox = await Sandbox.betaCreate({
+const sandbox = await Sandbox.create({
     mcp: {
         browserbase: {
             apiKey: process.env.BROWSERBASE_API_KEY!,
@@ -36,11 +36,11 @@ const client = new Client({
 });
 
 const transport = new StreamableHTTPClientTransport(
-    new URL(sandbox.betaGetMcpUrl()), 
+    new URL(sandbox.getMcpUrl()), 
     {
         requestInit: {
             headers: {
-                'Authorization': `Bearer ${await sandbox.betaGetMcpToken()}`
+                'Authorization': `Bearer ${await sandbox.getMcpToken()}`
             }
         }
     }
@@ -66,7 +66,7 @@ from mcp.client.session import ClientSession
 from mcp.client.streamable_http import streamablehttp_client
 
 async def main():
-    sandbox = await AsyncSandbox.beta_create(
+    sandbox = await AsyncSandbox.create(
         mcp={            
             "browserbase": {
                 "apiKey": os.environ["BROWSERBASE_API_KEY"],
@@ -83,8 +83,8 @@ async def main():
     )
 
     async with streamablehttp_client(
-        url=sandbox.beta_get_mcp_url(),
-        headers={"Authorization": f"Bearer {await sandbox.beta_get_mcp_token()}"},
+        url=sandbox.get_mcp_url(),
+        headers={"Authorization": f"Bearer {await sandbox.get_mcp_token()}"},
         timeout=timedelta(seconds=600)
     ) as (read_stream, write_stream, _):
         async with ClientSession(read_stream, write_stream) as session:
@@ -124,7 +124,7 @@ const mcp = new MCPServerStreamableHttp({
     name: 'E2B MCP Gateway',
     requestInit: {
         headers: {
-            'Authorization': `Bearer ${await sandbox.betaGetMcpToken()}`
+            'Authorization': `Bearer ${await sandbox.getMcpToken()}`
         }
     },
 });
@@ -140,8 +140,8 @@ async def main():
     async with MCPServerStreamableHttp(
         name="e2b-mcp-client",
         params={
-            "url": sandbox.beta_get_mcp_url(),
-            "headers": {"Authorization": f"Bearer {await sandbox.beta_get_mcp_token()}"},
+            "url": sandbox.get_mcp_url(),
+            "headers": {"Authorization": f"Bearer {await sandbox.get_mcp_token()}"},
         },
     ) as server:
         tools = await server.list_tools()
@@ -167,11 +167,11 @@ const client = new Client({
 });
 
 const transport = new StreamableHTTPClientTransport(
-    new URL(sandbox.betaGetMcpUrl()), 
+    new URL(sandbox.getMcpUrl()), 
     {
         requestInit: {
             headers: {
-                'Authorization': `Bearer ${await sandbox.betaGetMcpToken()}`
+                'Authorization': `Bearer ${await sandbox.getMcpToken()}`
             }
         }
     }
@@ -186,8 +186,8 @@ from mcp.client.streamable_http import streamablehttp_client
 
 async def main():
     async with streamablehttp_client(
-        url=sandbox.beta_get_mcp_url(),
-        headers={"Authorization": f"Bearer {await sandbox.beta_get_mcp_token()}"},
+        url=sandbox.get_mcp_url(),
+        headers={"Authorization": f"Bearer {await sandbox.get_mcp_token()}"},
         timeout=timedelta(seconds=600)
     ) as (read_stream, write_stream, _):
         async with ClientSession(read_stream, write_stream) as session:

@@ -14,7 +14,7 @@ You must use the MCP gateway enabled template (`mcp-gateway`) as your base templ
 
 ## Building a template with MCP servers
 
-Use the `betaAddMcpServer()` method (TypeScript) or `beta_add_mcp_server()` method (Python) to prepull MCP server images during template build. You can pass a single server or an array of servers.
+Use the `addMcpServer()` method (TypeScript) or `add_mcp_server()` method (Python) to prepull MCP server images during template build. You can pass a single server or an array of servers.
 
 The server names (like `"browserbase"` and `"exa"`) correspond to the keys defined in the [Available Servers](/docs/mcp/available-servers) documentation.
 
@@ -26,7 +26,7 @@ import { Template } from "e2b";
 
 export const template = Template()
   .fromTemplate("mcp-gateway")
-  .betaAddMcpServer(["browserbase", "exa"]);
+  .addMcpServer(["browserbase", "exa"]);
 
 await Template.build(template, {
   alias: "my-mcp-gateway",
@@ -45,7 +45,7 @@ load_dotenv()
 template = (
     Template()
     .from_template("mcp-gateway")
-    .beta_add_mcp_server(["browserbase", "exa"])
+    .add_mcp_server(["browserbase", "exa"])
 )
 
 Template.build(
@@ -67,7 +67,7 @@ Once built, create sandboxes from your template alias. You still need to provide
 ```typescript JavaScript & TypeScript
 import { Sandbox } from "e2b";
 
-const sandbox = await Sandbox.betaCreate({
+const sandbox = await Sandbox.create({
     template: "my-mcp-gateway",
     mcp: {
         browserbase: {
@@ -87,7 +87,7 @@ const sandbox = await Sandbox.betaCreate({
 from e2b import Sandbox
 import os
 
-sbx = Sandbox.beta_create(
+sbx = Sandbox.create(
     template="my-mcp-gateway",
     mcp={
         "browserbase": {
