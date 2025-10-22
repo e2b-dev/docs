@@ -16,6 +16,11 @@ import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/
 
 const sandbox = await Sandbox.betaCreate({
     mcp: {
+        browserbase: {
+            apiKey: process.env.BROWSERBASE_API_KEY!,
+            geminiApiKey: process.env.GEMINI_API_KEY!,
+            projectId: process.env.BROWSERBASE_PROJECT_ID!,
+        },
         exa: {
             apiKey: process.env.EXA_API_KEY!,
         },
@@ -62,7 +67,12 @@ from mcp.client.streamable_http import streamablehttp_client
 
 async def main():
     sandbox = await AsyncSandbox.beta_create(
-        mcp={
+        mcp={            
+            "browserbase": {
+                "apiKey": os.environ["BROWSERBASE_API_KEY"],
+                "geminiApiKey": os.environ["GEMINI_API_KEY"],
+                "projectId": os.environ["BROWSERBASE_PROJECT_ID"],
+            },
             "exa": {
                 "apiKey": os.environ["EXA_API_KEY"],
             },
