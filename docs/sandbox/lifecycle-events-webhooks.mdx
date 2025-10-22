@@ -252,6 +252,7 @@ The payload structure matches the event format from the API:
 ```json
 {
   "version": "v1",
+  "id": "<event-id>",
   "type": "<sandbox-event-type>",
   "eventData": {
     "sandbox_metadata": {
@@ -271,7 +272,6 @@ The payload structure matches the event format from the API:
 When webhooks is send, we are adding headers to help you verify the authenticity of the request and make debugging easier.
 
 - `e2b-webhook-id` - Webhook ID that triggered the event
-- `e2b-event-id` - Unique ID for the event
 - `e2b-delivery-id` - Unique ID for the delivery attempt
 - `e2b-signature-version` - Currently always `v1`, reserved for future use
 - `e2b-signature` - SHA256 signature of `${signatureSecret}${requestBodyString}`
