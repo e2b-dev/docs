@@ -1,0 +1,51 @@
+---
+title: "The sandbox is running but port is not open - 49999"
+sidebarTitle: The sandbox is running but port is not open - 49999
+---
+
+When trying to create a custom sandbox template, you might encounter the issue when trying to call `.runCode` / `.run_code` method using the E2B Code Interpreter SDK.
+
+The reason for this is that either the default start command is not specified on the template or that the base image is other than the Code Interpreter image thus the Code Interpreter inside the sandbox cannot be started.
+
+**Example error**
+
+```txt
+{"sandboxId":"ilmqag7sxz49zjc3gex7x","message":"The sandbox is running but port is not open","port":49999,"code":502}: This error is likely due to sandbox timeout. You can modify the sandbox timeout by passing 'timeout' when starting the sandbox or calling '.set_timeout' on the sandbox with the desired timeout.
+```
+
+## Solution
+
+### Current Build System (V2)
+
+With the current build system, you need to use the `code-interpreter` as a base template in your template definition.
+
+<Note>
+    The default start command for the `code-interpreter` template is `/root/.jupyter/start-up.sh`.
+</Note>
+
+<CodeGroup>
+```js JavaScript & TypeScript
+import { Template } from '@e2b/code-interpreter'
+
+const template = Template().fromTemplate("code-interpreter")
+```
+```python Python
+from e2b_code_interpreter import Template
+
+template = Template().from_template("code-interpreter")
+```
+</CodeGroup>
+
+### Legacy Build System
+
+If you are using the legacy build system, you need to use Code Interpreter image as a base image:
+
+```Dockerfile
+FROM e2bdev/code-interpreter:latest
+```
+
+And build the sandbox template with the start command:
+
+```sh
+e2b template build -c "/root/.jupyter/start-up.sh"
+```
