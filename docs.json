@@ -108,6 +108,7 @@
                 "group": "Examples",
                 "pages": [
                   "docs/template/examples/nextjs",
+                  "docs/template/examples/nextjs-bun",
                   "docs/template/examples/desktop",
                   "docs/template/examples/claude-code"
                 ]
