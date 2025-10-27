@@ -27,9 +27,12 @@ To migrate the existing template definition to the new format, follow these step
         Navigate to the folder of your existing template definition (where you have `e2b.toml` and `e2b.Dockerfile` files).
     </Step>
     <Step title="Run migration command">
-    ```bash
-    e2b template migrate
-    ```
+      ```bash
+      e2b template migrate
+      ```
+      <Note>
+        Your existing e2b.toml and e2b.Dockerfile will be renamed to e2b.toml.old and e2b.Dockerfile.old respectively as these are no longer required.
+      </Note>
     </Step>
     <Step title="Follow the prompts">
         Follow the prompts to complete the migration process.
