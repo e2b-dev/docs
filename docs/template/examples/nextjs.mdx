@@ -1,9 +1,13 @@
 ---
 title: "Next.js App"
-description: "Next.js web app running in the sandbox on start"
+description: "Next.js web app running in the sandbox using Node.js"
 ---
 
 Basic Next.js app with Tailwind and shadcn UI
+
+<Note>
+    The development server runs on port 3000 as soon as the sandbox is ready.
+</Note>
 
 <CodeGroup>
 
@@ -58,8 +62,8 @@ import { template as nextJSTemplate } from './template'
 
 Template.build(nextJSTemplate, {
   alias: 'nextjs-app',
-  cpuCount: 1,
-  memoryMB: 1024,
+  cpuCount: 4,
+  memoryMB: 4096,
   onBuildLogs: defaultBuildLogger(),
 })
 ```
