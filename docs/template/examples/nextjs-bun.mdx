@@ -26,10 +26,7 @@ export const template = Template()
     'mv /home/user/nextjs-app/* /home/user/ && rm -rf /home/user/nextjs-app'
   )
   .setWorkdir('/home/user')
-  .setStartCmd(
-    'bun --bun run dev --turbo',
-    waitForURL('http://localhost:3000')
-  )
+  .setStartCmd('bun --bun run dev --turbo', waitForURL('http://localhost:3000'))
 ```
 
 ```python Python
