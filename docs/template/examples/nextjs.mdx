@@ -10,7 +10,6 @@ Basic Next.js app with Tailwind and shadcn UI
 </Note>
 
 <CodeGroup>
-
 ```typescript JavaScript & TypeScript
 // template.ts
 import { Template, waitForPort } from 'e2b'
@@ -27,14 +26,12 @@ export const template = Template()
     'mv /home/user/nextjs-app/* /home/user/ && rm -rf /home/user/nextjs-app'
   )
   .setWorkdir('/home/user')
-  .setStartCmd('npx next --turbo', waitForPort(3000))
-
+  .setStartCmd('npx next --turbo', waitForURL('http://localhost:3000'))
 ```
-
 
 ```python Python
 # template.py
-from e2b import Template, wait_for_port
+from e2b import Template, wait_for_url
 
 template = (
     Template()
@@ -47,14 +44,12 @@ template = (
     .run_cmd("npx shadcn@2.1.7 add --all")
     .run_cmd("mv /home/user/nextjs-app/* /home/user/ && rm -rf /home/user/nextjs-app")
     .set_workdir("/home/user")
-    .set_start_cmd("npx next --turbo", wait_for_port(3000))
+    .set_start_cmd("npx next --turbo", wait_for_url('http://localhost:3000'))
 )
 ```
-
 </CodeGroup>
 
 <CodeGroup>
-
 ```typescript JavaScript & TypeScript
 // build.ts
 import { Template, defaultBuildLogger } from 'e2b'
@@ -68,7 +63,6 @@ Template.build(nextJSTemplate, {
 })
 ```
 
-
 ```python Python
 # build.py
 from e2b import Template, default_build_logger
@@ -81,5 +75,4 @@ Template.build(nextjsTemplate,
     on_build_logs=default_build_logger(),
 )
 ```
-
 </CodeGroup>

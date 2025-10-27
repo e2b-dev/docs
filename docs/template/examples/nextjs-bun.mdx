@@ -10,7 +10,6 @@ Basic Next.js app with Tailwind and shadcn UI using Bun.
 </Note>
 
 <CodeGroup>
-
 ```typescript JavaScript & TypeScript
 // template.ts
 import { Template, waitForURL } from 'e2b'
@@ -47,11 +46,9 @@ template = Template()
   .set_workdir('/home/user')
   .set_start_cmd('bun --bun run dev --turbo', wait_for_url('http://localhost:3000'))
 ```
-
 </CodeGroup>
 
 <CodeGroup>
-
 ```typescript JavaScript & TypeScript
 // build.ts
 import { Template, defaultBuildLogger } from 'e2b'
