@@ -14,7 +14,7 @@ export const template = Template()
   .fromNodeImage('24')
   .aptInstall(['curl', 'git', 'ripgrep'])
   // Claude Code will be available globally as "claude"
-  .npmInstall('-g @anthropic-ai/claude-code@latest')
+  .npmInstall('@anthropic-ai/claude-code@latest', { g: true })
 
 ```
 
@@ -27,7 +27,7 @@ template = (
     .from_node_image("24")
     .apt_install(["curl", "git", "ripgrep"])
     # Claude Code will be available globally as "claude"
-    .npm_install("-g @anthropic-ai/claude-code@latest")
+    .npm_install("@anthropic-ai/claude-code@latest", g=True)
 )
 ```
 
