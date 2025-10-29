@@ -18,20 +18,44 @@ You can find a guide on creating a service account key [here](https://cloud.goog
 
 ### Mounting the bucket
 
-To use the Google Cloud Storage we need to install the `gcsfuse` package. There's simple `Dockerfile` that can be used to create a container with the `gcsfuse` installed.
+To use the Google Cloud Storage we need to install the `gcsfuse` package. There's simple [template](/docs/template/quickstart) that can be used to create a container with the `gcsfuse` installed.
 
-```docker
-FROM e2bdev/code-interpreter:latest
+<CodeGroup>
 
-RUN apt-get update && apt-get install -y gnupg lsb-release wget
-
-RUN lsb_release -c -s > /tmp/lsb_release
-RUN GCSFUSE_REPO=$(cat /tmp/lsb_release) && echo "deb https://packages.cloud.google.com/apt gcsfuse-$GCSFUSE_REPO main" | tee /etc/apt/sources.list.d/gcsfuse.list
-RUN wget -O - https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-
-RUN apt-get update && apt-get install -y gcsfuse
-
+```ts JavaScript & TypeScript
+const template = Template()
+  .fromImage("e2bdev/code-interpreter:latest")
+  .aptInstall(["gnupg", "lsb-release"])
+  .runCmd("lsb_release -c -s > /tmp/lsb_release")
+  .runCmd(
+    'GCSFUSE_REPO=$(cat /tmp/lsb_release) && echo "deb [signed-by=/usr/share/keyrings/cloud.google.asc] https://packages.cloud.google.com/apt gcsfuse-$GCSFUSE_REPO main" | sudo tee /etc/apt/sources.list.d/gcsfuse.list',
+  )
+  .runCmd(
+    "curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /usr/share/keyrings/cloud.google.asc",
+  )
+  .aptInstall(["gcsfuse"])
+  .setStartCmd("sudo /root/.jupyter/start-up.sh", waitForPort(49999));
 ```
+
+
+```python Python
+template = (
+    Template()
+    .from_image("e2bdev/code-interpreter:latest")
+    .apt_install(["gnupg", "lsb-release"])
+    .run_cmd("lsb_release -c -s > /tmp/lsb_release")
+    .run_cmd(
+        'GCSFUSE_REPO=$(cat /tmp/lsb_release) && echo "deb [signed-by=/usr/share/keyrings/cloud.google.asc] https://packages.cloud.google.com/apt gcsfuse-$GCSFUSE_REPO main" | sudo tee /etc/apt/sources.list.d/gcsfuse.list'
+    )
+    .run_cmd(
+        "curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /usr/share/keyrings/cloud.google.asc"
+    )
+    .apt_install(["gcsfuse"])
+    .set_start_cmd("sudo /root/.jupyter/start-up.sh", wait_for_port(49999))
+)
+```
+
+</CodeGroup>
 
 The bucket is mounted during the sandbox runtime using the `gcsfuse` command.
 
@@ -73,13 +97,26 @@ To allow the default user to access the files, we can use the following flags:
 
 ## Amazon S3
 
-To use Amazon S3, we can use the `s3fs` package. The `Dockerfile` setup is similar to that of Google Cloud Storage.
+To use Amazon S3, we can use the `s3fs` package. The [template](/docs/template/quickstart) setup is similar to that of Google Cloud Storage.
 
-```docker
-FROM ubuntu:latest
+<CodeGroup>
 
-RUN apt-get update && apt-get install s3fs
+```ts JavaScript & TypeScript
+const template = Template()
+  .fromImage("ubuntu:latest")
+  .aptInstall(["s3fs"])
 ```
+
+
+```python Python
+template = (
+    Template()
+    .from_image("ubuntu:latest")
+    .apt_install(["s3fs"])
+)
+```
+
+</CodeGroup>
 
 Similar to Google Cloud Storage, the bucket is mounted during the runtime of the sandbox. The `s3fs` command is used to mount the bucket to the sandbox.
 
@@ -127,7 +164,7 @@ To allow the default user to access the files, add the following flag:
 
 ## Cloudflare R2
 
-For Cloudflare R2, we can use a setup very similar to S3. The `Dockerfile` remains the same as for S3. However, the mounting differs slightly; we need to specify the endpoint for R2.
+For Cloudflare R2, we can use a setup very similar to S3. The template remains the same as for S3. However, the mounting differs slightly; we need to specify the endpoint for R2.
 
 <CodeGroup isRunnable={false}>
 ```js JavaScript & TypeScript
