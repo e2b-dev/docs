@@ -17,6 +17,8 @@ Without using secured access, anyone with sandbox ID can access the controller A
 When you are using custom templates created before envd `v0.2.0`, you need to rebuild the templates to enable secure access.
 Temporary, you can disable secure access by setting `secure` to `false` during sandbox creation, but this is not recommended for production use as it opens up security risks.
 
+You can check template envd version via `e2b template list` command or templates list in dashboard.
+
 ## Supported versions
 
 All sandboxes based on template with envd version at least `v0.2.0` already supports secure access without any additional changes.

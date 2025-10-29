@@ -44,7 +44,7 @@ Sandboxes are now **secure by default**. That means you cannot access the sandbo
 SDK handles authentication header for you automatically.
 
 For custom templates created before envd `v0.2.0`, you need to rebuild the templates to enable secure communication,
-otherwise you will receive error messages when creating sandboxes.
+otherwise you will receive error messages when creating sandboxes. You can check template envd version via `e2b template list` command or templates list in dashboard.
 
 You can temporarily disable secure communication by setting `secure` to `false` during sandbox creation, but this is not recommended for production use.
 
