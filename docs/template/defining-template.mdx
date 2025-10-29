@@ -168,8 +168,8 @@ template.npmInstall(['express', 'lodash'], { g: true })
 // Install Bun packages
 template.bunInstall(['express', 'lodash'])
 
-// Install Bun packages (user)
-template.bunInstall(['express', 'lodash'], { g: false })
+// Install Bun packages (global)
+template.bunInstall(['express', 'lodash'], { g: true })
 
 // Install system packages (automatically runs apt update)
 template.aptInstall(['curl', 'wget', 'git'])
