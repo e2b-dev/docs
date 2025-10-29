@@ -154,29 +154,47 @@ Install packages using package managers:
 
 ```typescript JavaScript & TypeScript
 // Install Python packages
-template.pipInstall('requests pandas numpy')
 template.pipInstall(['requests', 'pandas', 'numpy'])
 
+// Install Python packages (user)
+template.pipInstall(['requests', 'pandas', 'numpy'], { g: false })
+
 // Install Node.js packages
-template.npmInstall('express lodash')
 template.npmInstall(['express', 'lodash'])
 
+// Install Node.js packages (global)
+template.npmInstall(['express', 'lodash'], { g: true })
+
+// Install Bun packages
+template.bunInstall(['express', 'lodash'])
+
+// Install Bun packages (global)
+template.bunInstall(['express', 'lodash'], { g: true })
+
 // Install system packages (automatically runs apt update)
-template.aptInstall('curl wget git')
 template.aptInstall(['curl', 'wget', 'git'])
 ```
 
 ```python Python
 # Install Python packages
-template.pip_install("requests pandas numpy")
 template.pip_install(["requests", "pandas", "numpy"])
 
+# Install Python packages (user)
+template.pip_install(["requests", "pandas", "numpy"], g=False)
+
 # Install Node.js packages
-template.npm_install("express lodash")
 template.npm_install(["express", "lodash"])
 
+# Install Node.js packages (global)
+template.npm_install(["express", "lodash"], g=True)
+
+# Install Bun packages
+template.bun_install(["express", "lodash"])
+
+# Install Bun packages (global)
+template.bun_install(["express", "lodash"], g=True)
+
 # Install system packages (Ubuntu/Debian)
-template.apt_install("curl wget git")
 template.apt_install(["curl", "wget", "git"])
 ```
 
