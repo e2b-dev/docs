@@ -40,20 +40,13 @@ sandbox = Sandbox(template="base")
 
 ### 2. Secure communication by default
 
-Sandboxes are now **secure by default**. That means you cannot access the sandbox controller directly via its URL; there's authentication required.
-If you use the SDK, this is enabled for you automatically.
+Sandboxes are now **secure by default**. That means you cannot access the sandbox controller directly via its URL without authentication header.
+SDK handles authentication header for you automatically.
 
-<Note>
-    If you are using older custom templates, you may receive error message that secure communication is not yet supported.
-    Template rebuild will fix that.
-</Note>
+For custom templates created before envd `v0.2.0`, you need to rebuild the templates to enable secure communication,
+otherwise you will receive error messages when creating sandboxes.
 
-If you are accessing sandbox controller URLs directly, you need to provide an authentication token that was returned during sandbox creation,
-or disable secure communication explicitly by setting `secure` to `false` during sandbox creation.
-
-<Warning>
-    Setting `secure` to `false` disables secure communication and anyone with sandbox id can control your sandbox, so use with caution.
-</Warning>
+You can temporarily disable secure communication by setting `secure` to `false` during sandbox creation, but this is not recommended for production use.
 
 <CodeGroup>
 ```js JavaScript & TypeScript
@@ -68,6 +61,8 @@ from e2b_code_interpreter import Sandbox
 sandbox = Sandbox.create(secure=False)  # Explicitly disable
 ```
 </CodeGroup>
+
+Check more details in the [secured access documentation](/docs/sandbox/secured-access).
 
 ### 3. File writing in Python SDK
 

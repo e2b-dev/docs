@@ -87,7 +87,8 @@
               "docs/sandbox/connect",
               "docs/sandbox/internet-access",
               "docs/sandbox/connect-bucket",
-              "docs/sandbox/rate-limits"
+              "docs/sandbox/rate-limits",
+              "docs/sandbox/secured-access"
             ]
           },
           {

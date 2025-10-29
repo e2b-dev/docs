@@ -1,0 +1,52 @@
+---
+title: "Secured access"
+sidebarTitle: Secured access
+---
+
+Secure access authenticates communication between SDK and sandbox controller.
+
+Sandbox controller runs in sandbox itself and exposes APIs for work with file system, run command etc.
+Without using secured access, anyone with sandbox ID can access the controller APIs and control the sandbox from inside.
+
+<Note>
+    SDKs version `v2.0.0` and above are using secure access by default when creating sandbox. This may not be compatible with older custom templates and you may need to rebuild them.
+</Note>
+
+## Migration path
+
+When you are using custom templates created before envd `v0.2.0`, you need to rebuild the templates to enable secure access.
+Temporary, you can disable secure access by setting `secure` to `false` during sandbox creation, but this is not recommended for production use as it opens up security risks.
+
+## Supported versions
+
+All sandboxes based on template with envd version at least `v0.2.0` already supports secure access without any additional changes.
+
+Secured access flag was introduced in `1.5.0` for JavaScript and Python SDKs to be used optionally.
+With SDKs version `v2.0.0` and above, sandboxes are created with secure access enabled by default.
+
+## Access sandbox API directly
+
+In some cases you may want to access sandbox controller APIs directly via its URL, for example when you are not using SDKs.
+When secure access is enabled, you need to provide an authentication token that was returned during sandbox creation.
+
+Each call to sandbox controller must include an additional header `X-Access-Token` with access token value returned during sandbox creation.
+
+For sandbox [upload](/docs/filesystem/upload#upload-with-pre-signed-url) and [download](/docs/filesystem/download#download-with-pre-signed-url) URLs, you need to generate pre-signed URLs. We are advising to use SDK for generating presigned URLs.
+
+## Disable secure access
+
+Disabling secured access is not recommended as it opens up security risks.
+
+<CodeGroup>
+    ```js JavaScript & TypeScript
+    import { Sandbox } from '@e2b/code-interpreter'
+
+    const sandbox = await Sandbox.create({ secure: false }) // Explicitly disable
+    ```
+
+    ```python Python
+    from e2b_code_interpreter import Sandbox
+
+    sandbox = Sandbox.create(secure=False)  # Explicitly disable
+    ```
+</CodeGroup>
