@@ -22,7 +22,7 @@ The server names (like `"browserbase"` and `"exa"`) correspond to the keys defin
 
 ```typescript JavaScript & TypeScript
 import "dotenv/config";
-import { Template } from "e2b";
+import { Template, defaultBuildLogger } from "e2b";
 
 export const template = Template()
   .fromTemplate("mcp-gateway")
@@ -32,13 +32,13 @@ await Template.build(template, {
   alias: "my-mcp-gateway",
   cpuCount: 8,
   memoryMB: 8192,
-  onBuildLogs: console.log,
+  onBuildLogs: defaultBuildLogger(),
 });
 ```
 
 ```python Python
 from dotenv import load_dotenv
-from e2b import Template
+from e2b import Template, default_build_logger
 
 load_dotenv()
 
@@ -53,6 +53,7 @@ Template.build(
     alias="my-mcp-gateway",
     cpu_count=8,
     memory_mb=8192,
+    on_build_logs=default_build_logger(),
 )
 ```
 
