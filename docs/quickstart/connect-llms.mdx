@@ -32,8 +32,8 @@ from e2b_code_interpreter import Sandbox
 
 # Create OpenAI client
 client = OpenAI()
-system = "You are a helpful assistant that can execute python code in a Jupyter notebook. Only respond with the code to be executed and nothing else. Strip backticks in code blocks."
-prompt = "Calculate how many r's are in the word 'strawberry'"
+system = "You are a helpful assistant that can execute python code in a Jupyter notebook. Only respond with the code to be executed and nothing else; strip backticks in code blocks and don't begin with python. Always use code for calculations rather than assume the answer and always print the output of code rather than displaying it."
+prompt = "Calculate how many r's are in the word 'strawberry'."
 
 # Send messages to OpenAI API
 response = client.chat.completions.create(
@@ -51,7 +51,7 @@ code = response.choices[0].message.content
 if code:
     with Sandbox.create() as sandbox:
         execution = sandbox.run_code(code)
-        result = execution.text
+        result = execution.logs.stdout
 
     print(result)
 ```
@@ -72,6 +72,10 @@ model = "gpt-4o"
 
 # Define the messages
 messages = [
+    {
+        "role":"system",
+        "content":"You are a helpful assistant that can execute python code in a Jupyter notebook. Only respond with the code to be executed and nothing else; strip backticks in code blocks and don't begin with python. Always use code for calculations rather than assume the answer and always print the output of code rather than displaying it."
+    },
     {
         "role": "user",
         "content": "Calculate how many r's are in the word 'strawberry'"
@@ -116,7 +120,11 @@ if response_message.tool_calls:
             with Sandbox.create() as sandbox:
                 code = json.loads(tool_call.function.arguments)['code']
                 execution = sandbox.run_code(code)
-                result = execution.text
+                result_stdout = execution.logs.stdout
+                if result_stdout:
+                    result = result_stdout[0]
+                else:
+                    result = "failed to run"
 
             # Send the result back to the model
             messages.append({
