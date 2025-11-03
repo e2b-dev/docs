@@ -11,7 +11,6 @@ Query Parameters:
 - `limit` (optional): Number of events to return (default: 10, min: 1, max: 100)
 - `orderAsc` (optional): Sort order - true for ascending, false for descending (default: false)
 
-
 <CodeGroup>
 ```js JavaScript & TypeScript
 import { Sandbox } from '@e2b/code-interpreter'
@@ -46,9 +45,10 @@ console.log(teamSandboxEvents)
 
 // [
 //   {
-//     "eventCategory": "lifecycle",
+//     "version": "v1",
+//     "id": "f5911677-cb60-498f-afed-f68143b3cc59",
+//     "type": "sandbox.lifecycle.killed",
 //     "eventData": null,
-//     "eventLabel": "kill",
 //     "sandboxBuildId": "a979a14b-bdcc-49e6-bc04-1189fc9fe7c2",
 //     "sandboxExecutionId": "1dae9e1c-9957-4ce7-a236-a99d5779aadf",
 //     "sandboxId": "${SANDBOX_ID}",
@@ -57,11 +57,12 @@ console.log(teamSandboxEvents)
 //     "timestamp": "2025-08-06T20:59:36Z"
 //   },
 //   {
-//     "eventCategory": "lifecycle",
+//     "version": "v1",
+//     "id": "30b09e11-9ba2-42db-9cf6-d21f0f43a234",
+//     "type": "sandbox.lifecycle.updated",
 //     "eventData": {
 //       "set_timeout": "2025-08-06T20:59:59Z"
 //     },
-//     "eventLabel": "update",
 //     "sandboxBuildId": "a979a14b-bdcc-49e6-bc04-1189fc9fe7c2",
 //     "sandboxExecutionId": "1dae9e1c-9957-4ce7-a236-a99d5779aadf",
 //     "sandboxId": "${SANDBOX_ID}",
@@ -71,9 +72,10 @@ console.log(teamSandboxEvents)
 //   },
 //   [...]
 //   {
-//     "eventCategory": "lifecycle",
+//     "version": "v1",
+//     "id": "0568572b-a2ac-4e5f-85fa-fae90905f556",
+//     "type": "sandbox.lifecycle.created",
 //     "eventData": null,
-//     "eventLabel": "create",
 //     "sandboxBuildId": "a979a14b-bdcc-49e6-bc04-1189fc9fe7c2",
 //     "sandboxExecutionId": "1dae9e1c-9957-4ce7-a236-a99d5779aadf",
 //     "sandboxId": "${SANDBOX_ID}",
@@ -111,9 +113,10 @@ print(team_sandbox_events)
 
 # [
 #   {
-#     "eventCategory": "lifecycle",
+#     "version": "v1",
+#     "id": "0568572b-a2ac-4e5f-85fa-fae90905f556",
+#     "type": "sandbox.lifecycle.killed",
 #     "eventData": null,
-#     "eventLabel": "kill",
 #     "sandboxBuildId": "a979a14b-bdcc-49e6-bc04-1189fc9fe7c2",
 #     "sandboxExecutionId": "1dae9e1c-9957-4ce7-a236-a99d5779aadf",
 #     "sandboxId": "${SANDBOX_ID}",
@@ -122,11 +125,12 @@ print(team_sandbox_events)
 #     "timestamp": "2025-08-06T20:59:36Z"
 #   },
 #   {
-#     "eventCategory": "lifecycle",
+#     "version": "v1",
+#     "id": "e7013704-2c51-4dd2-9f6c-388c91460149",
+#     "type": "sandbox.lifecycle.updated",
 #     "eventData": {
 #       "set_timeout": "2025-08-06T20:59:59Z"
 #     },
-#     "eventLabel": "update",
 #     "sandboxBuildId": "a979a14b-bdcc-49e6-bc04-1189fc9fe7c2",
 #     "sandboxExecutionId": "1dae9e1c-9957-4ce7-a236-a99d5779aadf",
 #     "sandboxId": "${SANDBOX_ID}",
@@ -136,9 +140,10 @@ print(team_sandbox_events)
 #   },
 #   [...]
 #   {
-#     "eventCategory": "lifecycle",
+#     "version": "v1",
+#     "id": "f29ef778-2743-4c97-a802-7ba67f84ce24",
+#     "type": "sandbox.lifecycle.created",
 #     "eventData": null,
-#     "eventLabel": "create",
 #     "sandboxBuildId": "a979a14b-bdcc-49e6-bc04-1189fc9fe7c2",
 #     "sandboxExecutionId": "1dae9e1c-9957-4ce7-a236-a99d5779aadf",
 #     "sandboxId": "${SANDBOX_ID}",
