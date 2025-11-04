@@ -268,13 +268,76 @@ The payload structure matches the event format from the API:
 }
 ```
 
+# Webhook verification
+To ensure the authenticity of webhook requests, each request includes a signature in the `e2b-signature` header.
+You can verify the signature using the signature secret you provided when registering the webhook.
+This helps confirm that the request originated from E2B andhas not been tampered with.
+
+<CodeGroup>
+```js JavaScript & TypeScript
+async function verifyWebhookSignature(secret : string, payload : string, payloadSignature : string) {
+    const expectedSignatureRaw = await crypto.createHash('sha256').update(secret + payload).digest('base64');
+    const expectedSignature = expectedSignatureRaw.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    return  expectedSignature == payloadSignature
+}
+
+const payloadValid = await verifyWebhookSignature(secret, webhookBodyRaw, webhookSignatureHeader)
+if (payloadValid) {
+    console.log("Payload signature is valid")
+} else {
+    console.log("Payload signature is INVALID")
+}
+```
+```python Python
+import hashlib
+import base64
+
+def verify_webhook_signature(secret: str, payload: str, payload_signature: str) -> bool:
+    hash_bytes = hashlib.sha256((secret + payload).encode('utf-8')).digest()
+    expected_signature = base64.b64encode(hash_bytes).decode('utf-8')
+    expected_signature = expected_signature.replace('+', '-').replace('/', '_').rstrip('=')
+
+    return expected_signature == payload_signature
+
+if verify_webhook_signature(secret, webhook_body_raw, webhook_signature_header):
+    print("Payload signature is valid")
+else:
+    print("Payload signature is INVALID")
+```
+```go Golang
+import (
+    "crypto/sha256"
+    "encoding/base64"
+    "fmt"
+    "strings"
+)
+
+func verifyWebhookSignature(secret, payload, payloadSignature string) bool {
+    hash := sha256.Sum256([]byte(secret + payload))
+    expectedSignature := base64.StdEncoding.EncodeToString(hash[:])
+
+    expectedSignature = strings.ReplaceAll(expectedSignature, "+", "-")
+    expectedSignature = strings.ReplaceAll(expectedSignature, "/", "_")
+    expectedSignature = strings.TrimRight(expectedSignature, "=")
+
+    return expectedSignature == payloadSignature
+}
+
+if verifyWebhookSignature(secret, webhookBodyString, webhookSignatureHeaderString) {
+    fmt.Println("Payload signature is valid")
+} else {
+    fmt.Println("Payload signature is INVALID")
+}
+```
+</CodeGroup>
+
 ## Webhook request headers
 When webhooks is send, we are adding headers to help you verify the authenticity of the request and make debugging easier.
 
 - `e2b-webhook-id` - Webhook ID that triggered the event
 - `e2b-delivery-id` - Unique ID for the delivery attempt
 - `e2b-signature-version` - Currently always `v1`, reserved for future use
-- `e2b-signature` - SHA256 signature of `${signatureSecret}${requestBodyString}`
+- `e2b-signature` - Signature for verifying the request authenticity`
 
 ## Available event types
 
@@ -285,5 +348,4 @@ The following event types can be subscribed to via webhooks, they are used as th
 - `sandbox.lifecycle.updated` - Sandbox configuration updates
 - `sandbox.lifecycle.paused` - Sandbox pausing
 - `sandbox.lifecycle.resumed` - Sandbox resuming
-
 
