@@ -40,13 +40,14 @@ sandbox = Sandbox(template="base")
 
 ### 2. Secure communication by default
 
-Sandboxes are now **secure by default**. That means you cannot access the sandbox controller directly via its URL without authentication header.
-SDK handles authentication header for you automatically.
 
-For custom templates created before envd `v0.2.0`, you need to rebuild the templates to enable secure communication,
-otherwise you will receive error messages when creating sandboxes. You can check template envd version via `e2b template list` command or templates list in dashboard.
+Sandboxes are now **secure by default**. This means you can't access the sandbox controller directly through its URL without an authentication header.
+The SDK automatically handles the authentication header for you.
 
-You can temporarily disable secure communication by setting `secure` to `false` during sandbox creation, but this is not recommended for production use.
+For custom templates created before envd `v0.2.0`, you need to rebuild them to enable secure communication.
+Otherwise, you will receive error messages when creating sandboxes. You can check the template envd version using the `e2b template list` command or view the templates list in the dashboard.
+
+You can temporarily disable secure communication by setting `secure` to `false` during sandbox creation, but this is not recommended for production environments.
 
 <CodeGroup>
 ```js JavaScript & TypeScript
