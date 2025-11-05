@@ -54,7 +54,7 @@ Here's a limits breakdown table based on the plan:
 </table>
 
 <Note>
-  <b><sup>*</sup></b> Pro plan default is 100 concurrent sandboxes. Higher concurrency of up to 1,100 is available as a separate add-on that can be purchased.
+  <b><sup>*</sup></b> Pro plan default is 100 concurrent sandboxes. Higher concurrency of up to 1,100 is available as a separate purchasable add-on.
 </Note>
 
 ---
@@ -89,7 +89,7 @@ Number of concurrent sandboxes differs based on the pricing tier.
 **Starts at 100 concurrent sandboxes**
 
 <Note>
-Can go up to 1,100 with a separate add-ons [available for purchase](https://e2b.dev/dashboard/?tab=billing).
+    Can go up to 1,100 with additional [add-ons available for purchase](https://e2b.dev/dashboard/?tab=billing).
 </Note>
 
 
@@ -119,10 +119,10 @@ When you reach the limits of your plan, subsequent requests/function calls will 
 - `RateLimitError` in the JS/TS SDK
 - `RateLimitException` in the Python SDK
 
-For example, if you're on the Pro tier (without any concurrency add-ons) you can create up to 100 sandboxes running concurrently.
+For example, if you're on the Pro tier (without any concurrency add-ons), you can create up to 100 sandboxes running concurrently.
 If the 100 sandboxes are still running, requests for creating new sandboxes from the SDKs (`Sandbox.create()` in JS/TS or `Sandbox.create()` in Python) will fail and return `RateLimitError` or `RateLimitException` respectively.
-After the number of running sandboxes drops below 100 or you purchase the concurrency add-on, you'll be able to create new sandboxes again.
+Once the number of running sandboxes drops below 100, or you purchase a concurrency add-on, you’ll be able to create new sandboxes again.
 
 ## Increasing and avoiding rate limits
 
-You can avoid rate limits by either [increasing your plan](https://e2b.dev/dashboard/?tab=billing) or contacting our sales team to discuss your specific requirements and we can provide tailored limits to meet your needs at [enterprise@e2b.dev](mailto:enterprise@e2b.dev).
+You can avoid rate limits by [upgrading your plan](https://e2b.dev/dashboard/?tab=billing) or contacting our sales team to discuss your specific requirements and we can provide tailored limits to meet your needs at [enterprise@e2b.dev](mailto:enterprise@e2b.dev).
