@@ -111,7 +111,7 @@ let logsOffset = 0
 let status = 'building'
 
 while (status === 'building') {
-  const buildStatus = await getBuildStatus(buildInfo, {
+  const buildStatus = await Template.getBuildStatus(buildInfo, {
     logsOffset,
   })
 
