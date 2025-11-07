@@ -116,6 +116,7 @@ while (status === 'building') {
   })
 
   logsOffset += buildStatus.logEntries.length
+  status = buildStatus.status
 
   buildStatus.logEntries.forEach(
     (logEntry) => console.log(logEntry.toString())
@@ -154,6 +155,7 @@ while status == "building":
     )
 
     logs_offset += len(build_status.log_entries)
+    status = build_status.status
 
     for log_entry in build_status.log_entries:
         print(log_entry)
