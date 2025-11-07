@@ -80,7 +80,7 @@ const status = await Template.getBuildStatus(buildInfo, {
   logsOffset: 0, // Optional: offset for fetching logs
 })
 
-// status contains: { status: 'building' | 'ready' | 'error', logs: [...] }
+// status contains: { status: 'building' | 'ready' | 'error', logEntries: [...] }
 ```
 
 ```python Python wrap
@@ -107,10 +107,22 @@ const buildInfo = await Template.buildInBackground(template, {
 })
 
 // Poll for build status
-let status = await Template.getBuildStatus(buildInfo)
-while (status.status === 'building') {
+let logsOffset = 0
+let status = 'building'
+
+while (status === 'building') {
+  const buildStatus = await getBuildStatus(buildInfo, {
+    logsOffset,
+  })
+
+  logsOffset += buildStatus.logEntries.length
+
+  buildStatus.logEntries.forEach(
+    (logEntry) => console.log(logEntry.toString())
+  )
+
+  // Wait for a short period before checking the status again
   await new Promise(resolve => setTimeout(resolve, 2000))
-  status = await Template.getBuildStatus(buildInfo)
 }
 
 if (status.status === 'ready') {
@@ -132,10 +144,22 @@ build_info = Template.build_in_background(
 # Poll for build status
 import time
 
-status = Template.get_build_status(build_info)
-while status.status.value == "building":
+logs_offset = 0
+status = "building"
+
+while status == "building":
+    build_status = Template.get_build_status(
+        build_info,
+        logs_offset=logs_offset,
+    )
+
+    logs_offset += len(build_status.log_entries)
+
+    for log_entry in build_status.log_entries:
+        print(log_entry)
+
+    # Wait for a short period before checking the status again
     time.sleep(2)
-    status = Template.get_build_status(build_info)
 
 if status.status.value == "ready":
     print("Build completed successfully")
