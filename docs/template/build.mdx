@@ -126,7 +126,7 @@ while (status === 'building') {
   await new Promise(resolve => setTimeout(resolve, 2000))
 }
 
-if (status.status === 'ready') {
+if (status === 'ready') {
   console.log('Build completed successfully')
 } else {
   console.error('Build failed')
@@ -155,7 +155,7 @@ while status == "building":
     )
 
     logs_offset += len(build_status.log_entries)
-    status = build_status.status
+    status = build_status.status.value
 
     for log_entry in build_status.log_entries:
         print(log_entry)
@@ -163,7 +163,7 @@ while status == "building":
     # Wait for a short period before checking the status again
     time.sleep(2)
 
-if status.status.value == "ready":
+if status == "ready":
     print("Build completed successfully")
 else:
     print("Build failed")
