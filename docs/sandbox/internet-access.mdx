@@ -212,6 +212,7 @@ const response2 = await fetch(url, {
 console.log(response2.status) // 200
 ```
 ```python Python
+import requests
 from e2b_code_interpreter import Sandbox
 
 # Create sandbox with restricted public access
@@ -231,7 +232,14 @@ host = sandbox.get_host(8080)
 url = f"https://{host}"
 
 # Request without token will fail with 403
-# Request with token header 'e2b-traffic-access-token' will succeed
+response1 = requests.get(url)
+print(response1.status_code)  # 403
+
+# Request with token will succeed
+response2 = requests.get(url, headers={
+    'e2b-traffic-access-token': sandbox.traffic_access_token
+})
+print(response2.status_code)  # 200
 ```
 </CodeGroup>
 
@@ -263,6 +271,7 @@ console.log('Response from server inside sandbox:', data);
 await process.kill()
 ```
 ```python Python
+import requests
 from e2b_code_interpreter import Sandbox
 
 sandbox = Sandbox.create()
@@ -274,50 +283,14 @@ url = f"https://{host}"
 print('Server started at:', url)
 
 # Fetch data from the server inside the sandbox.
-response = sandbox.commands.run(f"curl {url}")
-data = response.stdout
-print("Response from server inside sandbox:", data)
+response = requests.get(url)
+data = response.text
+print('Response from server inside sandbox:', data)
 
 # Kill the server process inside the sandbox.
 process.kill()
 ```
 </CodeGroup>
-
-## Masking request host headers
-
-You can customize the `Host` header that gets sent to services running inside the sandbox using the `maskRequestHost` option. This is useful when your application expects a specific host format.
-
-<CodeGroup>
-```js JavaScript & TypeScript
-import { Sandbox } from '@e2b/code-interpreter'
-
-// Create sandbox with custom host masking
-const sandbox = await Sandbox.create({
-  network: {
-    maskRequestHost: 'custom-host.example.com:${PORT}'
-  }
-})
-
-// The ${PORT} variable will be replaced with the actual port number
-// Requests to the sandbox will have Host header set to: custom-host.example.com:8080
-```
-```python Python
-from e2b_code_interpreter import Sandbox
-
-# Create sandbox with custom host masking
-sandbox = Sandbox.create(
-    network={
-        "mask_request_host": "custom-host.example.com:${PORT}"
-    }
-)
-
-# The ${PORT} variable will be replaced with the actual port number
-# Requests to the sandbox will have Host header set to: custom-host.example.com:8080
-```
-</CodeGroup>
-
-The `${PORT}` variable in the mask will be automatically replaced with the actual port number of the service. By default, the host format is `${PORT}-sandboxid.e2b.app`.
-
 
 This output will look like this:
 <CodeGroup>
@@ -362,3 +335,39 @@ Response from server inside sandbox: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0
 </html>
 ```
 </CodeGroup>
+
+
+## Masking request host headers
+
+You can customize the `Host` header that gets sent to services running inside the sandbox using the `maskRequestHost` option. This is useful when your application expects a specific host format.
+
+<CodeGroup>
+```js JavaScript & TypeScript
+import { Sandbox } from '@e2b/code-interpreter'
+
+// Create sandbox with custom host masking
+const sandbox = await Sandbox.create({
+  network: {
+    maskRequestHost: 'localhost:${PORT}'
+  }
+})
+
+// The ${PORT} variable will be replaced with the actual port number
+// Requests to the sandbox will have Host header set to: localhost:8080
+```
+```python Python
+from e2b_code_interpreter import Sandbox
+
+# Create sandbox with custom host masking
+sandbox = Sandbox.create(
+    network={
+        "mask_request_host": "localhost:${PORT}"
+    }
+)
+
+# The ${PORT} variable will be replaced with the actual port number
+# Requests to the sandbox will have Host header set to: localhost:8080
+```
+</CodeGroup>
+
+The `${PORT}` variable in the mask will be automatically replaced with the actual port number of the requested service.
