@@ -47,7 +47,7 @@ You can specify IP addresses or CIDR blocks that the sandbox can or cannot conne
 ```js JavaScript & TypeScript
 import { Sandbox, ALL_TRAFFIC } from '@e2b/code-interpreter'
 
-// Block all traffic except specific IPs
+// Deny all traffic except specific IPs
 const sandbox = await Sandbox.create({
   network: {
     denyOut: [ALL_TRAFFIC],
@@ -55,7 +55,7 @@ const sandbox = await Sandbox.create({
   }
 })
 
-// Block specific IPs only
+// Deny specific IPs only
 const restrictedSandbox = await Sandbox.create({
   network: {
     denyOut: ['8.8.8.8']
@@ -65,7 +65,7 @@ const restrictedSandbox = await Sandbox.create({
 ```python Python
 from e2b_code_interpreter import Sandbox, ALL_TRAFFIC
 
-# Block all traffic except specific IPs
+# Deny all traffic except specific IPs
 sandbox = Sandbox.create(
     network={
         "deny_out": [ALL_TRAFFIC],
@@ -73,7 +73,7 @@ sandbox = Sandbox.create(
     }
 )
 
-# Block specific IPs only
+# Deny specific IPs only
 restricted_sandbox = Sandbox.create(
     network={
         "deny_out": ["8.8.8.8"]
