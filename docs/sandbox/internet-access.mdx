@@ -31,6 +31,113 @@ isolated_sandbox = Sandbox.create(allow_internet_access=False)
 
 When internet access is disabled, the sandbox cannot make outbound network connections, which provides an additional layer of security for sensitive code execution.
 
+<Note>
+Setting `allowInternetAccess` to `false` is equivalent to setting `network.denyOut` to `['0.0.0.0/0']` (denying all traffic).
+</Note>
+
+## Fine-grained network control
+
+For more granular control over network access, you can use the `network` configuration option to specify allow and deny lists for outbound traffic.
+
+### Allow and deny lists
+
+You can specify IP addresses or CIDR blocks that the sandbox can or cannot connect to:
+
+<CodeGroup>
+```js JavaScript & TypeScript
+import { Sandbox, ALL_TRAFFIC } from '@e2b/code-interpreter'
+
+// Block all traffic except specific IPs
+const sandbox = await Sandbox.create({
+  network: {
+    denyOut: [ALL_TRAFFIC],
+    allowOut: ['1.1.1.1', '8.8.8.0/24']
+  }
+})
+
+// Block specific IPs only
+const restrictedSandbox = await Sandbox.create({
+  network: {
+    denyOut: ['8.8.8.8']
+  }
+})
+```
+```python Python
+from e2b_code_interpreter import Sandbox, ALL_TRAFFIC
+
+# Block all traffic except specific IPs
+sandbox = Sandbox.create(
+    network={
+        "deny_out": [ALL_TRAFFIC],
+        "allow_out": ["1.1.1.1", "8.8.8.0/24"]
+    }
+)
+
+# Block specific IPs only
+restricted_sandbox = Sandbox.create(
+    network={
+        "deny_out": ["8.8.8.8"]
+    }
+)
+```
+</CodeGroup>
+
+### Priority rules
+
+When both `allowOut` and `denyOut` are specified, **allow rules always take precedence** over deny rules. This means if an IP address is in both lists, it will be allowed.
+
+<CodeGroup>
+```js JavaScript & TypeScript
+import { Sandbox, ALL_TRAFFIC } from '@e2b/code-interpreter'
+
+// Even though ALL_TRAFFIC is denied, 1.1.1.1 and 8.8.8.8 are explicitly allowed
+const sandbox = await Sandbox.create({
+  network: {
+    denyOut: [ALL_TRAFFIC],
+    allowOut: ['1.1.1.1', '8.8.8.8']
+  }
+})
+```
+```python Python
+from e2b_code_interpreter import Sandbox, ALL_TRAFFIC
+
+# Even though ALL_TRAFFIC is denied, 1.1.1.1 and 8.8.8.8 are explicitly allowed
+sandbox = Sandbox.create(
+    network={
+        "deny_out": [ALL_TRAFFIC],
+        "allow_out": ["1.1.1.1", "8.8.8.8"]
+    }
+)
+```
+</CodeGroup>
+
+### ALL_TRAFFIC helper
+
+The `ALL_TRAFFIC` constant represents the CIDR range `0.0.0.0/0`, which matches all IP addresses. Use it to easily deny or allow all network traffic:
+
+<CodeGroup>
+```js JavaScript & TypeScript
+import { Sandbox, ALL_TRAFFIC } from '@e2b/code-interpreter'
+
+// Deny all outbound traffic
+const sandbox = await Sandbox.create({
+  network: {
+    denyOut: [ALL_TRAFFIC]
+  }
+})
+```
+```python Python
+from e2b_code_interpreter import Sandbox, ALL_TRAFFIC
+
+# Deny all outbound traffic
+sandbox = Sandbox.create(
+    network={
+        "deny_out": [ALL_TRAFFIC]
+    }
+)
+```
+</CodeGroup>
+
 ## Sandbox public URL
 Every sandbox has a public URL that can be used to access running services inside the sandbox.
 
