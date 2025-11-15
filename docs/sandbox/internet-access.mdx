@@ -175,6 +175,68 @@ https://3000-i62mff4ahtrdfdkyn2esc.e2b.app
 
 The first leftmost part of the host is the port number we passed to the method.
 
+## Restricting public access to sandbox URLs
+
+By default, sandbox URLs are publicly accessible. You can restrict access to require authentication using the `allowPublicTraffic` option:
+
+<CodeGroup>
+```js JavaScript & TypeScript
+import { Sandbox } from '@e2b/code-interpreter'
+
+// Create sandbox with restricted public access
+const sandbox = await Sandbox.create({
+  network: {
+    allowPublicTraffic: false
+  }
+})
+
+// The sandbox has a traffic access token
+console.log(sandbox.trafficAccessToken)
+
+// Start a server inside the sandbox
+await sandbox.commands.run('python -m http.server 8080', { background: true })
+
+const host = sandbox.getHost(8080)
+const url = `https://${host}`
+
+// Request without token will fail with 403
+const response1 = await fetch(url)
+console.log(response1.status) // 403
+
+// Request with token will succeed
+const response2 = await fetch(url, {
+  headers: {
+    'e2b-traffic-access-token': sandbox.trafficAccessToken
+  }
+})
+console.log(response2.status) // 200
+```
+```python Python
+from e2b_code_interpreter import Sandbox
+
+# Create sandbox with restricted public access
+sandbox = Sandbox.create(
+    network={
+        "allow_public_traffic": False
+    }
+)
+
+# The sandbox has a traffic access token
+print(sandbox.traffic_access_token)
+
+# Start a server inside the sandbox
+sandbox.commands.run("python -m http.server 8080", background=True)
+
+host = sandbox.get_host(8080)
+url = f"https://{host}"
+
+# Request without token will fail with 403
+# Request with token header 'e2b-traffic-access-token' will succeed
+```
+</CodeGroup>
+
+When `allowPublicTraffic` is set to `false`, all requests to the sandbox's public URLs must include the `e2b-traffic-access-token` header with the value from `sandbox.trafficAccessToken`.
+
 ## Connecting to a server running inside the sandbox
 You can start a server inside the sandbox and connect to it using the approach above.
 
