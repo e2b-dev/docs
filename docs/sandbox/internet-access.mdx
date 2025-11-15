@@ -200,6 +200,41 @@ url = f"https://{host}"
 
 When `allowPublicTraffic` is set to `false`, all requests to the sandbox's public URLs must include the `e2b-traffic-access-token` header with the value from `sandbox.trafficAccessToken`.
 
+## Masking request host headers
+
+You can customize the `Host` header that gets sent to services running inside the sandbox using the `maskRequestHost` option. This is useful when your application expects a specific host format.
+
+<CodeGroup>
+```js JavaScript & TypeScript
+import { Sandbox } from '@e2b/code-interpreter'
+
+// Create sandbox with custom host masking
+const sandbox = await Sandbox.create({
+  network: {
+    maskRequestHost: 'custom-host.example.com:${PORT}'
+  }
+})
+
+// The ${PORT} variable will be replaced with the actual port number
+// Requests to the sandbox will have Host header set to: custom-host.example.com:8080
+```
+```python Python
+from e2b_code_interpreter import Sandbox
+
+# Create sandbox with custom host masking
+sandbox = Sandbox.create(
+    network={
+        "mask_request_host": "custom-host.example.com:${PORT}"
+    }
+)
+
+# The ${PORT} variable will be replaced with the actual port number
+# Requests to the sandbox will have Host header set to: custom-host.example.com:8080
+```
+</CodeGroup>
+
+The `${PORT}` variable in the mask will be automatically replaced with the actual port number of the service. By default, the host format is `${PORT}-sandboxid.e2b.app`.
+
 ## Sandbox public URL
 Every sandbox has a public URL that can be used to access running services inside the sandbox.
 
