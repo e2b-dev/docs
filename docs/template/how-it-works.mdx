@@ -7,7 +7,7 @@ description: "How the template building process works"
 Every time you are building a sandbox template, we create a container based on the definition.
 We extract the container's filesystem, do provisioning and configuration (e.g. installing required dependencies), run layers commands and start a sandbox.
 
-Then, these steps happen:
+Then, these steps happen:  
     1. We take the running sandbox.
     2. (Only if you specified the [start command](/docs/template/start-ready-command#start-command), otherwise this step is skipped) Execute the start command.
     3. Wait for readiness (by default 20 seconds if start command is specified, otherwise immediately ready). Readiness check can be configured using [ready command](/docs/template/start-ready-command#ready-command).
@@ -22,6 +22,25 @@ We call this sandbox snapshot a _sandbox template_.
   This allows us to load the sandbox in a few hundred milliseconds any time later with all the processes already running
   and the filesystem exactly as it was.
 </Note>
+
+## Kernel
+
+E2B sandboxes run on an **LTS 6.1 Linux kernel**.  
+The exact kernel version available in your sandbox depends on **when your template was built**:
+
+| Template build date (DD.MM.YYYY) | Kernel version |
+|----------------------------------|----------------|
+| ≥ xxxx                     | 6.1.158 (current) |
+| < xxxx                     | 6.1.102            |
+
+> **Note:**  
+> Kernel versions are fixed at **template build time**.  
+> If your template was created on an older kernel, **the kernel cannot be upgraded or changed** for that template.  
+> To use a newer kernel, you must **rebuild the template** or create a new one.
+
+You can browse our kernel sources in the  
+[kernel repository](https://github.com/e2b-dev/fc-kernels/) or review the  
+[kernel configuration files](https://github.com/e2b-dev/fc-kernels/tree/main/configs) used during the build.
 
 ## Default User And Workdir
 To learn more about default user and workdir, please refer to the [User And Workdir](/docs/template/user-and-workdir) section.
