@@ -10,6 +10,7 @@ When using the `runCode()` method in JavaScript or `run_code()` in Python you ca
 
 <CodeGroup>
 ```js JavaScript & TypeScript highlight={15-17}
+import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 
 const codeToRun = `
@@ -30,7 +31,10 @@ sandbox.runCode(codeToRun, {
 })
 ```
 ```python Python highlight={17-19}
+from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
+
+load_dotenv()
 
 code_to_run = """
   import time

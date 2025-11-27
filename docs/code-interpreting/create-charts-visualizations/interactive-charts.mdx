@@ -15,6 +15,7 @@ Try out [AI Data Analyst](https://github.com/e2b-dev/ai-analyst/) - a Next.js ap
 Here's a simple example of bar chart:
 <CodeGroup>
 ```js JavaScript & TypeScript
+import "dotenv/config"
 import { Sandbox, BarChart } from '@e2b/code-interpreter'
 
 const code = `
@@ -49,7 +50,10 @@ console.log('Y Unit:', chart.y_unit)
 console.log('Elements:', chart.elements)
 ```
 ```python Python
+from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
+
+load_dotenv()
 
 code = """
 import matplotlib.pyplot as plt
