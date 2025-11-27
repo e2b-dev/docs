@@ -12,7 +12,8 @@ The metrics are collected every 5 seconds.
 ### Getting sandbox metrics using the SDKs
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={9}
+```js JavaScript & TypeScript highlight={10}
+import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 
 const sbx = await Sandbox.create()
@@ -50,10 +51,12 @@ console.log('Sandbox metrics:', metrics)
 //   }
 // ]
 ```
-```python Python highlight={10}
+```python Python highlight={12}
+from dotenv import load_dotenv
 from time import sleep
 from e2b_code_interpreter import Sandbox
 
+load_dotenv()
 sbx = Sandbox.create()
 print('Sandbox created', sbx.sandbox_id)
 

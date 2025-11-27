@@ -13,7 +13,8 @@ This is useful in various scenarios, for example:
 You specify metadata when creating a sandbox and can access it later through listing running sandboxes with `Sandbox.list()` method.
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={6}
+```js JavaScript & TypeScript highlight={7}
+import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 
 // Create sandbox with metadata.
@@ -24,16 +25,19 @@ const sandbox = await Sandbox.create({
 })
 
 // List running sandboxes and access metadata.
-const runningSandboxes = await Sandbox.list()
+const paginator = await Sandbox.list()
+const runningSandboxes = await paginator.nextItems()
 // Will print:
 // {
 //   'userId': '123',
 // }
 console.log(runningSandboxes[0].metadata)
 ```
-```python Python highlight={6}
+```python Python highlight={8}
+from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
 
+load_dotenv()
 # Create sandbox with metadata.
 sandbox = Sandbox.create(
   metadata={
@@ -42,7 +46,8 @@ sandbox = Sandbox.create(
 )
 
 # List running sandboxes and access metadata.
-running_sandboxes = Sandbox.list()
+paginator = Sandbox.list()
+running_sandboxes = paginator.next_items()
 # Will print:
 # {
 #   'userId': '123',

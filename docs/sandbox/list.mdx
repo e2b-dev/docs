@@ -13,7 +13,8 @@ You can list sandboxes using the `Sandbox.list()` method.
 The `Sandbox.list()` method supports pagination. In the [advanced pagination](/docs/sandbox/list#advanced-pagination) section, you can find more information about pagination techniques using the updated method.
 
 <CodeGroup>
-    ```js JavaScript & TypeScript highlight={6,11,14,24}
+    ```js JavaScript & TypeScript highlight={7,12,15,25}
+    import "dotenv/config"
     import { Sandbox, SandboxInfo } from '@e2b/code-interpreter'
 
     const sandbox = await Sandbox.create(
@@ -39,9 +40,11 @@ The `Sandbox.list()` method supports pagination. In the [advanced pagination](/d
     // Get the next page of sandboxes
     const nextPage = await paginator.nextItems()
     ```
-    ```python Python highlight={5,9,12,22}
+    ```python Python highlight={7,11,14,24}
+    from dotenv import load_dotenv
     from e2b_code_interpreter import Sandbox, SandboxInfo
 
+    load_dotenv()
     sandbox = Sandbox.create(
         metadata={
             "name": "My Sandbox",
@@ -86,7 +89,8 @@ The code above will output something like this:
 Filter sandboxes by their current state. The state parameter can contain either "**running**" for running sandboxes or "**paused**" for paused sandboxes, or both.
 
 <CodeGroup>
-    ```js JavaScript & TypeScript highlight={9,13}
+    ```js JavaScript & TypeScript highlight={10,14}
+    import "dotenv/config"
     import { Sandbox } from '@e2b/code-interpreter'
 
     // Create a sandbox.
@@ -101,9 +105,11 @@ Filter sandboxes by their current state. The state parameter can contain either 
 
     const sandboxes = await paginator.nextItems()
     ```
-    ```python Python highlight={9,14}
+    ```python Python highlight={11,16}
+    from dotenv import load_dotenv
     from e2b_code_interpreter import Sandbox, SandboxQuery, SandboxState
 
+    load_dotenv()
     # Create a sandbox with metadata.
     sandbox = Sandbox.create()
 
@@ -122,7 +128,8 @@ Filter sandboxes by their current state. The state parameter can contain either 
 Filter sandboxes by the metadata key value pairs specified during Sandbox creation.
 
 <CodeGroup>
-    ```js JavaScript & TypeScript highlight={6-8,15,18}
+    ```js JavaScript & TypeScript highlight={7-9,16,19}
+    import "dotenv/config"
     import { Sandbox } from '@e2b/code-interpreter'
 
     // Create sandbox with metadata.
@@ -143,9 +150,11 @@ Filter sandboxes by the metadata key value pairs specified during Sandbox creati
 
     const sandboxes = await paginator.nextItems()
     ```
-    ```python Python highlight={6-8,16-17}
+    ```python Python highlight={8-10,18-19}
+    from dotenv import load_dotenv
     from e2b_code_interpreter import Sandbox, SandboxQuery, SandboxState
 
+    load_dotenv()
     # Create sandbox with metadata.
     sandbox = Sandbox.create(
         metadata={
@@ -175,7 +184,8 @@ Filter sandboxes by the metadata key value pairs specified during Sandbox creati
 For more granular pagination, you can set custom per-page item limit (default and maximum is **100**) and specify an offset parameter (`nextToken` or `next_token`) to start paginating from.
 
 <CodeGroup>
-    ```js JavaScript & TypeScript highlight={4-5,16}
+    ```js JavaScript & TypeScript highlight={5-6,17}
+    import "dotenv/config"
     import { Sandbox } from '@e2b/code-interpreter'
 
     const paginator = Sandbox.list({
@@ -193,9 +203,11 @@ For more granular pagination, you can set custom per-page item limit (default an
     // Fetch the next page
     await paginator.nextItems()
     ```
-    ```python Python  highlight={5-6,13}
+    ```python Python  highlight={7-8,15}
+    from dotenv import load_dotenv
     from e2b_code_interpreter import Sandbox
 
+    load_dotenv()
     # List running sandboxes that has `userId` key with value `123` and `env` key with value `dev`.
     paginator = Sandbox.list(
         limit=100,
@@ -213,7 +225,8 @@ For more granular pagination, you can set custom per-page item limit (default an
 You can fetch all pages by looping through the paginator while checking if there is a next page (using `hasNext` or `has_next` property) and fetching until there are no more pages left to fetch:
 
 <CodeGroup>
-    ```js JavaScript & TypeScript  highlight={7}
+    ```js JavaScript & TypeScript  highlight={8}
+    import "dotenv/config"
     import { Sandbox } from '@e2b/code-interpreter'
 
     const paginator = Sandbox.list()
@@ -225,9 +238,11 @@ You can fetch all pages by looping through the paginator while checking if there
       sandboxes.push(...items)
     }
     ```
-    ```python Python highlight={7}
+    ```python Python highlight={9}
+    from dotenv import load_dotenv
     from e2b_code_interpreter import Sandbox, SandboxQuery
 
+    load_dotenv()
     paginator = Sandbox.list()
 
     # Loop through all pages
@@ -246,7 +261,8 @@ You can fetch all pages by looping through the paginator while checking if there
 
 
 <CodeGroup>
-    ```js JavaScript & TypeScript highlight={11}
+    ```js JavaScript & TypeScript highlight={12}
+    import "dotenv/config"
     import { Sandbox } from '@e2b/code-interpreter'
 
     // Create a sandbox.
@@ -265,9 +281,11 @@ You can fetch all pages by looping through the paginator while checking if there
     console.log('Running sandbox started at:', runningSandbox.startedAt)
     console.log('Running sandbox template id:', runningSandbox.templateId)
     ```
-    ```python Python highlight={11}
+    ```python Python highlight={13}
+    from dotenv import load_dotenv
     from e2b_code_interpreter import Sandbox
 
+    load_dotenv()
     # Create a sandbox.
     sandbox = Sandbox.create(
       metadata: {
@@ -294,7 +312,8 @@ Specifying multiple key value pairs will return sandboxes that match all of them
 This can be useful when you have a large number of sandboxes and want to find only specific ones. The filtering is performed on the server.
 
 <CodeGroup>
-    ```js JavaScript & TypeScript highlight={6-8,15}
+    ```js JavaScript & TypeScript highlight={7-9,16}
+    import "dotenv/config"
     import { Sandbox } from '@e2b/code-interpreter'
 
     // Create sandbox with metadata.
@@ -313,10 +332,12 @@ This can be useful when you have a large number of sandboxes and want to find on
       },
     })
     ```
-    ```python Python highlight={7-9,17-18}
+    ```python Python highlight={9-11,19-20}
+    from dotenv import load_dotenv
     from e2b_code_interpreter import Sandbox
     from e2b.sandbox.sandbox_api import SandboxQuery
 
+    load_dotenv()
     # Create sandbox with metadata.
     sandbox = Sandbox.create(
         metadata={

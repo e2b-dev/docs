@@ -7,6 +7,7 @@ You can download data from the sandbox using the `files.read()` method.
 
 <CodeGroup>
 ```js JavaScript & TypeScript
+import "dotenv/config"
 import fs from 'fs'
 import { Sandbox } from '@e2b/code-interpreter'
 
@@ -18,8 +19,10 @@ const content = await sandbox.files.read('/path/in/sandbox')
 fs.writeFileSync('/local/path', content)
 ```
 ```python Python
+from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
 
+load_dotenv()
 sandbox = Sandbox.create()
 
 # Read file from sandbox
@@ -40,6 +43,7 @@ All you need to do is create a sandbox with the `secure: true` option. A downloa
 You can optionally set an expiration time for the URL so that it will be valid only for a limited time.
 <CodeGroup>
 ```js JavaScript & TypeScript
+import "dotenv/config"
 import fs from 'fs'
 import { Sandbox } from '@e2b/code-interpreter'
 
@@ -58,8 +62,10 @@ const res = await fetch(publicUrl)
 const content = await res.text()
 ```
 ```python Python
+from dotenv import load_dotenv
 from e2b import Sandbox
 
+load_dotenv()
 # Start a secured sandbox (all operations must be authorized by default)
 sandbox = Sandbox.create(timeout=12_000, secure=True)
 

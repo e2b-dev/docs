@@ -8,6 +8,7 @@ or the `on_stdout`, `on_stderr` callbacks to the `commands.run()` method in Pyth
 
 <CodeGroup>
 ```js JavaScript & TypeScript
+import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 
 const sandbox = await Sandbox.create()
@@ -22,8 +23,10 @@ const result = await sandbox.commands.run('echo hello; sleep 1; echo world', {
 console.log(result)
 ```
 ```python Python
+from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
 
+load_dotenv()
 sandbox = Sandbox.create()
 
 result = sandbox.commands.run('echo hello; sleep 1; echo world', on_stdout=lambda data: print(data), on_stderr=lambda data: print(data))

@@ -17,10 +17,16 @@ You can try it out by running the following code in the sandbox:
 
 <CodeGroup>
 ```js JavaScript & TypeScript
+import { Sandbox } from '@e2b/code-interpreter'
+
 const sandbox = await Sandbox.create()
 const result = await sandbox.commands.run('echo $E2B_SANDBOX_ID')
 ```
 ```python Python
+from dotenv import load_dotenv
+from e2b_code_interpreter import Sandbox
+
+load_dotenv()
 sandbox = Sandbox.create()
 result = sandbox.commands.run("echo $E2B_SANDBOX_ID")
 ```
@@ -46,7 +52,8 @@ There are 3 ways to set environment variables in a sandbox:
 You can set global environment variables when creating a sandbox.
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={4-6}
+```js JavaScript & TypeScript highlight={5-7}
+import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 
 const sandbox = await Sandbox.create({
@@ -55,9 +62,11 @@ const sandbox = await Sandbox.create({
   },
 })
 ```
-```python Python highlight={4-6}
+```python Python highlight={6-8}
+from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
 
+load_dotenv()
 sandbox = Sandbox.create(
   envs={
     'MY_VAR': 'my_value',
@@ -75,7 +84,8 @@ You can set environment variables for specific code execution call in the sandbo
 </Note>
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={3-5}
+```js JavaScript & TypeScript highlight={4-6}
+import "dotenv/config"
 const sandbox = await Sandbox.create()
 const result = await sandbox.runCode('import os; print(os.environ.get("MY_VAR"))', {
   envs: {
@@ -83,7 +93,11 @@ const result = await sandbox.runCode('import os; print(os.environ.get("MY_VAR"))
   },
 })
 ```
-```python Python highlight={4-6}
+```python Python highlight={6-8}
+from dotenv import load_dotenv
+from e2b_code_interpreter import Sandbox
+
+load_dotenv()
 sandbox = Sandbox.create()
 result = sandbox.run_code(
     'import os; print(os.environ.get("MY_VAR"))',
@@ -103,15 +117,20 @@ You can set environment variables for specific command execution in the sandbox.
 </Note>
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={3-5}
+```js JavaScript & TypeScript highlight={4-6}
+import "dotenv/config"
 const sandbox = await Sandbox.create()
 sandbox.commands.run('echo $MY_VAR', {
-  envs: { 
-    MY_VAR: '123', 
-  }, 
+  envs: {
+    MY_VAR: '123',
+  },
 })
 ```
-```python Python highlight={4-6}
+```python Python highlight={6-8}
+from dotenv import load_dotenv
+from e2b_code_interpreter import Sandbox
+
+load_dotenv()
 sandbox = Sandbox.create()
 sandbox.commands.run(
     'echo $MY_VAR',

@@ -13,6 +13,7 @@ Query Parameters:
 
 <CodeGroup>
 ```js JavaScript & TypeScript
+import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 
 const sbx = await Sandbox.create()
@@ -86,9 +87,11 @@ console.log(teamSandboxEvents)
 // ]
 ```
 ```python Python
+from dotenv import load_dotenv
 import requests
 from e2b_code_interpreter import Sandbox
 
+load_dotenv()
 sbx = Sandbox.create()
 
 # Get the latest events for a specific sandbox
