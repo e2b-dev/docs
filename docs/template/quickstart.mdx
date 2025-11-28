@@ -65,7 +65,7 @@ Create a template file with the following name and content
 
 ```typescript JavaScript & TypeScript
 // template.ts
-import { Template, waitForTimeout } from "e2b";
+import { Template, waitForTimeout } from 'e2b';
 
 export const template = Template()
   .fromBaseImage()
@@ -100,8 +100,8 @@ template = (
 ```typescript JavaScript & TypeScript
 // build.dev.ts
 import 'dotenv/config';
-import { Template, defaultBuildLogger } from "e2b";
-import { template } from "./template";
+import { Template, defaultBuildLogger } from 'e2b';
+import { template } from './template';
 
 async function main() {
   await Template.build(template, {
@@ -142,8 +142,8 @@ if __name__ == '__main__':
 ```typescript JavaScript & TypeScript
 // build.prod.ts
 import 'dotenv/config';
-import { Template, defaultBuildLogger } from "e2b";
-import { template } from "./template";
+import { Template, defaultBuildLogger } from 'e2b';
+import { template } from './template';
 
 async function main() {
   await Template.build(template, {
@@ -213,7 +213,7 @@ python build_prod.py
 
 ```typescript JavaScript & TypeScript
 import 'dotenv/config';
-import { Sandbox } from "e2b";
+import { Sandbox } from 'e2b';
 
 // Create a Sandbox from development template
 const sandbox = await Sandbox.create("template-tag-dev");
