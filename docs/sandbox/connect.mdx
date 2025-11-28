@@ -30,13 +30,14 @@ if (runningSandboxes.length === 0) {
 const sandboxId = runningSandboxes[0].sandboxId
 ```
 
-```python Python highlight={6}
+```python Python highlight={9}
 from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
 
+load_dotenv()
+
 sbx = Sandbox.create()
 
-load_dotenv()
 # Get all running sandboxes
 paginator = Sandbox.list()
 
