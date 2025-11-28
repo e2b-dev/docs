@@ -1,10 +1,9 @@
-export default function Requirements() {
-
+export const Requirements = () => {
   const { useEffect, useState } = React;
   const [lines, setLines] = useState([]);
 
   useEffect(() => {
-    function parseRequirement(line) {
+    const parseRequirement = (line) => {
       // Remove inline comments
       const commentIndex = line.indexOf("#");
       if (commentIndex !== -1) {
@@ -71,7 +70,7 @@ export default function Requirements() {
       return { name, version };
     }
 
-    async function load() {
+    const load = async () => {
       const res = await fetch(
         "https://raw.githubusercontent.com/e2b-dev/code-interpreter/refs/heads/main/template/requirements.txt"
       );
@@ -87,11 +86,7 @@ export default function Requirements() {
   }, []);
 
   return (
-    <>
-      <p>
-        The sandbox comes with a <a href="https://github.com/e2b-dev/code-interpreter/blob/main/template/requirements.txt">set of pre-installed Python libraries</a> for data analysis
-        but you can <a href="/docs/quickstart/install-custom-packages">install additional packages</a>:
-      </p>
+    <div>
       <ul>
         {lines.map((pkg) => (
           <li key={pkg.name}>
@@ -99,6 +94,6 @@ export default function Requirements() {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
