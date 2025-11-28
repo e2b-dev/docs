@@ -46,7 +46,7 @@ sandbox.files.write(f"{dirname}/my-file", "hello")
 events = handle.get_new_events()
 for event in events:
   print(event)
-  if event.type == FilesystemEventType.Write:
+  if event.type == FilesystemEventType.WRITE:
     print(f"wrote to file {event.name}")
 ```
 </CodeGroup>
@@ -98,7 +98,7 @@ sandbox.files.write(f"{dirname}/my-folder/my-file", "hello")
 events = handle.get_new_events()
 for event in events:
   print(event)
-  if event.type == FilesystemEventType.Write:
+  if event.type == FilesystemEventType.WRITE:
     print(f"wrote to file {event.name}")
 ```
 </CodeGroup>

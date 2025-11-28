@@ -43,7 +43,7 @@ from e2b_code_interpreter import Sandbox
 load_dotenv()
 sandbox = Sandbox.create()
 
-await sandbox.files.write('/path/to/file', 'file content')
+sandbox.files.write('/path/to/file', 'file content')
 ```
 </CodeGroup>
 
@@ -69,7 +69,7 @@ from e2b_code_interpreter import Sandbox
 load_dotenv()
 sandbox = Sandbox.create()
 
-await sandbox.files.write_files([
+sandbox.files.write_files([
     { "path": "/path/to/a", "data": "file content" },
     { "path": "another/path/to/b", "data": "file content" }
 ])
