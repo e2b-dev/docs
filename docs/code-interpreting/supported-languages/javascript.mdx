@@ -12,7 +12,6 @@ The E2B Code Interpreter supports TypeScript, top-level await, ESM-style imports
 
 <CodeGroup>
 ```js JavaScript & TypeScript
-import "dotenv/config"
 import { Sandbox } from "@e2b/code-interpreter";
 
 // Create a new sandbox
@@ -47,10 +46,7 @@ console.log(execution);
 // }
 ```
 ```python Python
-from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
-
-load_dotenv()
 
 # Create a new sandbox
 sbx = Sandbox.create()

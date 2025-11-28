@@ -13,8 +13,7 @@ This is useful in various scenarios, for example:
 You specify metadata when creating a sandbox and can access it later through listing running sandboxes with `Sandbox.list()` method.
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={7}
-import "dotenv/config"
+```js JavaScript & TypeScript highlight={6}
 import { Sandbox } from '@e2b/code-interpreter'
 
 // Create sandbox with metadata.
@@ -33,11 +32,9 @@ const runningSandboxes = await paginator.nextItems()
 // }
 console.log(runningSandboxes[0].metadata)
 ```
-```python Python highlight={8}
-from dotenv import load_dotenv
+```python Python highlight={6}
 from e2b_code_interpreter import Sandbox
 
-load_dotenv()
 # Create sandbox with metadata.
 sandbox = Sandbox.create(
   metadata={

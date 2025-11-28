@@ -11,8 +11,7 @@ It's recommended not to collect or close watcher immediately after making a chan
 </Note>
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={8-13}
-import "dotenv/config"
+```js JavaScript & TypeScript highlight={7-12}
 import { Sandbox, FilesystemEventType } from '@e2b/code-interpreter'
 
 const sandbox = await Sandbox.create()
@@ -29,11 +28,9 @@ const handle = await sandbox.files.watchDir(dirname, async (event) => {
 // Trigger file write event
 await sandbox.files.write(`${dirname}/my-file`, 'hello')
 ```
-```python Python highlight={9,14-18}
-from dotenv import load_dotenv
+```python Python highlight={7,12-16}
 from e2b_code_interpreter import Sandbox, FilesystemEventType
 
-load_dotenv()
 sandbox = Sandbox.create()
 dirname = '/home/user'
 
@@ -61,8 +58,7 @@ When rapidly creating new folders (e.g., deeply nested path of folders), events 
 </Note>
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={14,18}
-import "dotenv/config"
+```js JavaScript & TypeScript highlight={13,17}
 import { Sandbox, FilesystemEventType } from '@e2b/code-interpreter'
 
 const sandbox = await Sandbox.create()
@@ -81,11 +77,9 @@ const handle = await sandbox.files.watchDir(dirname, async (event) => {
 // Trigger file write event
 await sandbox.files.write(`${dirname}/my-folder/my-file`, 'hello')
 ```
-```python Python highlight={9,11}
-from dotenv import load_dotenv
+```python Python highlight={7,9}
 from e2b_code_interpreter import Sandbox, FilesystemEventType
 
-load_dotenv()
 sandbox = Sandbox.create()
 dirname = '/home/user'
 

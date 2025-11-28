@@ -9,7 +9,6 @@ You can get information about a file or directory using the `files.getInfo()` / 
 
 <CodeGroup>
 ```js JavaScript & TypeScript
-import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 
 const sandbox = await Sandbox.create()
@@ -35,10 +34,8 @@ console.log(info)
 // }
 ```
 ```python Python
-from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
 
-load_dotenv()
 sandbox = Sandbox.create()
 
 # Create a new file
@@ -67,7 +64,6 @@ print(info)
 
 <CodeGroup>
 ```js JavaScript & TypeScript
-import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 
 const sandbox = await Sandbox.create()
@@ -93,10 +89,8 @@ console.log(info)
 // }
 ```
 ```python Python
-from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
 
-load_dotenv()
 sandbox = Sandbox.create()
 
 # Create a new directory

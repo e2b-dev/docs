@@ -7,8 +7,7 @@ To run commands in background, pass the `background` option to the `commands.run
 You can then later kill the command using the `commands.kill()` method.
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={8}
-import "dotenv/config"
+```js JavaScript & TypeScript highlight={6}
 import { Sandbox } from '@e2b/code-interpreter'
 
 const sandbox = await Sandbox.create()
@@ -24,11 +23,9 @@ const command = await sandbox.commands.run('echo hello; sleep 10; echo world', {
 // Kill the command
 await command.kill()
 ```
-```python Python
-from dotenv import load_dotenv
+```python Python highlight={6}
 from e2b_code_interpreter import Sandbox
 
-load_dotenv()
 sandbox = Sandbox.create()
 
 # Start the command in the background

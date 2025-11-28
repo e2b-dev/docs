@@ -66,9 +66,9 @@ template = (
 <CodeGroup>
 ```typescript JavaScript & TypeScript
 // build.prod.ts
-import "dotenv/config";
-import { Template, defaultBuildLogger } from "e2b";
-import { template } from "./template";
+import 'dotenv/config';
+import { Template, defaultBuildLogger } from 'e2b';
+import { template } from './template';
 
 async function main() {
   await Template.build(template, {

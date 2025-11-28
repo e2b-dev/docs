@@ -7,7 +7,6 @@ Use the `runCode`/`run_code` method to run Java code inside the sandbox.
 You'll need to pass the `language` parameter with value `java`.
 <CodeGroup>
 ```js JavaScript & TypeScript
-import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 
 const sbx = await Sandbox.create()
@@ -15,10 +14,7 @@ const execution = await sbx.runCode('System.out.println("Hello, world!");', { la
 console.log(execution)
 ```
 ```python Python
-from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
-
-load_dotenv()
 
 sbx = Sandbox.create()
 execution = sbx.run_code('System.out.println("Hello, world!");', language="java")

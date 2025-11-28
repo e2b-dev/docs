@@ -11,7 +11,6 @@ To connect to a running sandbox, you first need to retrieve its ID. You can do t
 
 <CodeGroup>
 ```js JavaScript & TypeScript highlight={6}
-import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 
 const sbx = await Sandbox.create()
@@ -30,11 +29,8 @@ if (runningSandboxes.length === 0) {
 const sandboxId = runningSandboxes[0].sandboxId
 ```
 
-```python Python highlight={9}
-from dotenv import load_dotenv
+```python Python highlight={6}
 from e2b_code_interpreter import Sandbox
-
-load_dotenv()
 
 sbx = Sandbox.create()
 
@@ -57,8 +53,7 @@ sandbox_id = running_sandboxes[0].sandbox_id
 Now that you have the sandbox ID, you can connect to the sandbox using the `Sandbox.connect()` method.
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={19}
-import "dotenv/config"
+```js JavaScript & TypeScript highlight={18}
 import { Sandbox } from "@e2b/code-interpreter"
 
 // Get all running sandboxes
@@ -84,11 +79,9 @@ const result = await sandbox.commands.run("whoami")
 console.log(`Running in sandbox ${sandbox.sandboxId} as "${result.stdout.trim()}"`)
 ```
 
-```python Python highlight={19}
-from dotenv import load_dotenv
+```python Python highlight={17}
 from e2b_code_interpreter import Sandbox
 
-load_dotenv()
 # Get all running sandboxes
 paginator = Sandbox.list()
 running_sandboxes = paginator.next_items()

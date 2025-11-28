@@ -8,7 +8,6 @@ Use the `runCode`/`run_code` method to run R code inside the sandbox.
 You'll need to pass the `language` parameter with value `r`.
 <CodeGroup>
 ```js JavaScript & TypeScript
-import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 
 const sbx = await Sandbox.create()
@@ -16,10 +15,7 @@ const execution = await sbx.runCode('print("Hello, world!")', { language: 'r' })
 console.log(execution)
 ```
 ```python Python
-from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
-
-load_dotenv()
 
 sbx = Sandbox.create()
 execution = sbx.run_code('print("Hello, world!")', language="r")

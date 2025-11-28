@@ -10,7 +10,6 @@ These images are directly accesible on the `result` items in the `execution.resu
 Here's how to retrieve a static chart from the executed Python code that contains a Matplotlib plot.
 <CodeGroup>
 ```js JavaScript & TypeScript
-import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 import fs from 'fs'
 
@@ -38,9 +37,6 @@ if (firstResult.png) {
 ```python Python
 import base64
 from e2b_code_interpreter import Sandbox
-from dotenv import load_dotenv
-
-load_dotenv()
 
 code_to_run = """
 import matplotlib.pyplot as plt

@@ -65,7 +65,6 @@ We'll upload the dataset from the third step to the sandbox and save it as `data
 
 <CodeGroup>
 ```js JavaScript & TypeScript
-import 'dotenv/config'
 import fs from 'fs'
 import { Sandbox } from '@e2b/code-interpreter'
 
@@ -158,8 +157,8 @@ const msg = await anthropic.messages.create({
 ```python Python
 from anthropic import Anthropic
 
-prompt = '''
-I have a CSV file about movies. It has about 10k rows. It's saved in the sandbox at ${dataset_path_in_sandbox.path}.
+prompt = f'''
+I have a CSV file about movies. It has about 10k rows. It's saved in the sandbox at {dataset_path_in_sandbox.path}.
 These are the columns:
 - 'id': number, id of the movie
 - 'original_language': string like "eng", "es", "ko", etc
@@ -392,7 +391,7 @@ async function runAIGeneratedCode(aiGeneratedCode: string) {
       // Save the png to a file
       // The png is in base64 format.
       fs.writeFileSync(`chart-${resultIdx}.png`, result.png, { encoding: 'base64' })
-      console.log('Chart saved to chart-${resultIdx}.png')
+      console.log(`Chart saved to chart-${resultIdx}.png`)
       resultIdx++
     }
   }
@@ -498,7 +497,7 @@ def run_ai_generated_code(ai_generated_code: str):
             result_idx += 1
 
 prompt = f"""
-I have a CSV file about movies. It has about 10k rows. It's saved in the sandbox at ${dataset_path_in_sandbox.path}.
+I have a CSV file about movies. It has about 10k rows. It's saved in the sandbox at {dataset_path_in_sandbox.path}.
 These are the columns:
 - 'id': number, id of the movie
 - 'original_language': string like "eng", "es", "ko", etc

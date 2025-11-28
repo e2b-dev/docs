@@ -9,16 +9,14 @@ You can read files from the sandbox filesystem using the `files.read()` method.
 
 <CodeGroup>
 ```js JavaScript & TypeScript
-import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
+
 const sandbox = await Sandbox.create()
 const fileContent = await sandbox.files.read('/path/to/file')
 ```
 ```python Python
-from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
 
-load_dotenv()
 sandbox = Sandbox.create()
 file_content = sandbox.files.read('/path/to/file')
 ```
@@ -30,17 +28,15 @@ You can write single files to the sandbox filesystem using the `files.write()` m
 
 <CodeGroup>
 ```js JavaScript & TypeScript
-import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
+
 const sandbox = await Sandbox.create()
 
 await sandbox.files.write('/path/to/file', 'file content')
 ```
 ```python Python
-from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
 
-load_dotenv()
 sandbox = Sandbox.create()
 
 sandbox.files.write('/path/to/file', 'file content')
@@ -53,8 +49,8 @@ You can also write multiple files to the sandbox.
 
 <CodeGroup>
 ```js JavaScript & TypeScript
-import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
+
 const sandbox = await Sandbox.create()
 
 await sandbox.files.write([
@@ -63,10 +59,8 @@ await sandbox.files.write([
 ])
 ```
 ```python Python
-from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
 
-load_dotenv()
 sandbox = Sandbox.create()
 
 sandbox.files.write_files([
