@@ -14,6 +14,8 @@ To connect to a running sandbox, you first need to retrieve its ID. You can do t
 import "dotenv/config"
 import { Sandbox } from '@e2b/code-interpreter'
 
+const sbx = await Sandbox.create()
+
 // Get all running sandboxes
 const paginator = await Sandbox.list({
   query: { state: ['running'] },
@@ -31,6 +33,8 @@ const sandboxId = runningSandboxes[0].sandboxId
 ```python Python highlight={6}
 from dotenv import load_dotenv
 from e2b_code_interpreter import Sandbox
+
+sbx = Sandbox.create()
 
 load_dotenv()
 # Get all running sandboxes
