@@ -10,6 +10,7 @@ You can read files from the sandbox filesystem using the `files.read()` method.
 <CodeGroup>
 ```js JavaScript & TypeScript
 import { Sandbox } from '@e2b/code-interpreter'
+
 const sandbox = await Sandbox.create()
 const fileContent = await sandbox.files.read('/path/to/file')
 ```
@@ -28,6 +29,7 @@ You can write single files to the sandbox filesystem using the `files.write()` m
 <CodeGroup>
 ```js JavaScript & TypeScript
 import { Sandbox } from '@e2b/code-interpreter'
+
 const sandbox = await Sandbox.create()
 
 await sandbox.files.write('/path/to/file', 'file content')
@@ -37,7 +39,7 @@ from e2b_code_interpreter import Sandbox
 
 sandbox = Sandbox.create()
 
-await sandbox.files.write('/path/to/file', 'file content')
+sandbox.files.write('/path/to/file', 'file content')
 ```
 </CodeGroup>
 
@@ -48,6 +50,7 @@ You can also write multiple files to the sandbox.
 <CodeGroup>
 ```js JavaScript & TypeScript
 import { Sandbox } from '@e2b/code-interpreter'
+
 const sandbox = await Sandbox.create()
 
 await sandbox.files.write([
@@ -60,7 +63,7 @@ from e2b_code_interpreter import Sandbox
 
 sandbox = Sandbox.create()
 
-await sandbox.files.write_files([
+sandbox.files.write_files([
     { "path": "/path/to/a", "data": "file content" },
     { "path": "another/path/to/b", "data": "file content" }
 ])

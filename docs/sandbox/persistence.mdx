@@ -84,7 +84,7 @@ print('Sandbox created', sbx.sandbox_id)
 
 # Pause the sandbox
 # You can save the sandbox ID in your database to resume the sandbox later
-sbx.beta_pause() 
+sbx.beta_pause()
 print('Sandbox paused', sbx.sandbox_id) 
 ```
 </CodeGroup>
@@ -119,7 +119,7 @@ print('Sandbox created', sbx.sandbox_id)
 # Pause the sandbox
 # You can save the sandbox ID in your database to resume the sandbox later
 sbx.beta_pause()
-print('Sandbox paused', sandbox_id)
+print('Sandbox paused', sbx.sandbox_id)
 
 # Connect to the sandbox (it will automatically resume the sandbox, if paused)
 same_sbx = sbx.connect()
@@ -234,13 +234,16 @@ const sandbox = await Sandbox.betaCreate({
     autoPause: true,
     timeoutMs: 10 * 60 * 1000 // Optional: change the default timeout (10 minutes)
 })
+```
 ```python Python
 from e2b_code_interpreter import Sandbox
+
 # Create sandbox with auto-pause enabled (Beta)
 sandbox = Sandbox.beta_create(
-    auto_pause=True  # Auto-pause after the sandbox times out
+    auto_pause=True,  # Auto-pause after the sandbox times out
     timeout=10 * 60, # Optional: change the default timeout (10 minutes)
 )
+```
 </CodeGroup>
 
 The auto-pause is persistent, meaning that if your sandbox resumes and it times out, it will be automatically paused again.
@@ -258,6 +261,7 @@ const sandbox = await Sandbox.betaCreate({
 ```
 ```python Python
 from e2b_code_interpreter import Sandbox
+
 # Create sandbox with auto-pause enabled (Beta)
 sandbox = Sandbox.beta_create(
     auto_pause=True  # Auto-pause after the sandbox times out
