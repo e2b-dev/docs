@@ -60,6 +60,7 @@
                 ]
               },
               "docs/code-interpreting/streaming",
+              "docs/code-interpreting/contexts",
               {
                 "group": "Supported languages",
                 "pages": [
