@@ -7,7 +7,7 @@ description: "How the template building process works"
 Every time you are building a sandbox template, we create a container based on the definition.
 We extract the container's filesystem, do provisioning and configuration (e.g. installing required dependencies), run layers commands and start a sandbox.
 
-Then, these steps happen:  
+Then, these steps happen:
     1. We take the running sandbox.
     2. (Only if you specified the [start command](/docs/template/start-ready-command#start-command), otherwise this step is skipped) Execute the start command.
     3. Wait for readiness (by default 20 seconds if start command is specified, otherwise immediately ready). Readiness check can be configured using [ready command](/docs/template/start-ready-command#ready-command).
