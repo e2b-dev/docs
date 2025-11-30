@@ -1,5 +1,6 @@
 ---
-title: "BYOC (Bring Your Own Cloud)"
+title: "BYOC - Deploy E2B Sandboxes In Your Cloud"
+description: "Deploy E2B Sandboxes To Your Own AWS Infrastructure Within Your VPC. Enterprise-Grade Security With Full Control Over Data And Compliance Requirements."
 sidebarTitle: Bring Your Own Cloud
 ---
 
@@ -9,7 +10,7 @@ BYOC is currently only available for AWS. We are working on adding support for G
 
 <Note>
 BYOC is offered to enterprise customers only.
-If you’re interested in BYOC offering, please book a call with our team [here](https://e2b.dev/contact) or contact us at [enterprise@e2b.dev](mailto:enterprise@e2b.dev).
+If you're interested in BYOC offering, please book a call with our team [here](https://e2b.dev/contact) or contact us at [enterprise@e2b.dev](mailto:enterprise@e2b.dev).
 </Note>
 
 ## Architecture
@@ -57,9 +58,9 @@ When provisioning is done and running, we will create a new team under your E2B 
     The autoscaler is currently in V1 not capable of automatically scale orchestrator nodes that are needed for sandbox spawning.
     This feature is coming in the next versions.
     </Accordion>
-    <Accordion title="Are sandboxes accessible only from a customer’s private network?">
+    <Accordion title="Are sandboxes accessible only from a customer's private network?">
     Yes. Load balancer that is handling all requests coming to sandbox can be configured as internal and VPC peering
-    with additional customer’s VPC can be configured so sandbox traffic can stay in the private network.
+    with additional customer's VPC can be configured so sandbox traffic can stay in the private network.
     </Accordion>
     <Accordion title="How control plane secure communication is ensured?">
     Data sent between the E2B Cloud and your BYOC VPC is encrypted using TLS.
