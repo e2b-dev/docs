@@ -140,12 +140,16 @@ These are the columns:
 - 'vote_average': float number between 0 and 10 that's representing viewers voting average
 - 'vote_count': int for how many viewers voted
 
-I want to better understand how the vote average has changed over the years. Write Python code that analyzes the dataset based on my request and produces right chart accordingly`
+Write Python code that creates a line chart showing how vote_average changed over the years.
+Do NOT print or explore the data. Just create the visualization directly.
+
+CRITICAL: Your code MUST end with this exact line to display the plot:
+display(plt.gcf())`
 
 const anthropic = new Anthropic()
 console.log('Waiting for the model response...')
 const msg = await anthropic.messages.create({
-  model: 'claude-3-5-sonnet-20240620',
+  model: 'claude-haiku-4-5-20251001',
   max_tokens: 1024,
   messages: [{ role: 'user', content: prompt }],
 })
@@ -154,8 +158,8 @@ const msg = await anthropic.messages.create({
 ```python Python
 from anthropic import Anthropic
 
-prompt = '''
-I have a CSV file about movies. It has about 10k rows. It's saved in the sandbox at {datasetPathInSandbox.path}.
+prompt = f'''
+I have a CSV file about movies. It has about 10k rows. It's saved in the sandbox at {dataset_path_in_sandbox.path}.
 These are the columns:
 - 'id': number, id of the movie
 - 'original_language': string like "eng", "es", "ko", etc
@@ -167,11 +171,15 @@ These are the columns:
 - 'vote_average': float number between 0 and 10 that's representing viewers voting average
 - 'vote_count': int for how many viewers voted
 
-I want to better understand how the vote average has changed over the years. Write Python code that analyzes the dataset based on my request and produces right chart accordingly'''
+Write Python code that creates a line chart showing how vote_average changed over the years.
+Do NOT print or explore the data. Just create the visualization directly.
+
+CRITICAL: Your code MUST end with this exact line to display the plot:
+display(plt.gcf())'''
 
 anthropic = Anthropic()
 msg = anthropic.messages.create(
-  model='claude-3-5-sonnet-20240620',
+  model='claude-haiku-4-5-20251001',
   max_tokens=1024,
   messages=[
     {"role": "user", "content": prompt}
@@ -189,7 +197,7 @@ Update the initialization of the Anthropic client to include the tool use like t
 <CodeGroup>
 ```js JavaScript & TypeScript highlight={5-20}
 const msg = await anthropic.messages.create({
-  model: 'claude-3-5-sonnet-20240620',
+  model: 'claude-haiku-4-5-20251001',
   max_tokens: 1024,
   messages: [{ role: 'user', content: prompt }],
   tools: [
@@ -212,7 +220,7 @@ const msg = await anthropic.messages.create({
 ```
 ```python Python highlight={7-19}
 msg = anthropic.messages.create(
-  model='claude-3-5-sonnet-20240620',
+  model='claude-haiku-4-5-20251001',
   max_tokens=1024,
   messages=[
     {"role": "user", "content": prompt}
@@ -304,7 +312,10 @@ async function runAIGeneratedCode(aiGeneratedCode: string) {
   }
 }
 ```
-```python Python highlight={7-12,15-17,20-23}
+```python Python highlight={1-2,7-12,15-17,20-23}
+import sys
+import base64
+
 def run_ai_generated_code(ai_generated_code: str):
     print('Running the code in the sandbox....')
     execution = sbx.run_code(ai_generated_code)
@@ -381,14 +392,14 @@ async function runAIGeneratedCode(aiGeneratedCode: string) {
       // Save the png to a file
       // The png is in base64 format.
       fs.writeFileSync(`chart-${resultIdx}.png`, result.png, { encoding: 'base64' })
-      console.log('Chart saved to chart-${resultIdx}.png')
+      console.log(`Chart saved to chart-${resultIdx}.png`)
       resultIdx++
     }
   }
 }
 
 const prompt = `
-I have a CSV file about movies. It has about 10k rows. It's saved in the sandbox at ${datasetPathInSandbox.path}.
+I have a CSV file about movies. It has about 10k rows. It's saved in the sandbox at ${dataset_path_in_sandbox.path}.
 These are the columns:
 - 'id': number, id of the movie
 - 'original_language': string like "eng", "es", "ko", etc
@@ -400,12 +411,16 @@ These are the columns:
 - 'vote_average': float number between 0 and 10 that's representing viewers voting average
 - 'vote_count': int for how many viewers voted
 
-I want to better understand how the vote average has changed over the years. Write Python code that analyzes the dataset based on my request and produces right chart accordingly`
+Write Python code that creates a line chart showing how vote_average changed over the years.
+Do NOT print or explore the data. Just create the visualization directly.
+
+CRITICAL: Your code MUST end with this exact line to display the plot:
+display(plt.gcf())`
 
 const anthropic = new Anthropic()
 console.log('Waiting for the model response...')
 const msg = await anthropic.messages.create({
-  model: 'claude-3-5-sonnet-20240620',
+  model: 'claude-haiku-4-5-20251001',
   max_tokens: 1024,
   messages: [{ role: 'user', content: prompt }],
   tools: [
@@ -495,13 +510,16 @@ These are the columns:
 - 'vote_average': float number between 0 and 10 that's representing viewers voting average
 - 'vote_count': int for how many viewers voted
 
-I want to better understand how the vote average has changed over the years.
-Write Python code that analyzes the dataset based on my request and produces right chart accordingly"""
+Write Python code that creates a line chart showing how vote_average changed over the years.
+Do NOT print or explore the data. Just create the visualization directly.
+
+CRITICAL: Your code MUST end with this exact line to display the plot:
+display(plt.gcf())"""
 
 anthropic = Anthropic()
 print("Waiting for model response...")
 msg = anthropic.messages.create(
-  model='claude-3-5-sonnet-20240620',
+  model='claude-haiku-4-5-20251001',
   max_tokens=1024,
   messages=[
     {"role": "user", "content": prompt}

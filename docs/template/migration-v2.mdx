@@ -37,8 +37,7 @@ To migrate the existing template definition to the new format, follow these step
     <Step title="Follow the prompts">
         Follow the prompts to complete the migration process.
     </Step>
-    <Step title="Done">
-    </Step>
+    <Step title="Done" />
 </Steps>
 
 ### Generated Output
@@ -72,7 +71,7 @@ You can find more at [Base Image](/docs/template/base-image#parsing-existing-doc
 
 ```typescript JavaScript & TypeScript
 // template.ts
-import { Template } from "e2b";
+import { Template } from 'e2b';
 
 const template = Template()
   .fromDockerfile(dockerfileContent);
@@ -111,7 +110,7 @@ You can also specify credentials for private registries as described in the [Bas
 
 ```typescript JavaScript & TypeScript
 // template.ts
-import { Template } from "e2b";
+import { Template } from 'e2b';
 
 const template = Template()
   .fromImage("image-tag");

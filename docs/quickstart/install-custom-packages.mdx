@@ -40,7 +40,7 @@ Define your custom template with the packages you need.
 <CodeGroup>
 ```typescript JavaScript & TypeScript
 // template.ts
-import { Template } from "e2b";
+import { Template } from 'e2b';
 
 export const template = Template()
   .fromTemplate("code-interpreter-v1")
@@ -67,8 +67,8 @@ template = (
 ```typescript JavaScript & TypeScript
 // build.prod.ts
 import "dotenv/config";
-import { Template, defaultBuildLogger } from "e2b";
-import { template } from "./template";
+import { Template, defaultBuildLogger } from 'e2b';
+import { template } from './template';
 
 async function main() {
   await Template.build(template, {

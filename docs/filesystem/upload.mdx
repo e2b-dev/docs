@@ -70,7 +70,7 @@ import requests
 sandbox = Sandbox.create(timeout=12_000, secure=True)
 
 # Create a pre-signed URL for file upload with a 10 second expiration
-signed_url = sbx.upload_url(path="demo.txt", user="user", use_signature_expiration=10_000)
+signed_url = sandbox.upload_url(path="demo.txt", user="user", use_signature_expiration=10_000)
 
 form_data = {"file":"file content"}
 requests.post(signed_url, data=form_data)
@@ -81,9 +81,6 @@ requests.post(signed_url, data=form_data)
 
 <CodeGroup>
 ```js JavaScript & TypeScript
-const fs = require('fs');
-const path = require('path');
-
 import { Sandbox } from '@e2b/code-interpreter'
 
 const sandbox = await Sandbox.create()
@@ -114,7 +111,7 @@ const readDirectoryFiles = (directoryPath) => {
 };
 
 // Usage example
-const files = readDirectoryContents('/local/dir');
+const files = readDirectoryFiles('/local/dir');
 console.log(files); 
 // [
 //   { path: '/local/dir/file1.txt', data: 'File 1 contents...' },
@@ -151,11 +148,11 @@ def read_directory_files(directory_path):
 files = read_directory_files("/local/dir")
 print(files)
 # [
-#  {"'path": "/local/dir/file1.txt", "data": "File 1 contents..." },
+#  {"path": "/local/dir/file1.txt", "data": "File 1 contents..." },
 #   { "path": "/local/dir/file2.txt", "data": "File 2 contents..." },
 #   ...
 # ]
 
-sandbox.files.write(files)
+sandbox.files.write_files(files)
 ```
 </CodeGroup>

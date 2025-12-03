@@ -29,7 +29,7 @@ const handle = await sandbox.files.watchDir(dirname, async (event) => {
 await sandbox.files.write(`${dirname}/my-file`, 'hello')
 ```
 ```python Python highlight={7,12-16}
-from e2b_code_interpreter import Sandbox
+from e2b_code_interpreter import Sandbox, FilesystemEventType
 
 sandbox = Sandbox.create()
 dirname = '/home/user'
@@ -43,7 +43,7 @@ sandbox.files.write(f"{dirname}/my-file", "hello")
 events = handle.get_new_events()
 for event in events:
   print(event)
-  if event.type == FilesystemEventType.Write:
+  if event.type == FilesystemEventType.WRITE:
     print(f"wrote to file {event.name}")
 ```
 </CodeGroup>
@@ -78,7 +78,7 @@ const handle = await sandbox.files.watchDir(dirname, async (event) => {
 await sandbox.files.write(`${dirname}/my-folder/my-file`, 'hello')
 ```
 ```python Python highlight={7,9}
-from e2b_code_interpreter import Sandbox
+from e2b_code_interpreter import Sandbox, FilesystemEventType
 
 sandbox = Sandbox.create()
 dirname = '/home/user'
@@ -92,7 +92,7 @@ sandbox.files.write(f"{dirname}/my-folder/my-file", "hello")
 events = handle.get_new_events()
 for event in events:
   print(event)
-  if event.type == FilesystemEventType.Write:
+  if event.type == FilesystemEventType.WRITE:
     print(f"wrote to file {event.name}")
 ```
 </CodeGroup>
