@@ -10,7 +10,7 @@ This is useful if you want to, for example, reuse the same sandbox instance for 
 To connect to a running sandbox, you first need to retrieve its ID. You can do this by calling the `Sandbox.list()` method.
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={6}
+```js JavaScript & TypeScript
 import { Sandbox } from '@e2b/code-interpreter'
 
 const sbx = await Sandbox.create()
@@ -29,7 +29,7 @@ if (runningSandboxes.length === 0) {
 const sandboxId = runningSandboxes[0].sandboxId
 ```
 
-```python Python highlight={6}
+```python Python
 from e2b_code_interpreter import Sandbox
 
 sbx = Sandbox.create()

@@ -17,14 +17,10 @@ You can try it out by running the following code in the sandbox:
 
 <CodeGroup>
 ```js JavaScript & TypeScript
-import { Sandbox } from '@e2b/code-interpreter'
-
 const sandbox = await Sandbox.create()
 const result = await sandbox.commands.run('echo $E2B_SANDBOX_ID')
 ```
 ```python Python
-from e2b_code_interpreter import Sandbox
-
 sandbox = Sandbox.create()
 result = sandbox.commands.run("echo $E2B_SANDBOX_ID")
 ```
@@ -50,18 +46,14 @@ There are 3 ways to set environment variables in a sandbox:
 You can set global environment variables when creating a sandbox.
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={4-6}
-import { Sandbox } from '@e2b/code-interpreter'
-
+```js JavaScript & TypeScript highlight={2-4}
 const sandbox = await Sandbox.create({
   envs: {
     MY_VAR: 'my_value',
   },
 })
 ```
-```python Python highlight={4-6}
-from e2b_code_interpreter import Sandbox
-
+```python Python highlight={2-4}
 sandbox = Sandbox.create(
   envs={
     'MY_VAR': 'my_value',
@@ -87,11 +79,7 @@ const result = await sandbox.runCode('import os; print(os.environ.get("MY_VAR"))
   },
 })
 ```
-```python Python highlight={6-8}
-from dotenv import load_dotenv
-from e2b_code_interpreter import Sandbox
-
-load_dotenv()
+```python Python highlight={4-6}
 sandbox = Sandbox.create()
 result = sandbox.run_code(
     'import os; print(os.environ.get("MY_VAR"))',
@@ -120,8 +108,6 @@ sandbox.commands.run('echo $MY_VAR', {
 })
 ```
 ```python Python highlight={4-6}
-from e2b_code_interpreter import Sandbox
-
 sandbox = Sandbox.create()
 sandbox.commands.run(
     'echo $MY_VAR',
