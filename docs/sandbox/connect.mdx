@@ -44,7 +44,6 @@ if len(running_sandboxes) == 0:
 
 # Get the ID of the sandbox you want to connect to
 sandbox_id = running_sandboxes[0].sandbox_id
-
 ```
 </CodeGroup>
 
@@ -53,24 +52,9 @@ sandbox_id = running_sandboxes[0].sandbox_id
 Now that you have the sandbox ID, you can connect to the sandbox using the `Sandbox.connect()` method.
 
 <CodeGroup>
-```js JavaScript & TypeScript highlight={18}
+```js JavaScript & TypeScript highlight={3}
 import { Sandbox } from '@e2b/code-interpreter'
 
-// Get all running sandboxes
-const paginator = await Sandbox.list()
-const runningSandboxes = await paginator.nextItems()
-console.log(`Found ${runningSandboxes.length} running sandboxes`)
-
-// Get the ID of the sandbox you want to connect to
-if (runningSandboxes.length === 0) {
-  console.log("No running sandboxes found")
-  process.exit(1)
-}
-
-const sandboxId = runningSandboxes[0].sandboxId
-
-console.log(`Connecting to sandbox ${sandboxId}`)
-// Connect to the sandbox
 const sandbox = await Sandbox.connect(sandboxId)
 
 // Now you can use the sandbox as usual
@@ -79,23 +63,9 @@ const result = await sandbox.commands.run("whoami")
 console.log(`Running in sandbox ${sandbox.sandboxId} as "${result.stdout.trim()}"`)
 ```
 
-```python Python highlight={17}
+```python Python highlight={3}
 from e2b_code_interpreter import Sandbox
 
-# Get all running sandboxes
-paginator = Sandbox.list()
-running_sandboxes = paginator.next_items()
-print(f"Found {len(running_sandboxes)} running sandboxes")
-
-# Get the ID of the sandbox you want to connect to
-if len(running_sandboxes) == 0:
-  print("No running sandboxes found")
-  exit(1)
-
-sandbox_id = running_sandboxes[0].sandbox_id
-
-print(f"Connecting to sandbox {sandbox_id}")
-# Connect to the sandbox
 sandbox = Sandbox.connect(sandbox_id)
 
 # Now you can use the sandbox as usual
