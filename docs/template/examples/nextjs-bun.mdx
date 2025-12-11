@@ -33,15 +33,17 @@ export const template = Template()
 # template.py
 from e2b import Template, wait_for_url
 
-template = Template()
-  .from_bun_image('1.3')
-  .set_workdir('/home/user/nextjs-app')
-  .run_cmd('bun create next-app --app --ts --tailwind --turbopack --yes --use-bun .')
-  .run_cmd('bunx --bun shadcn@latest init -d')
-  .run_cmd('bunx --bun shadcn@latest add --all')
-  .run_cmd('mv /home/user/nextjs-app/* /home/user/ && rm -rf /home/user/nextjs-app')
-  .set_workdir('/home/user')
-  .set_start_cmd('bun --bun run dev --turbo', wait_for_url('http://localhost:3000'))
+template = (
+    Template()
+    .from_bun_image('1.3')
+    .set_workdir('/home/user/nextjs-app')
+    .run_cmd('bun create next-app --app --ts --tailwind --turbopack --yes --use-bun .')
+    .run_cmd('bunx --bun shadcn@latest init -d')
+    .run_cmd('bunx --bun shadcn@latest add --all')
+    .run_cmd('mv /home/user/nextjs-app/* /home/user/ && rm -rf /home/user/nextjs-app')
+    .set_workdir('/home/user')
+    .set_start_cmd('bun --bun run dev --turbo', wait_for_url('http://localhost:3000'))
+)
 ```
 </CodeGroup>
 
