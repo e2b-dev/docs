@@ -1,0 +1,238 @@
+---
+title: "Anthropic"
+description: "Build AI agents with Claude models and E2B sandboxes"
+---
+
+This guide shows you how to connect Claude models to E2B sandboxes for code execution.
+
+## Latest Claude models
+
+| Model | API ID | Best for |
+|-------|--------|----------|
+| Claude Sonnet 4.5 | `claude-sonnet-4-5-20250929` | Complex agents and coding |
+| Claude Haiku 4.5 | `claude-haiku-4-5-20251001` | Fast, cost-efficient tasks |
+| Claude Opus 4.5 | `claude-opus-4-5-20251101` | Maximum intelligence |
+
+## Simple code execution
+
+<CodeGroup>
+```python Python
+# pip install anthropic e2b-code-interpreter
+from anthropic import Anthropic
+from e2b_code_interpreter import Sandbox
+
+client = Anthropic()
+
+response = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=1024,
+    system="You are a helpful assistant that writes Python code. Only respond with the code to execute, no backticks or explanations.",
+    messages=[{"role": "user", "content": "Calculate the first 10 Fibonacci numbers"}]
+)
+
+code = response.content[0].text
+
+with Sandbox() as sandbox:
+    execution = sandbox.run_code(code)
+    print(execution.text)
+```
+
+```javascript JavaScript
+// npm install @anthropic-ai/sdk @e2b/code-interpreter
+import Anthropic from "@anthropic-ai/sdk";
+import { Sandbox } from "@e2b/code-interpreter";
+
+const client = new Anthropic();
+
+const response = await client.messages.create({
+  model: "claude-sonnet-4-5-20250929",
+  max_tokens: 1024,
+  system: "You are a helpful assistant that writes Python code. Only respond with the code to execute, no backticks or explanations.",
+  messages: [{ role: "user", content: "Calculate the first 10 Fibonacci numbers" }],
+});
+
+const code = response.content[0].text;
+
+const sandbox = await Sandbox.create();
+const execution = await sandbox.runCode(code);
+console.log(execution.text);
+await sandbox.kill();
+```
+</CodeGroup>
+
+## Tool use (function calling)
+
+Claude's tool use lets the model decide when to execute code.
+
+<CodeGroup>
+```python Python
+# pip install anthropic e2b-code-interpreter
+from anthropic import Anthropic
+from e2b_code_interpreter import Sandbox
+
+client = Anthropic()
+model = "claude-sonnet-4-5-20250929"
+
+tools = [{
+    "name": "execute_python",
+    "description": "Execute Python code in a Jupyter notebook cell and return the result",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "code": {
+                "type": "string",
+                "description": "The Python code to execute"
+            }
+        },
+        "required": ["code"]
+    }
+}]
+
+messages = [{"role": "user", "content": "What's the sum of the first 100 prime numbers?"}]
+
+# First API call - Claude decides to use the tool
+response = client.messages.create(
+    model=model,
+    max_tokens=1024,
+    tools=tools,
+    messages=messages
+)
+
+messages.append({"role": "assistant", "content": response.content})
+
+# Execute the tool if called
+if response.stop_reason == "tool_use":
+    tool_use = next(block for block in response.content if block.type == "tool_use")
+    
+    with Sandbox() as sandbox:
+        execution = sandbox.run_code(tool_use.input["code"])
+        result = execution.text
+
+    messages.append({
+        "role": "user",
+        "content": [{
+            "type": "tool_result",
+            "tool_use_id": tool_use.id,
+            "content": result
+        }]
+    })
+
+    # Second API call - Claude provides the final answer
+    final_response = client.messages.create(
+        model=model,
+        max_tokens=1024,
+        tools=tools,
+        messages=messages
+    )
+    print(final_response.content[0].text)
+```
+
+```javascript JavaScript
+// npm install @anthropic-ai/sdk @e2b/code-interpreter
+import Anthropic from "@anthropic-ai/sdk";
+import { Sandbox } from "@e2b/code-interpreter";
+
+const client = new Anthropic();
+const model = "claude-sonnet-4-5-20250929";
+
+const tools = [{
+  name: "execute_python",
+  description: "Execute Python code in a Jupyter notebook cell and return the result",
+  input_schema: {
+    type: "object",
+    properties: {
+      code: {
+        type: "string",
+        description: "The Python code to execute"
+      }
+    },
+    required: ["code"]
+  }
+}];
+
+const messages = [{ role: "user", content: "What's the sum of the first 100 prime numbers?" }];
+
+// First API call - Claude decides to use the tool
+const response = await client.messages.create({
+  model,
+  max_tokens: 1024,
+  tools,
+  messages
+});
+
+messages.push({ role: "assistant", content: response.content });
+
+// Execute the tool if called
+if (response.stop_reason === "tool_use") {
+  const toolUse = response.content.find(block => block.type === "tool_use");
+  
+  const sandbox = await Sandbox.create();
+  const execution = await sandbox.runCode(toolUse.input.code);
+  const result = execution.text;
+  await sandbox.kill();
+
+  messages.push({
+    role: "user",
+    content: [{
+      type: "tool_result",
+      tool_use_id: toolUse.id,
+      content: result
+    }]
+  });
+
+  // Second API call - Claude provides the final answer
+  const finalResponse = await client.messages.create({
+    model,
+    max_tokens: 1024,
+    tools,
+    messages
+  });
+  console.log(finalResponse.content[0].text);
+}
+```
+</CodeGroup>
+
+## Extended thinking
+
+Claude 4 models support extended thinking for complex reasoning tasks.
+
+```python Python
+from anthropic import Anthropic
+from e2b_code_interpreter import Sandbox
+
+client = Anthropic()
+
+response = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=16000,
+    thinking={
+        "type": "enabled",
+        "budget_tokens": 10000
+    },
+    messages=[{
+        "role": "user", 
+        "content": "Write Python code to solve the traveling salesman problem for 5 cities using dynamic programming"
+    }]
+)
+
+# Extract the code from the response (after thinking)
+for block in response.content:
+    if block.type == "text":
+        code = block.text
+        break
+
+with Sandbox() as sandbox:
+    execution = sandbox.run_code(code)
+    print(execution.text)
+```
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="More LLM integrations" icon="plug" href="/docs/quickstart/connect-llms">
+    Connect other LLM providers to E2B
+  </Card>
+  <Card title="Upload files" icon="upload" href="/docs/quickstart/upload-download-files">
+    Work with files in your sandbox
+  </Card>
+</CardGroup>

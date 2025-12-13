@@ -31,6 +31,7 @@
                 "icon": "circle-check",
                 "pages": [
                   "docs/quickstart",
+                  "docs/quickstart/anthropic",
                   "docs/quickstart/connect-llms",
                   "docs/quickstart/upload-download-files",
                   "docs/quickstart/install-custom-packages"
