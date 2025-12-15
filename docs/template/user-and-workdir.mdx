@@ -50,7 +50,7 @@ await Template.build(template, {
 
 
 // index.ts
-const sbx = await Sandbox.create(alias="custom-user-template")
+const sbx = await Sandbox.create("custom-user-template")
 await sbx.commands.run("whoami") // guest
 await sbx.commands.run("pwd") // /home/guest
 ```
@@ -74,7 +74,7 @@ Template.build(template,
 
 
 # main.py
-sbx = Sandbox.create(alias="custom-user-template")
+sbx = Sandbox.create("custom-user-template")
 sbx.commands.run("whoami")  # guest
 sbx.commands.run("pwd")  # /home/guest
 ```
