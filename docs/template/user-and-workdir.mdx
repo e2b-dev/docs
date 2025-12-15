@@ -43,6 +43,8 @@ const template = Template()
   .runCmd("whoami") // guest
   .runCmd("pwd") // /home/guest
 
+
+// build_dev.ts
 await Template.build(template, {
   alias: "custom-user-template", 
   onBuildLogs: defaultBuildLogger()
@@ -67,6 +69,8 @@ template = (
     .run_cmd("pwd") # /home/guest
 )
 
+
+# build_dev.py
 Template.build(template, 
     alias="custom-user-template", 
     on_build_logs=default_build_logger()
