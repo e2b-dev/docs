@@ -8,11 +8,10 @@ export const Quickstart = () => {
       icon: "circle-play",
     },
     {
-      href: "/docs/quickstart/connect-llms",
-      title: "Connecting LLMs to E2B",
-      description:
-        "Connect your favorite LLM to E2B to run AI-generated code inside the Sandbox.",
-      icon: "brain-circuit",
+      href: "/docs/quickstart/template",
+      title: "Build your first template",
+      description: "Create a custom Sandbox template with pre-installed packages and dependencies.",
+      icon: "cube",
     },
     {
       href: "/docs/quickstart/upload-download-files",
@@ -22,11 +21,12 @@ export const Quickstart = () => {
       icon: "cloud-arrow-up",
     },
     {
-      href: "/docs/quickstart/install-custom-packages",
-      title: "Install custom packages",
-      description: "Customize your Sandbox with third-party packages.",
-      icon: "box-open-full",
-    },
+      href: "/docs/quickstart/connect-llms",
+      title: "Connecting LLMs to E2B",
+      description:
+        "Connect your favorite LLM to E2B to run AI-generated code inside the Sandbox.",
+      icon: "brain-circuit",
+    }
   ];
   return (
     <Columns cols={2}>

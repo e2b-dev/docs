@@ -4,37 +4,46 @@ sidebarTitle: Home
 icon: house
 ---
 
-import { Concepts } from '/snippets/Concepts.jsx';
-import { CodeInterpreting } from '/snippets/CodeInterpreting.jsx';
 import { Quickstart } from '/snippets/Quickstart.jsx';
-
-Here you'll find all the guides, concepts, and SDK references for developing with E2B.
-
-<CodeGroup>
-```bash JavaScript & TypeScript
-npm i @e2b/code-interpreter
-```
-```bash Python
-pip install e2b-code-interpreter
-```
-</CodeGroup>
+import { CodeInterpreting } from '/snippets/CodeInterpreting.jsx';
+import { Examples } from '/snippets/Examples.jsx';
+import { Reference } from '/snippets/Reference.jsx';
 
 ## What is E2B?
-E2B is an [open-source](https://github.com/e2b-dev) infrastructure that allows you to run AI-generated code in secure isolated sandboxes in the cloud.
-To start and control sandboxes, use our [Python SDK](https://pypi.org/project/e2b/) or [JavaScript SDK](https://www.npmjs.com/package/e2b).
 
-Some of the typical use cases for E2B are AI data analysis or visualization, running AI-generated code of various languages, playground for coding agents, environment for codegen evals, or running full AI-generated apps like in [Fragments](https://github.com/e2b-dev/fragments).
+E2B provides isolated sandboxes that let agents safely execute code, process data, and run tools. Our [SDKs]() make it easy to start and manage these environments.
 
-### Under the hood
-The E2B Sandbox is a small isolated VM the can be started very quickly (~150ms). You can think of it as a small computer for the AI model. You can run many sandboxes at once. Typically, you run separate sandbox for each LLM, user, or AI agent session in your app.
-For example, if you were building an AI data analysis chatbot, you would start the sandbox for every user session.
+## E2B Building Blocks
 
-## Quickstart
-<Quickstart/>
+A quick overview of the core building blocks you'll interact with when using E2B.
 
-## Code interpreting with AI
-<CodeInterpreting/>
+- [**Sandbox**]() — A fast, secure Linux VM created on demand for your agent
 
-## Learn the core concepts
-<Concepts/>
+- [**Template**]() — Defines what environment a sandbox starts with
 
+## How to use the docs
+
+The documentation is split into three main sections:
+
+- [**Quickstart**](#quickstart) — Step-by-step tutorials that walk you through spinning up your first E2B sandboxes.
+
+- [**Examples**](#examples) — In-depth tutorials focused on specific use cases. Pick the topics that match what you're building.
+
+- [**API/SDK Reference**](#reference) — A complete technical reference for every feature, component, and configuration option.
+
+<div id="quickstart"></div>
+
+## 🚀 Quickstart.
+
+<Quickstart />
+
+<div id="examples"></div>
+
+## 🧠 Examples
+
+<Examples />
+
+<div id="reference"></div>
+
+## 📚 Code Reference
+<Reference />
